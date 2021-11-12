@@ -1,0 +1,14 @@
+//account_det
+
+{
+State<account_det>  createState() => account_det_state();
+}
+
+class  account_det_state extends State<account_det>
+{
+  void createn()
+  {
+    setState(() {});
+  }
+
+  //
