@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+
 import 'package:meme_g/widgets/meme_list.dart';
 import './widgets/drawer.dart';
 import './widgets/create.dart';
 import './screens/photo_editor.dart';
+import 'screens/account_details_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -21,7 +23,8 @@ class MyApp extends StatelessWidget {
       ),
       home: MyHomePage(),
       routes: {
-        PhotoEditor.route : (context) => PhotoEditor(),
+        PhotoEditor.route: (context) => PhotoEditor(),
+        Account_det.route: (context) => Account_det(),
       },
     );
   }
@@ -35,17 +38,24 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       endDrawer: NavDrawer(),
       appBar: AppBar(
         title: Text('Meme Gen'),
       ),
-      bottomNavigationBar: BottomNavigationBar(items: [
-        BottomNavigationBarItem(icon: Icon(Icons.home),title: Text('Home')),
-        BottomNavigationBarItem(icon: Icon(Icons.chat),title: Text('Chats')),
-        BottomNavigationBarItem(icon: Icon(Icons.account_circle),title: Text('You')),
-      ],
+      bottomNavigationBar: BottomNavigationBar(
+        items: [
+          BottomNavigationBarItem(icon: Icon(Icons.home), title: Text('Home')),
+          BottomNavigationBarItem(icon: Icon(Icons.chat), title: Text('Chats')),
+          BottomNavigationBarItem(
+              icon: IconButton(
+                icon: Icon(Icons.account_circle),
+                onPressed: () {
+                  Navigator.pushNamed(context, Account_det.route);
+                },
+              ),
+              title: Text('You')),
+        ],
       ),
       body: SingleChildScrollView(
         child: Container(

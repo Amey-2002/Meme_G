@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../screens/account_details_screen.dart';
 
 class NavDrawer extends StatelessWidget {
   @override
@@ -13,7 +14,9 @@ class NavDrawer extends StatelessWidget {
               fontSize: 20,
             ),
           ),
-          onTap: () {},
+          onTap: () {
+            Navigator.pushNamed(context, Account_det.route);
+          },
         ),
         ListTile(
           leading: Icon(Icons.collections,size: 32,),
