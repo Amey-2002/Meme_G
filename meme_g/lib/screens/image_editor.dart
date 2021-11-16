@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import './ieEditScreen.dart';
+import 'ie_edit_screen.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ImageEditor extends StatelessWidget {

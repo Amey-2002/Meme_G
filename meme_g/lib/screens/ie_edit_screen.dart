@@ -9,12 +9,12 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'dart:typed_data';
 import 'package:extended_image/extended_image.dart';
-import './ieSaveScreen.dart';
+import 'ie_save_screen.dart';
 import 'package:image_editor/image_editor.dart' hide ImageSource;
 
 class EditPhotoScreen extends StatefulWidget {
   final List arguments;
-  EditPhotoScreen({this.arguments});
+  EditPhotoScreen({required this.arguments});
   @override
   _EditPhotoScreenState createState() => _EditPhotoScreenState();
 }
