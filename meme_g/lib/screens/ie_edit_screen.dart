@@ -174,7 +174,7 @@ class _EditPhotoScreenState extends State<EditPhotoScreen> {
           extendedImageEditorKey: editorKey,
           mode: ExtendedImageMode.editor,
           fit: BoxFit.contain,
-          initEditorConfigHandler: (ExtendedImageState state) {
+          initEditorConfigHandler: (ExtendedImageState? state) {
             return EditorConfig(
               maxScale: 8.0,
               cropRectPadding: const EdgeInsets.all(20.0),
@@ -276,7 +276,7 @@ class _EditPhotoScreenState extends State<EditPhotoScreen> {
     final DateTime start = DateTime.now();
     final Uint8List? result = await ImageEditor.editImage(
       image: img,
-      imageEditorOption: option,  
+      imageEditorOption: option,
     );
 
     print('result.length = $result.length');

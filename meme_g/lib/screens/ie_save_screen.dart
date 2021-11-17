@@ -47,9 +47,9 @@ class _SaveImageScreenState extends State<SaveImageScreen> {
   }
 
   void shareImage() {
-    final RenderObject? box = context.findRenderObject();
+    final RenderBox? box = context.findRenderObject() as RenderBox;
     if (Platform.isAndroid) {
-      Share.shareFiles(image,
+      Share.shareFiles([image.path],
           subject: 'Image edited by Photo Editor',
           text:
               'Hey, Look what I edited with this amazing app called Photo Editor.',
@@ -58,7 +58,7 @@ class _SaveImageScreenState extends State<SaveImageScreen> {
       Share.share(
           'Hey, Look what I edited with this amazing app called Photo Editor.',
           subject: 'Image edited by Photo Editor',
-          sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size);
+          sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size);
     }
   }
 

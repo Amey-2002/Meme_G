@@ -6,6 +6,8 @@ import 'ie_edit_screen.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ImageEditor extends StatelessWidget {
+  static const route = 'image_editor_screen';
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
