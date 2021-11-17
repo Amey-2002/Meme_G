@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:meme_g/screens/homescreen.dart';
 import 'account_details_screen.dart';
+import '../services/auth.dart';
+
 class signIn extends  StatefulWidget
 {
   @override
@@ -8,6 +10,7 @@ class signIn extends  StatefulWidget
 }
 
 class _signInState extends State<signIn> {
+  final Auth _Authentication = Auth();
   @override
   Widget build(BuildContext context)
   {
@@ -30,7 +33,14 @@ class _signInState extends State<signIn> {
                 color: Colors.green,
                 //foregroundColor: Colors.green,
                 //backgroundColor: Colors.white,
-                onPressed: () {},
+                onPressed: () async {
+                  dynamic result =  await _Authentication.AnonymousSignIn();
+                  if(result == null)
+                  { print("sign in failed");}
+                  else {
+                    Navigator.pushNamed(context, Homescreen.route);
+                  }
+                },
                 child: const Text(
                   'Sign In',
                 ),
