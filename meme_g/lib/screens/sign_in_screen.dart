@@ -39,6 +39,7 @@ class _signInState extends State<signIn> {
                   { print("sign in failed");}
                   else {
                     Navigator.pushNamed(context, Homescreen.route);
+                    print(result.uid);
                   }
                 },
                 child: const Text(

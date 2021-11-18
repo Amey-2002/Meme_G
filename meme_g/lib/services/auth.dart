@@ -1,10 +1,15 @@
 //import 'dart:html';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:meme_g/widgets/user.dart';
+
 
 class Auth {
   
   final FirebaseAuth _Authenctication =FirebaseAuth.instance;  
+  UserF? _userfirebase(User user){
+    return user !=null? UserF(uid :user.uid) :null;
+  }
   
   //sign in Anonymously //FirebaseUser issue pending
    Future AnonymousSignIn() async {
