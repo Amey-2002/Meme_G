@@ -2,7 +2,7 @@
 // ignore: file_names
 // ignore: file_names
 // ignore_for_file: prefer_const_constructors_in_immutables
-
+/*
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -434,4 +434,4 @@ class _EditPhotoScreenState extends State<EditPhotoScreen> {
       ],
     );
   }
-}
+}*/
