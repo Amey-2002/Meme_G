@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../screens/image_editor.dart';
 import '../screens/photo_editor.dart';
 
 class Create extends StatelessWidget {
