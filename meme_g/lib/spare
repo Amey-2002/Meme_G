@@ -54,3 +54,5 @@ class  account_det_state extends State<account_det>
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
   </script>*/
+
+  cloud_firestore: ^3.1.0
