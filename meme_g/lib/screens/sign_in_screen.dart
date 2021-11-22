@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meme_g/screens/emailandpass_signin.dart';
 import 'package:meme_g/screens/homescreen.dart';
 import 'account_details_screen.dart';
 import '../services/auth.dart';
@@ -33,14 +34,7 @@ class _signInState extends State<signIn> {
                 color: Colors.green,
                 //foregroundColor: Colors.green,
                 //backgroundColor: Colors.white,
-                onPressed: () async {
-                  dynamic result =  await _Authentication.AnonymousSignIn();
-                  if(result == null)
-                  { print("sign in failed");}
-                  else {
-                    Navigator.pushNamed(context, Homescreen.route);
-                    print(result.uid);
-                  }
+                onPressed: (){Navigator.pushNamed(context, EmailandPass.route);
                 },
                 child: const Text(
                   'Sign In',

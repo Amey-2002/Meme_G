@@ -24,7 +24,7 @@ class Account_det extends StatelessWidget {
             ),
             title: Text('Name'),
           ),
-          Text_fields(),
+          Text_fields("Enter name"),
           ListTile(
             leading: Icon(
               Icons.sort_by_alpha,
@@ -32,7 +32,7 @@ class Account_det extends StatelessWidget {
             ),
             title: Text('Surname'),
           ),
-          Text_fields(),
+          Text_fields("Enter surname"),
           ListTile(
             leading: Icon(
               Icons.email,
@@ -40,7 +40,7 @@ class Account_det extends StatelessWidget {
             ),
             title: Text('Email ID'),
           ),
-          Text_fields(),
+          Text_fields("Enter EmailId"),
           ListTile(
             tileColor: Colors.green.shade100,
             leading: Container(
@@ -99,7 +99,7 @@ class Account_det extends StatelessWidget {
             ),
             title: Text('Country of origin'),
           ),
-          Text_fields(),
+          Text_fields("Enter Native Country"),
         ])));
   }
 }

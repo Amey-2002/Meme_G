@@ -3,15 +3,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:meme_g/widgets/user.dart';
 
-
-class Auth {
-  
+ class Auth {
+  dynamic _useremail, _userpassword;
   final FirebaseAuth _Authenctication =FirebaseAuth.instance;  
   UserF? _userfirebase(User user){
-    return user !=null? UserF(uid :user.uid) :null;
+    return user !=null? UserF.uid(user.uid) :null;
   }
   
-  //sign in Anonymously //FirebaseUser issue pending
+  //sign in Anonymously
    Future AnonymousSignIn() async {
      try{
    UserCredential response =   await _Authenctication.signInAnonymously();
@@ -23,6 +22,16 @@ class Auth {
      }
    }
   //sign in with email and password
+   Future EmailandpassSignIn() async {
+     try{
+   UserCredential response =   await _Authenctication.signInWithEmailAndPassword(email:_useremail, password:_userpassword);
+   User?  user = response.user;
+   return user;
+     }catch(error){
+      return print(error.toString());
+      return null;
+     }
+   }
 
   //create Account OR register
 

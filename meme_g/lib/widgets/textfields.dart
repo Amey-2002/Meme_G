@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class Text_fields extends StatelessWidget {
- // final String labelname;
- // Text_fields(this.labelname);
+  dynamic  hintname="";
+  Text_fields(this.hintname);
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +13,7 @@ class Text_fields extends StatelessWidget {
       child: TextField(
         decoration: InputDecoration(
           floatingLabelBehavior: FloatingLabelBehavior.auto,
-          //labelText: labelname,
+          hintText:hintname,
         ),
         autofocus: false,
         scrollPadding: EdgeInsets.all(20.0),
