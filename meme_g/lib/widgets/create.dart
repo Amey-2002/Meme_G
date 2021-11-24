@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meme_g/screens/working/save_upload.dart';
 import '../screens/image_editor.dart';
 import '../screens/photo_editor.dart';
 
@@ -12,7 +13,7 @@ class Create extends StatelessWidget {
         children: <Widget>[
           FlatButton(
             onPressed: () {
-              Navigator.pushNamed(context, PhotoEditor.route);
+              Navigator.pushNamed(context, SaveUpload.route);
             },
             child: const Text(
               'LET\'S MEME',

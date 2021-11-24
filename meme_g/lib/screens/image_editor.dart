@@ -1,13 +1,18 @@
-/*import 'dart:io';
+import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'ie_edit_screen.dart';
 import 'package:image_picker/image_picker.dart';
 
-class ImageEditor extends StatelessWidget {
+class ImageEditor extends StatefulWidget {
   static const route = 'image_editor_screen';
 
+  @override
+  State<ImageEditor> createState() => _ImageEditorState();
+}
+
+class _ImageEditorState extends State<ImageEditor> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -35,6 +40,7 @@ class _SelectBottomPanelState extends State<SelectBottomPanel> {
 
   Future getImage() async {
     final pickedFile = await picker.getImage(source: ImageSource.gallery);
+    //final pickedFile = await ImagePicker.pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
       setState(() {
         _image = File(pickedFile.path);
@@ -106,9 +112,10 @@ class _SelectBottomPanelState extends State<SelectBottomPanel> {
                                 child: Opacity(
                                     opacity: 1,
                                     child: Image.asset(
-                                      'assets/images/homescreen.jpg',
+                                      'assets/dummyMemes/homescreen.jpg',
                                       fit: BoxFit.cover,
-                                    )),
+                                    ),
+                                  ),
                               ),
                             ),
                             Padding(
@@ -170,4 +177,4 @@ class _SelectBottomPanelState extends State<SelectBottomPanel> {
       ),
     );
   }
-}*/
+}

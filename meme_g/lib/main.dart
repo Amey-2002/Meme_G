@@ -1,6 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:meme_g/screens/homescreen.dart';
+import 'package:meme_g/screens/working/save_upload.dart';
+import './screens/image_editor.dart';
+import 'screens/working/profile_image_picker.dart';
 import 'package:meme_g/screens/wrapper.dart';
 import 'package:meme_g/widgets/create.dart';
 
@@ -32,6 +35,9 @@ class MyApp extends StatelessWidget {
         PhotoEditor.route: (context) => PhotoEditor(),
         Account_det.route: (context) => Account_det(),
         Homescreen.route: (context) => Homescreen(),
+        ImageEditor.route: (context) => ImageEditor(),
+        SaveUpload.route: (context) => SaveUpload(),
+        //ProflieImagePicker.route: (context) => ProflieImagePicker(),
       },
     );
   }

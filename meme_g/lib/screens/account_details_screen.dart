@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:meme_g/screens/working/profile_image_picker.dart';
 import '../widgets/textfields.dart';
 
 class Account_det extends StatelessWidget {
@@ -17,6 +18,21 @@ class Account_det extends StatelessWidget {
         ),
         body: SingleChildScrollView(
             child: Column(children: <Widget>[
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: CircleAvatar(
+                radius: 80,
+                child: Icon(Icons.account_circle),
+              ),
+            ),
+          ),
+          RaisedButton(
+            child: Text("Set Profile Picture"),
+            onPressed: () {
+            },
+          ),
+          //ProfilePage(),
           ListTile(
             leading: Icon(
               Icons.sort_by_alpha,
@@ -45,9 +61,9 @@ class Account_det extends StatelessWidget {
             tileColor: Colors.green.shade100,
             leading: Container(
               decoration: BoxDecoration(
-                    //borderRadius: BorderRadius.circular(16.0),
-                    color: Colors.white,
-                  ),
+                //borderRadius: BorderRadius.circular(16.0),
+                color: Colors.white,
+              ),
               child: Icon(
                 //Icons.format_list_numbered,
                 Icons.calendar_today,
@@ -55,41 +71,41 @@ class Account_det extends StatelessWidget {
               ),
             ),
             title: TextButton(
-                onPressed: () {
-                  DatePicker.showDatePicker(context,
-                      showTitleActions: true,
-                      minTime: DateTime(1971, 1, 1),
-                      maxTime: DateTime(2021, 1, 1),
-                      theme: DatePickerTheme(
-                          headerColor: Colors.green,
-                          backgroundColor: Colors.white,
-                          itemStyle: TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.normal,
-                              fontSize: 18),
-                          doneStyle:
-                              TextStyle(color: Colors.white, fontSize: 16)),
-                      onChanged: (date) {
-                    print('change $date in time zone ' +
-                        date.timeZoneOffset.inHours.toString());
-                  }, onConfirm: (date) {
-                    print('confirm $date');
-                  }, currentTime: DateTime.now(), locale: LocaleType.en);
-                },
-                child: Container(
-                  alignment: Alignment.centerLeft,
-                  decoration: BoxDecoration(
-                    //borderRadius: BorderRadius.circular(16.0),
-                    color: Colors.green.shade100,
-                  ),
-                  child: Text(
-                    'Choose Birthdate',
-                    textAlign: TextAlign.left,
-                    style: TextStyle(fontSize: 17),
-                    //style: TextStyle(color: Colors.blue),
-                  ),
+              onPressed: () {
+                DatePicker.showDatePicker(context,
+                    showTitleActions: true,
+                    minTime: DateTime(1971, 1, 1),
+                    maxTime: DateTime(2021, 1, 1),
+                    theme: DatePickerTheme(
+                        headerColor: Colors.green,
+                        backgroundColor: Colors.white,
+                        itemStyle: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.normal,
+                            fontSize: 18),
+                        doneStyle:
+                            TextStyle(color: Colors.white, fontSize: 16)),
+                    onChanged: (date) {
+                  print('change $date in time zone ' +
+                      date.timeZoneOffset.inHours.toString());
+                }, onConfirm: (date) {
+                  print('confirm $date');
+                }, currentTime: DateTime.now(), locale: LocaleType.en);
+              },
+              child: Container(
+                alignment: Alignment.centerLeft,
+                decoration: BoxDecoration(
+                  //borderRadius: BorderRadius.circular(16.0),
+                  color: Colors.green.shade100,
+                ),
+                child: Text(
+                  'Choose Birthdate',
+                  textAlign: TextAlign.left,
+                  style: TextStyle(fontSize: 17),
+                  //style: TextStyle(color: Colors.blue),
                 ),
               ),
+            ),
             //Text('Birth Date'),
           ),
           ListTile(

@@ -58,7 +58,7 @@ class  account_det_state extends State<account_det>
   //firestore dependencys
   //cloud_firestore: ^2.5.4
 
-  //           18th NOV 2021
+  //           19th NOV 2021
   //firebase exception no firebase app [default] has been created
   //1> in C:\Users\shubh\Documents\GitHub\Meme_G\meme_g\android\app\build.gradle
   /*
@@ -74,3 +74,10 @@ void main() async {
    await Firebase.initializeApp();
    runApp(MyApp());
 }*/
+
+//           20th NOV 2021
+//IN >>>\meme_g\android\build.gradle
+//Line 2 >>>> ext.kotlin_version = '1.4.32'
+
+//in >>>> C:\Users\shubh\Downloads\flutter_windows_2.5.2-stable\flutter\.pub-cache\hosted\pub.dartlang.org\extended_image_library-3.1.0\lib\src\extended_image_provider.dart
+//Line 18 >>>>   bool get cacheRawData = true;

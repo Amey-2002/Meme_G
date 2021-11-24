@@ -1,8 +1,4 @@
-// ignore: file_names
-// ignore: file_names
-// ignore: file_names
-// ignore_for_file: avoid_print, sized_box_for_whitespace
-/*
+
 import 'dart:io';
 import 'package:gallery_saver/gallery_saver.dart';
 import 'package:flutter/material.dart';
@@ -162,4 +158,4 @@ class _SaveImageScreenState extends State<SaveImageScreen> {
       ),
     );
   }
-}*/
+}
