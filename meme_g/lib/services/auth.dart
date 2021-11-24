@@ -22,7 +22,7 @@ import 'package:meme_g/widgets/user.dart';
      }
    }
   //sign in with email and password
-   Future EmailandpassSignIn() async {
+   Future EmailandpassSignIn(_useremail,_userpassword) async {
      try{
    UserCredential response =   await _Authenctication.signInWithEmailAndPassword(email:_useremail, password:_userpassword);
    User?  user = response.user;
@@ -33,8 +33,18 @@ import 'package:meme_g/widgets/user.dart';
      }
    }
 
-  //create Account OR register
-
+  //create Account OR register account 
+   Future createAccount(_useremail,_userpassword) async { 
+   try{
+   UserCredential response = await  _Authenctication.createUserWithEmailAndPassword(email:_useremail, password:_userpassword);
+    User?  user = response.user;
+   return user;
+   }
+   catch(error){
+      return print(error.toString());
+      return null;
+   }
+   }
   //sign out
 
  

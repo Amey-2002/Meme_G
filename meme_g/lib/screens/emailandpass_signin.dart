@@ -6,40 +6,47 @@ import '../services/auth.dart';
 class EmailandPass extends StatefulWidget {
   
   static const route = "Email_and_signin_page";
-  dynamic email, password;
-  @override
+   @override
   _EmailandPassState createState() => _EmailandPassState();
 }
 
 class _EmailandPassState extends State<EmailandPass> {
+  dynamic emailid, upassword;
+  var authObject = new Auth(); 
   @override
   Widget build(BuildContext context) {
-    return Center(
-        child: Column(
+    return  Scaffold(
+      body:Column(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        TextField(
-          decoration: InputDecoration(hintText: "Enter EmailId "),
-          onChanged:(email){
-            setState(() {
-              email = email;
-            });
-          }
+      children: <Widget>[
+        Container(
+          child: TextField(
+            decoration: InputDecoration(hintText: "Enter EmailId "),
+            onChanged:(email){
+              setState(() {
+                emailid = email;
+              });
+            }
+          ),
         ),
-        TextField(
-          decoration: InputDecoration(hintText: "Enter Password"),
-          onChanged: (password){
-            password = password.trim();
-          },
-          obscureText: true,
+        Container(
+          child: TextField(
+            decoration: InputDecoration(hintText: "Enter Password"),
+            onChanged: (password){
+              setState(() {
+                 upassword = password.trim(); 
+              });
+            },
+            obscureText: true,
+          ),
         ),
         ElevatedButton(
             onPressed: () async {
-              dynamic result = await Auth.EmailandpassSignIn();
+              dynamic result = await authObject.EmailandpassSignIn(emailid,upassword);
               if (result == null) {
                 print("sign in failed");
               } else {
-                Navigator.pushNamed(context, EmailandPass.route);
+                Navigator.pushNamed(context, Homescreen.route);
                 print(result.uid);
               }
             },
