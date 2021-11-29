@@ -30,6 +30,7 @@ class _signInState extends State<signIn> {
           children: <Widget>[
             Container(
               child: FloatingActionButton.extended(
+                heroTag: "btn1",
                 icon: Icon(Icons.login_sharp),
                 onPressed: () {
                   Navigator.pushNamed(context, EmailandPass.route);
@@ -41,6 +42,7 @@ class _signInState extends State<signIn> {
             ),
             Container(
               child: FloatingActionButton.extended(
+                heroTag: "btn2",
                 label: Text(
                   'Guest',
                 ),
