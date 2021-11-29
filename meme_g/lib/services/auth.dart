@@ -64,6 +64,7 @@ class Auth {
       GoogleSignInAuthentication google_auth = await googleUser!.authentication;
       AuthCredential user = GoogleAuthProvider.credential(
           accessToken: google_auth.accessToken, idToken: google_auth.idToken);
+      return user;
     } catch (error) {
       print(error);
       print("signin failed");
