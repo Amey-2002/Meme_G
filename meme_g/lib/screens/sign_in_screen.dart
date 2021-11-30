@@ -1,21 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:meme_g/screens/emailandpass_signin.dart';
 import 'package:meme_g/screens/homescreen.dart';
 import 'package:meme_g/screens/working/dummy_sign_in.dart';
 import 'account_details_screen.dart';
 import '../services/auth.dart';
+import 'package:flutter_signin_button/flutter_signin_button.dart';
 
-class signIn extends  StatefulWidget
-{
+class signIn extends StatefulWidget {
   @override
   State<signIn> createState() => _signInState();
 }
 
 class _signInState extends State<signIn> {
   final Auth _Authentication = Auth();
+  dynamic emailid, upassword;
+  var authObject = new Auth();
   @override
-  Widget build(BuildContext context)
-  {
-    return  Scaffold(
+  Widget build(BuildContext context) {
+    return Scaffold(
         /*appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
@@ -25,58 +27,40 @@ class _signInState extends State<signIn> {
       // Center is a layout widget. It takes a single child and positions it
       // in the middle of the parent.
       child: Column(
-          
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Container(
-              child: FlatButton(
-                textColor: Colors.white,
-                color: Colors.green,
-                //foregroundColor: Colors.green,
-                //backgroundColor: Colors.white,
-                onPressed: () async {
-                  dynamic result =  await _Authentication.AnonymousSignIn();
-                  if(result == null)
-                  { print("sign in failed");}
-                  else {
-                    Navigator.pushNamed(context, Homescreen.route);
-                    print(result.uid);
-                  }
+              child: FloatingActionButton.extended(
+                heroTag: "btn1",
+                icon: Icon(Icons.login_sharp),
+                onPressed: () {
+                  Navigator.pushNamed(context, EmailandPass.route);
                 },
-                child: const Text(
+                label: Text(
                   'Sign In',
                 ),
               ),
             ),
             Container(
-              child: FlatButton(
-                textColor: Colors.white,
-                color: Colors.green,
-                //foregroundColor: Colors.green,
-                //backgroundColor: Colors.white,
-                onPressed: () { Navigator.pushNamed(context, Homescreen.route);},
-                child: const Text(
+              child: FloatingActionButton.extended(
+                heroTag: "btn2",
+                label: Text(
                   'Guest',
                 ),
+                onPressed: () async {
+                  dynamic resultuser = await authObject.AnonymousSignIn();
+                  if (resultuser == null) {
+                    print("sign in failed");
+                  } else {
+                    Navigator.pushNamed(context, Homescreen.route);
+                    print(resultuser.uid);
+                  }
+                },
               ),
             ),
-            Container(
-              child: FlatButton(
-                textColor: Colors.white,
-                color: Colors.green,
-                //foregroundColor: Colors.green,
-                //backgroundColor: Colors.white,
-                onPressed: () { Navigator.pushNamed(context, DummySignIn.route);},
-                child: const Text(
-                  'Dummy',
-                ),
-              ),
-            ),
-            Row(mainAxisAlignment: MainAxisAlignment.center,
-                children: [
+            Row(mainAxisAlignment: MainAxisAlignment.center, children: [
               Container(
                 child: TextButton(
-
                   //foregroundColor: Colors.green,
                   //backgroundColor: Colors.white,
                   onPressed: () {},
@@ -87,19 +71,28 @@ class _signInState extends State<signIn> {
               ),
               Container(
                 child: TextButton(
-
-                  onPressed: (){Navigator.pushNamed(context, Account_det.route);
-                  print('accounts_det screen called');},
+                  onPressed: () {
+                    Navigator.pushNamed(context, Account_det.route);
+                    print('accounts_det screen called');
+                  },
                   child: const Text('Create Account'),
                 ),
               )
-            ])
-          ]
-          ),
-    )); 
+            ]),
+            SignInButton(
+              Buttons.Google,
+              text: "Sign up with Google",
+              onPressed: () async {
+                  dynamic resultuser = await authObject.googleSignin();
+                  if (resultuser == null) {
+                    print("sign in failed");
+                  } else {
+                    Navigator.pushNamed(context, Homescreen.route);
+                    print(resultuser.accessToken);
+                  }
+                },
+            )
+          ]),
+    ));
   }
 }
-
-
-  
-  

@@ -1,18 +1,27 @@
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:meme_g/screens/emailandpass_signin.dart';
 import 'package:meme_g/screens/homescreen.dart';
 import 'package:meme_g/screens/working/dummy_sign_in.dart';
 import 'package:meme_g/screens/working/save_upload.dart';
 import './screens/image_editor.dart';
 import 'screens/working/profile_image_picker.dart';
+import 'package:meme_g/screens/sign_in_screen.dart';
 import 'package:meme_g/screens/wrapper.dart';
+import 'package:meme_g/services/auth.dart';
 import 'package:meme_g/widgets/create.dart';
 
 import 'package:meme_g/widgets/meme_list.dart';
+import 'package:provider/provider.dart';
 import './widgets/drawer.dart';
 
 import './screens/photo_editor.dart';
 import 'screens/account_details_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:meme_g/services/auth.dart';
+import 'package:meme_g/services/authstate.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,24 +35,34 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.green,
-      ),  
-      home: MyHomePage(),
-      /*routes: {
-        PhotoEditor.route: (context) => PhotoEditor(),
-        Account_det.route: (context) => Account_det(),
-        Homescreen.route: (context) => Homescreen(),
-        ImageEditor.route: (context) => ImageEditor(),
-        SaveUpload.route: (context) => SaveUpload(),
-        //ProflieImagePicker.route: (context) => ProflieImagePicker(),
-      },*/
-      onGenerateRoute: generateRoute,
+
+    return MultiProvider(
+      providers: [
+        Provider<authforState?>(
+            create: (_) => authforState(FirebaseAuth.instance)),
+        StreamProvider(
+            initialData: null,
+            create: (context) => context.read<authforState>().authstatechanges),
+      ],
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.green,
+        ),
+        home: MyHomePage(),
+        routes: {
+          PhotoEditor.route: (context) => PhotoEditor(),
+          Account_det.route: (context) => Account_det(),
+          Homescreen.route: (context) => Homescreen(),
+          EmailandPass.route: (context) => EmailandPass(),
+          ImageEditor.route: (context) => ImageEditor(),
+          SaveUpload.route: (context) => SaveUpload(),
+          //ProflieImagePicker.route: (context) => ProflieImagePicker(),
+        },
+      ),
     );
   }
-  Route<dynamic> generateRoute(RouteSettings routeSettings){
+  /*Route<dynamic> generateRoute(RouteSettings routeSettings){
     switch(routeSettings.name)
     {
       case Account_det.route :
@@ -57,7 +76,7 @@ class MyApp extends StatelessWidget {
       default:
         return MaterialPageRoute(builder: (context) => Homescreen());
     }
-  }
+  }*/
 }
 
 class MyHomePage extends StatefulWidget {
@@ -66,10 +85,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  
-  
   @override
   Widget build(BuildContext context) {
     return Wrapper();
-}
+  }
 }

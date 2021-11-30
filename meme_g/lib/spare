@@ -55,6 +55,7 @@ class  account_det_state extends State<account_det>
     firebase.initializeApp(firebaseConfig);
   </script>*/
 
+//<<<<<<< Shubham
   //firestore dependencys
   //cloud_firestore: ^2.5.4
 
@@ -81,3 +82,16 @@ void main() async {
 
 //in >>>> C:\Users\shubh\Downloads\flutter_windows_2.5.2-stable\flutter\.pub-cache\hosted\pub.dartlang.org\extended_image_library-3.1.0\lib\src\extended_image_provider.dart
 //Line 18 >>>>   bool get cacheRawData = true;
+//s>>>>>>> Amey
+ // cloud_firestore: ^3.1.0
+
+  /* onPressed: () async {
+                  dynamic resultuser = await authObject.googleSignin();
+                  if (resultuser == null) {
+                    print("sign in failed");
+                  } else {
+                    Navigator.pushNamed(context, Homescreen.route);
+                    print(resultuser.uid);
+                  }
+                },*/
+

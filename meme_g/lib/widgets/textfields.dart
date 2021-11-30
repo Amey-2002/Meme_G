@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
 
-class Text_fields extends StatelessWidget {
- // final String labelname;
- // Text_fields(this.labelname);
+class Text_fields extends StatefulWidget {
+ 
+   dynamic  hintname="";
+  Text_fields(this.hintname,cred);
+  @override
+  State<Text_fields> createState() => _Text_fieldsState();
+}
 
+class _Text_fieldsState extends State<Text_fields> {
+  dynamic cred;
+ 
   @override
   Widget build(BuildContext context) {
     return 
@@ -13,7 +20,7 @@ class Text_fields extends StatelessWidget {
       child: TextField(
         decoration: InputDecoration(
           floatingLabelBehavior: FloatingLabelBehavior.auto,
-          //labelText: labelname,
+          hintText:widget.hintname,
         ),
         autofocus: false,
         scrollPadding: EdgeInsets.all(20.0),
@@ -21,9 +28,13 @@ class Text_fields extends StatelessWidget {
         //strutStyle: StrutStyle(fontSize: double.infinity),
         style: TextStyle(
           fontSize: 17,
-          fontWeight: FontWeight.normal,
+          fontWeight: FontWeight.normal,  
         ),
-        //expands: true,
+        onChanged: (credential){
+          setState(() {
+            cred=credential;
+          });
+        },//expands: true,
       ),
     );
   }
