@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meme_g/screens/homescreen.dart';
+import 'package:meme_g/screens/working/dummy_sign_in.dart';
 import 'account_details_screen.dart';
 import '../services/auth.dart';
 
@@ -56,6 +57,18 @@ class _signInState extends State<signIn> {
                 onPressed: () { Navigator.pushNamed(context, Homescreen.route);},
                 child: const Text(
                   'Guest',
+                ),
+              ),
+            ),
+            Container(
+              child: FlatButton(
+                textColor: Colors.white,
+                color: Colors.green,
+                //foregroundColor: Colors.green,
+                //backgroundColor: Colors.white,
+                onPressed: () { Navigator.pushNamed(context, DummySignIn.route);},
+                child: const Text(
+                  'Dummy',
                 ),
               ),
             ),

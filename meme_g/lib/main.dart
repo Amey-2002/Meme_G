@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:meme_g/screens/homescreen.dart';
+import 'package:meme_g/screens/working/dummy_sign_in.dart';
 import 'package:meme_g/screens/working/save_upload.dart';
 import './screens/image_editor.dart';
 import 'screens/working/profile_image_picker.dart';
@@ -29,17 +30,33 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.green,
-      ),
+      ),  
       home: MyHomePage(),
-      routes: {
+      /*routes: {
         PhotoEditor.route: (context) => PhotoEditor(),
         Account_det.route: (context) => Account_det(),
         Homescreen.route: (context) => Homescreen(),
         ImageEditor.route: (context) => ImageEditor(),
         SaveUpload.route: (context) => SaveUpload(),
         //ProflieImagePicker.route: (context) => ProflieImagePicker(),
-      },
+      },*/
+      onGenerateRoute: generateRoute,
     );
+  }
+  Route<dynamic> generateRoute(RouteSettings routeSettings){
+    switch(routeSettings.name)
+    {
+      case Account_det.route :
+        return MaterialPageRoute(builder: (context) => Account_det());
+      case SaveUpload.route :
+        return MaterialPageRoute(builder: (context) => SaveUpload());
+      case DummySignIn.route :
+        return MaterialPageRoute(builder: (context) => DummySignIn());
+      case ImageEditor.route :
+        return MaterialPageRoute(builder: (context) => ImageEditor());
+      default:
+        return MaterialPageRoute(builder: (context) => Homescreen());
+    }
   }
 }
 

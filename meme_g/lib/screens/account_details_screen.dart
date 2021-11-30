@@ -18,7 +18,7 @@ class Account_det extends StatelessWidget {
         ),
         body: SingleChildScrollView(
             child: Column(children: <Widget>[
-          Center(
+          /*Center(
             child: Padding(
               padding: const EdgeInsets.all(15.0),
               child: CircleAvatar(
@@ -26,12 +26,13 @@ class Account_det extends StatelessWidget {
                 child: Icon(Icons.account_circle),
               ),
             ),
-          ),
-          RaisedButton(
+          ),*/
+          ProfilePage(),
+          /*RaisedButton(
             child: Text("Set Profile Picture"),
             onPressed: () {
             },
-          ),
+          ),*/
           //ProfilePage(),
           ListTile(
             leading: Icon(
