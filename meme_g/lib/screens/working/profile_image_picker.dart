@@ -94,16 +94,7 @@ class _ProfilePageState extends State<ProfilePage> {
             child: Text("Set Profile Picture"),
             onPressed: () async {
               await _showPickOptionsDialog(context);
-              if (_pickedImage != null) {
-                setState(() {
-                  uploading = true;
-                });
-                _uploadProfileImg(context).whenComplete(() {
-                  setState(() {
-                    uploading = false;
-                  });
-                });
-              }
+              
             },
           )
         ],
@@ -144,6 +135,16 @@ class _ProfilePageState extends State<ProfilePage> {
         _pickedImage = cropped;
       });
     }
+    if (_pickedImage != null) {
+                setState(() {
+                  uploading = true;
+                });
+                _uploadProfileImg(context).whenComplete(() {
+                  setState(() {
+                    uploading = false;
+                  });
+                });
+              }
   }
 
   _showPickOptionsDialog(BuildContext context) {
