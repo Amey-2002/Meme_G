@@ -12,7 +12,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:firebase_core/firebase_core.dart' as firebase_core;
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:path/path.dart' as Path;
-//import 'package:permission_handler/permission_handler.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 /*class ProflieImagePicker extends StatefulWidget {
   static const route = 'profile_image_picker_screen';
@@ -94,7 +94,6 @@ class _ProfilePageState extends State<ProfilePage> {
             child: Text("Set Profile Picture"),
             onPressed: () async {
               await _showPickOptionsDialog(context);
-              
             },
           )
         ],
@@ -136,15 +135,15 @@ class _ProfilePageState extends State<ProfilePage> {
       });
     }
     if (_pickedImage != null) {
-                setState(() {
-                  uploading = true;
-                });
-                _uploadProfileImg(context).whenComplete(() {
-                  setState(() {
-                    uploading = false;
-                  });
-                });
-              }
+      setState(() {
+        uploading = true;
+      });
+      _uploadProfileImg(context).whenComplete(() {
+        setState(() {
+          uploading = false;
+        });
+      });
+    }
   }
 
   _showPickOptionsDialog(BuildContext context) {
@@ -183,9 +182,9 @@ class _ProfilePageState extends State<ProfilePage> {
     });*/
 
     //Check Permissions
-    /*await Permission.photos.request();
+    await Permission.photos.request();
     var permissionStatus = await Permission.photos.status;
-    if (permissionStatus.isGranted) {*/
+    if (permissionStatus.isGranted) {
       var snapshot = await firebase_storage.FirebaseStorage.instance
           .ref()
           .child('Profile-Image/${Path.basename(_pickedImage!.path)}')
@@ -194,25 +193,27 @@ class _ProfilePageState extends State<ProfilePage> {
       setState(() {
         profileImageUrl = downloadUrl;
       });
-    /*} else {
+    } else {
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          content: Column(
-            children: <Widget>[
-              Text(
-                  'Permission not granted. Try Again with permission access'),
-              FlatButton(
+          content: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
+            Text('Permission not granted. Try Again with permission access'),
+            FlatButton(
+              color: Colors.green,
               child: Text(
-                  'Ok'),
-              onPressed: ()=>Navigator.pop(context),
+                'Ok',
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+              onPressed: () => Navigator.pop(context),
             ),
-            ]
-          ),
+          ]),
         ),
       );
       //print('Permission not granted. Try Again with permission access');
-    }*/
+    }
   }
 
   @override
