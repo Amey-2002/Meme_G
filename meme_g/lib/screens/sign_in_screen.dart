@@ -87,7 +87,7 @@ class _signInState extends State<signIn> {
                     print("sign in failed");
                   } else {
                     Navigator.pushNamed(context, Homescreen.route);
-                    print(resultuser.uid);
+                    print(resultuser.accessToken);
                   }
                 },
             )
