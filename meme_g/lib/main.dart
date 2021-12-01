@@ -1,3 +1,5 @@
+import 'dart:js';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -60,9 +62,30 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
+
+
 class _MyHomePageState extends State<MyHomePage> {
+ /* Future<bool> _onbackepressed(){
+    return showDialog(
+    context:  context, 
+    builder: (context)=> AlertDialog(
+     title: Text("Do you want to exit"),
+      actions:<Widget> [
+        FlatButton(onPressed: ()=> Navigator.pop(context,false)  
+        , 
+        child:Text("No") ),
+        FlatButton(
+          onPressed: ()=> Navigator.pop(context,true), 
+            child: Text("Yes"))
+      ],
+    )
+  );
+  }*/
   @override
   Widget build(BuildContext context) {
     return Wrapper();
+     /*WillPopScope(
+      child: Wrapper(),
+      onWillPop: /*_onbackepressed*/);*/
   }
 }
