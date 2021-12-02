@@ -5,6 +5,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:meme_g/screens/emailandpass_signin.dart';
 import 'package:meme_g/screens/homescreen.dart';
+import 'package:meme_g/screens/personal_info.dart';
 import 'package:meme_g/screens/sign_in_screen.dart';
 import 'package:meme_g/screens/wrapper.dart';
 import 'package:meme_g/services/auth.dart';
@@ -51,6 +52,7 @@ class MyApp extends StatelessWidget {
           Account_det.route: (context) => Account_det(),
           Homescreen.route: (context) => Homescreen(),
           EmailandPass.route: (context) => EmailandPass(),
+          personal_info.route:(context) => personal_info(),
         },
       ),
     );

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meme_g/screens/personal_info.dart';
 import 'package:meme_g/widgets/create.dart';
 import 'package:meme_g/widgets/meme_list.dart';
 import '../widgets/drawer.dart';
@@ -30,7 +31,7 @@ class _HomescreenState extends State<Homescreen> {
               icon: IconButton(
                 icon: Icon(Icons.account_circle),
                 onPressed: () {
-                  Navigator.pushNamed(context, Account_det.route);
+                  Navigator.pushNamed(context,personal_info.route);
                 },
               ),
               title: Text('You')),

@@ -13,14 +13,14 @@ class Account_det extends StatefulWidget {
   State<Account_det> createState() => _Account_detState();
 }
 
+dynamic name, userid, country;
+String? birthdate; 
+var emailid, upassword;
+
 class _Account_detState extends State<Account_det> {
   var authObject = Auth();
 
-  dynamic name,userid,country;
-
-  var emailid, upassword;
-
-   @override
+  @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
@@ -37,7 +37,15 @@ class _Account_detState extends State<Account_det> {
             ),
             title: Text('Name'),
           ),
-          Text_fields("Enter name",name),
+          Container(
+            child: TextField(
+                decoration: InputDecoration(hintText: "Enter name" ),
+                onChanged: (uname) {
+                  setState(() {
+                    name = uname;
+                  });
+                }),
+          ),
           ListTile(
             leading: Icon(
               Icons.sort_by_alpha,
@@ -45,7 +53,15 @@ class _Account_detState extends State<Account_det> {
             ),
             title: Text('User Id'),
           ),
-          Text_fields("Enter User Id",userid),
+          Container(
+            child: TextField(
+                decoration: InputDecoration(hintText: "Enter UserId "),
+                onChanged: (uid) {
+                  setState(() {
+                    userid = uid;
+                  });
+                }),
+          ),
           ListTile(
             leading: Icon(
               Icons.email,
@@ -53,17 +69,16 @@ class _Account_detState extends State<Account_det> {
             ),
             title: Text('Email ID'),
           ),
-         // Text_fields("Enter EmailId",emailid),
+          // Text_fields("Enter EmailId",emailid),
           Container(
-          child: TextField(
-            decoration: InputDecoration(hintText: "Enter EmailId "),
-            onChanged:(email){
-              setState(() {
-                emailid = email;
-              });
-            }
+            child: TextField(
+                decoration: InputDecoration(hintText: "Enter EmailId "),
+                onChanged: (email) {
+                  setState(() {
+                    emailid = email;
+                  });
+                }),
           ),
-        ),
           ListTile(
             leading: Icon(
               Icons.email,
@@ -71,18 +86,18 @@ class _Account_detState extends State<Account_det> {
             ),
             title: Text('Password'),
           ),
-        // Text_fields("Enter password",upassword),
-         Container(
-          child: TextField(
-            decoration: InputDecoration(hintText: "Enter Password"),
-            onChanged: (password){
-              setState(() {
-                 upassword = password.trim(); 
-              });
-            },
-            obscureText: true,
+          // Text_fields("Enter password",upassword),
+          Container(
+            child: TextField(
+              decoration: InputDecoration(hintText: "Enter Password"),
+              onChanged: (password) {
+                setState(() {
+                  upassword = password.trim();
+                });
+              },
+              obscureText: true,
+            ),
           ),
-        ),
           ListTile(
             tileColor: Colors.green.shade100,
             leading: Container(
@@ -116,6 +131,9 @@ class _Account_detState extends State<Account_det> {
                       date.timeZoneOffset.inHours.toString());
                 }, onConfirm: (date) {
                   print('confirm $date');
+                  setState(() {
+                    birthdate= date.toString();
+                  });
                 }, currentTime: DateTime.now(), locale: LocaleType.en);
               },
               child: Container(
@@ -141,17 +159,28 @@ class _Account_detState extends State<Account_det> {
             ),
             title: Text('Country of origin'),
           ),
-         Text_fields("Enter Native Country",country),
-          ElevatedButton(child: Text("Create Account"), onPressed: () async {
-              dynamic result = await authObject.createAccount(emailid,upassword);
-              if (result == null) {
-                print("Enter valid Details");
-              } else {
-                Navigator.pushNamed(context, Homescreen.route);
-                print(result.uid);
-              }
-              }
-          )
+          Container(
+          child: TextField(
+            decoration: InputDecoration(hintText: "Enter country  "),
+            onChanged:(ucountry){
+              setState(() {
+                country = ucountry;
+              });
+            }
+          ),
+        ),
+          ElevatedButton(
+              child: Text("Create Account"),
+              onPressed: () async {
+                dynamic result =
+                    await authObject.createAccount(emailid, upassword);
+                if (result == null) {
+                  print("Enter valid Details");
+                } else {
+                  Navigator.pushNamed(context, Homescreen.route);
+                  print(result.uid);
+                }
+              })
         ])));
   }
 }
