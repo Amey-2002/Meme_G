@@ -1,8 +1,3 @@
-// ignore: file_names
-// ignore: file_names
-// ignore: file_names
-// ignore_for_file: prefer_const_constructors_in_immutables
-/*
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -246,6 +241,61 @@ class _EditPhotoScreenState extends State<EditPhotoScreen> {
     );
   }
 
+//CODE TO RESOLVE EXCEPTION 
+  /*Future crop([bool test = false]) async {
+    final ExtendedImageEditorState? state = editorKey.currentState;
+    if (state == null) {
+      return;
+    }
+    final Rect? rect = state.getCropRect();
+    if (rect == null) {
+      showToast('The crop rect is null.');
+      return;
+    }
+    ui.Image? imageData = state.image;
+    if (imageData == null) {
+      return;
+    }
+    var data = await imageData.toByteData(format: ui.ImageByteFormat.png);
+    if (data == null) {
+      return;
+    }
+// image.Image? src = decodePng();
+    final EditActionDetails action = state.editAction!;
+
+    final double radian = action.rotateAngle;
+
+    final bool flipHorizontal = action.flipY;
+    final bool flipVertical = action.flipX;
+
+    final ImageEditorOption option = ImageEditorOption();
+
+    option.addOption(ClipOption.fromRect(rect));
+    option.addOption(
+        FlipOption(horizontal: flipHorizontal, vertical: flipVertical));
+    if (action.hasRotateAngle) {
+      option.addOption(RotateOption(radian.toInt()));
+    }
+    option.outputFormat = const OutputFormat.png(88);
+    print(const JsonEncoder.withIndent('  ').convert(option.toJson()));
+    final DateTime start = DateTime.now();
+
+    final Uint8List? result = await ImageEditor.editImage(
+      image: data.buffer.asUint8List(),
+      imageEditorOption: option,
+    );
+
+    print('result.length = ${result?.length}');
+    final Duration diff = DateTime.now().difference(start);
+
+    print('image_editor time : $diff');
+    showToast('handle duration: $diff',
+        duration: const Duration(seconds: 5), dismissOtherToast: true);
+
+    if (result == null) return;
+
+    showPreviewDialog(result);
+  }*/
   Future<void> crop([bool test = false]) async {
     final ExtendedImageEditorState? state = editorKey.currentState;
     final Rect? rect = state!.getCropRect();
@@ -290,7 +340,8 @@ class _EditPhotoScreenState extends State<EditPhotoScreen> {
         CupertinoPageRoute(
             builder: (context) => SaveImageScreen(
                   arguments: [image],
-                )),
+                ),
+              ),
       ),
     );
   }
@@ -434,4 +485,4 @@ class _EditPhotoScreenState extends State<EditPhotoScreen> {
       ],
     );
   }
-}*/
+}

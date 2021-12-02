@@ -96,52 +96,56 @@ class _PhotoEditorState extends State<PhotoEditor> {
         ),
         onPressed: renderAndDisplayImage,
       ),
-      body: Column(
-        children: [
-          if (backgroundImage != null)
-            // Enforces constraints
-            AspectRatio(
-              aspectRatio: backgroundImage!.width / backgroundImage!.height,
-              child: FlutterPainter(
-                controller: controller,
-              ),
-            ),
-          if (controller.freeStyleSettings.enabled) ...[
-            // Control free style stroke width
-            Slider.adaptive(
-                min: 3,
-                max: 15,
-                value: controller.freeStyleSettings.strokeWidth,
-                onChanged: setFreeStyleStrokeWidth),
-
-            // Control free style color hue
-            Slider.adaptive(
-                min: 0,
-                max: 359.99,
-                value:
-                    HSVColor.fromColor(controller.freeStyleSettings.color).hue,
-                activeColor: controller.freeStyleSettings.color,
-                onChanged: setFreeStyleColor),
-          ],
-          if (textFocusNode.hasFocus) ...[
-            // Control text font size
-            Slider.adaptive(
-                min: 12,
-                max: 48,
-                value: controller.textSettings.textStyle.fontSize ?? 14,
-                onChanged: setTextFontSize),
-
-            // Control text color hue
-            Slider.adaptive(
-                min: 0,
-                max: 359.99,
-                value: HSVColor.fromColor(
-                        controller.textSettings.textStyle.color ?? red)
-                    .hue,
-                activeColor: controller.textSettings.textStyle.color,
-                onChanged: setTextColor),
-          ]
-        ],
+      body: SingleChildScrollView(
+        child: Container(
+          child: Column(
+            children: [
+              if (backgroundImage != null)
+                // Enforces constraints
+                AspectRatio(
+                  aspectRatio: backgroundImage!.width / backgroundImage!.height,
+                  child: FlutterPainter(
+                    controller: controller,
+                  ),
+                ),
+              if (controller.freeStyleSettings.enabled) ...[
+                // Control free style stroke width
+                Slider.adaptive(
+                    min: 3,
+                    max: 15,
+                    value: controller.freeStyleSettings.strokeWidth,
+                    onChanged: setFreeStyleStrokeWidth),
+      
+                // Control free style color hue
+                Slider.adaptive(
+                    min: 0,
+                    max: 359.99,
+                    value:
+                        HSVColor.fromColor(controller.freeStyleSettings.color).hue,
+                    activeColor: controller.freeStyleSettings.color,
+                    onChanged: setFreeStyleColor),
+              ],
+              if (textFocusNode.hasFocus) ...[
+                // Control text font size
+                Slider.adaptive(
+                    min: 12,
+                    max: 48,
+                    value: controller.textSettings.textStyle.fontSize ?? 14,
+                    onChanged: setTextFontSize),
+      
+                // Control text color hue
+                Slider.adaptive(
+                    min: 0,
+                    max: 359.99,
+                    value: HSVColor.fromColor(
+                            controller.textSettings.textStyle.color ?? red)
+                        .hue,
+                    activeColor: controller.textSettings.textStyle.color,
+                    onChanged: setTextColor),
+              ]
+            ],
+          ),
+        ),
       ),
     );
   }
