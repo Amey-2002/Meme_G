@@ -33,9 +33,14 @@ class _ProflieImagePickerState extends State<ProflieImagePicker> {
     );
   }
 }*/
+dynamic uid = '';
 
 class ProfilePage extends StatefulWidget {
-  ProfilePage({Key? key}) : super(key: key);
+  //final String uid;
+  //ProfilePage({required this.uid});
+  set setUid(uId) {
+    uid = uId;
+  }
 
   @override
   _ProfilePageState createState() => _ProfilePageState();
@@ -172,26 +177,41 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   Future _uploadProfileImg(BuildContext context) async {
-    /*ref = firebase_storage.FirebaseStorage.instance
-        .ref()
-        .child('Profile-Image/${Path.basename(_pickedImage!.path)}');
-    await ref.putFile(_pickedImage!).whenComplete(() async {
-      await ref.getDownloadURL().then((value) {
-        profileImgRef.add({'url': value});
-      });
-    });*/
-
     //Check Permissions
     await Permission.photos.request();
     var permissionStatus = await Permission.photos.status;
     if (permissionStatus.isGranted) {
-      var snapshot = await firebase_storage.FirebaseStorage.instance
+      /*var snapshot = await firebase_storage.FirebaseStorage.instance
           .ref()
           .child('Profile-Image/${Path.basename(_pickedImage!.path)}')
           .putFile(_pickedImage!);
       var downloadUrl = await snapshot.ref.getDownloadURL();
       setState(() {
         profileImageUrl = downloadUrl;
+      });*/
+      ref = firebase_storage.FirebaseStorage.instance
+          .ref()
+          .child('Profile-Image/${Path.basename(_pickedImage!.path)}');
+      await ref.putFile(_pickedImage!).whenComplete(() async {
+        await ref.getDownloadURL().then((value) async {
+          await profileImgRef.doc(uid).set({'url': value});
+          setState(() {
+            profileImageUrl = value;
+          });
+          //Database(uid: uid).updateUserProfileImage(url: value);
+          //FirebaseFirestore.instance
+          //.collection('')
+          /*profileImgRef
+              .doc(uid)
+              .get()
+              .then((DocumentSnapshot documentSnapshot) {
+            if (documentSnapshot.exists) {
+              setState(() {
+                profileImageUrl = documentSnapshot.get(FieldPath(['url']));
+              });
+            }
+          });*/
+        });
       });
     } else {
       showDialog(

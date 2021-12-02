@@ -8,8 +8,14 @@ import '../widgets/textfields.dart';
 import 'homescreen.dart';
 import 'package:meme_g/screens/working/profile_image_picker.dart';
 
+dynamic uid = '';
+
 class Account_det extends StatefulWidget {
   static const route = 'account_det_screen';
+
+  set setUid(uId) {
+    uid = uId;
+  }
 
   @override
   State<Account_det> createState() => _Account_detState();
@@ -17,12 +23,12 @@ class Account_det extends StatefulWidget {
 
 class _Account_detState extends State<Account_det> {
   var authObject = Auth();
-
-  dynamic name,userid,country;
-
+  dynamic name, userid, country;
   var emailid, upassword;
 
-   @override
+  var dp = new ProfilePage();
+
+  @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
@@ -41,13 +47,15 @@ class _Account_detState extends State<Account_det> {
               ),
             ),
           ),*/
-          ProfilePage(),
+          //ProfilePage().setUid = userid,
+
           /*RaisedButton(
             child: Text("Set Profile Picture"),
             onPressed: () {
             },
           ),*/
           //ProfilePage(),
+          dp,
           ListTile(
             leading: Icon(
               Icons.sort_by_alpha,
@@ -55,7 +63,7 @@ class _Account_detState extends State<Account_det> {
             ),
             title: Text('Name'),
           ),
-          Text_fields("Enter name",name),
+          Text_fields("Enter name", name),
           ListTile(
             leading: Icon(
               Icons.sort_by_alpha,
@@ -63,7 +71,7 @@ class _Account_detState extends State<Account_det> {
             ),
             title: Text('User Id'),
           ),
-          Text_fields("Enter User Id",userid),
+          Text_fields("Enter User Id", userid),
           ListTile(
             leading: Icon(
               Icons.email,
@@ -71,17 +79,16 @@ class _Account_detState extends State<Account_det> {
             ),
             title: Text('Email ID'),
           ),
-         // Text_fields("Enter EmailId",emailid),
+          // Text_fields("Enter EmailId",emailid),
           Container(
-          child: TextField(
-            decoration: InputDecoration(hintText: "Enter EmailId "),
-            onChanged:(email){
-              setState(() {
-                emailid = email;
-              });
-            }
+            child: TextField(
+                decoration: InputDecoration(hintText: "Enter EmailId "),
+                onChanged: (email) {
+                  setState(() {
+                    emailid = email;
+                  });
+                }),
           ),
-        ),
           ListTile(
             leading: Icon(
               Icons.email,
@@ -89,18 +96,18 @@ class _Account_detState extends State<Account_det> {
             ),
             title: Text('Password'),
           ),
-        // Text_fields("Enter password",upassword),
-         Container(
-          child: TextField(
-            decoration: InputDecoration(hintText: "Enter Password"),
-            onChanged: (password){
-              setState(() {
-                 upassword = password.trim(); 
-              });
-            },
-            obscureText: true,
+          // Text_fields("Enter password",upassword),
+          Container(
+            child: TextField(
+              decoration: InputDecoration(hintText: "Enter Password"),
+              onChanged: (password) {
+                setState(() {
+                  upassword = password.trim();
+                });
+              },
+              obscureText: true,
+            ),
           ),
-        ),
           ListTile(
             tileColor: Colors.green.shade100,
             leading: Container(
@@ -159,17 +166,23 @@ class _Account_detState extends State<Account_det> {
             ),
             title: Text('Country of origin'),
           ),
-         Text_fields("Enter Native Country",country),
-          ElevatedButton(child: Text("Create Account"), onPressed: () async {
-              dynamic result = await authObject.createAccount(emailid,upassword);
-              if (result == null) {
-                print("Enter valid Details");
-              } else {
-                Navigator.pushNamed(context, Homescreen.route);
-                print(result.uid);
-              }
-              }
-          )
+          Text_fields("Enter Native Country", country),
+          ElevatedButton(
+              child: Text("Create Account"),
+              onPressed: () async {
+                dynamic result =
+                    await authObject.createAccount(emailid, upassword);
+                if (result == null) {
+                  print("Enter valid Details");
+                } else {
+                  Navigator.pushNamed(context, Homescreen.route);
+                  setState(() {
+                    dp.setUid =
+                        result.uid; //uid acquired for user profile image
+                  });
+                  print(result.uid);
+                }
+              })
         ])));
   }
 }

@@ -10,12 +10,15 @@ import 'package:meme_g/widgets/user.dart';
 
 class Auth {
   dynamic _useremail, _userpassword;
-
   final FirebaseAuth _Authenctication = FirebaseAuth.instance;
   GoogleSignIn _googleSignIn = GoogleSignIn();
   UserF? _userfirebase(User user) {
     return user != null ? UserF.uid(user.uid) : null;
   }
+
+  /*String getFirebaseUserId(User user){
+    return user.uid;
+  }*/
 
   //sign in Anonymously
   Future AnonymousSignIn() async {

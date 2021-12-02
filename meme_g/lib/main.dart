@@ -7,6 +7,7 @@ import 'package:meme_g/screens/emailandpass_signin.dart';
 import 'package:meme_g/screens/homescreen.dart';
 import 'package:meme_g/screens/working/dummy_sign_in.dart';
 import 'package:meme_g/screens/working/save_upload.dart';
+import 'package:meme_g/widgets/user.dart';
 import './screens/image_editor.dart';
 import 'screens/working/profile_image_picker.dart';
 import 'package:meme_g/screens/sign_in_screen.dart';
@@ -31,7 +32,7 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({Key? key}) : super(key: key); 
 
   // This widget is the root of your application.
   @override
