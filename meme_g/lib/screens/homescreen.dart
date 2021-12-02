@@ -1,22 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:meme_g/widgets/create.dart';
 import 'package:meme_g/widgets/meme_list.dart';
+import 'package:meme_g/widgets/theme_provider.dart';
 import '../widgets/drawer.dart';
 import '../screens/photo_editor.dart';
 import '../screens/account_details_screen.dart';
 
 class Homescreen extends StatefulWidget {
-  const Homescreen({ Key? key }) : super(key: key);
-  static const route = 'home_screen'; 
+  const Homescreen({Key? key}) : super(key: key);
+  static const route = 'home_screen';
   @override
   _HomescreenState createState() => _HomescreenState();
 }
 
 class _HomescreenState extends State<Homescreen> {
-   
-
   @override
   Widget build(BuildContext context) {
+    // final text = Provider.of<ThemeProvider>(context).themeMode ==ThemeMode.dark
+    //     ? 'DarkTheme'
+    //     : 'LightTheme';
+
     return Scaffold(
       endDrawer: NavDrawer(),
       appBar: AppBar(

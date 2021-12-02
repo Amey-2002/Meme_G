@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meme_g/screens/settings_page.dart';
 import '../screens/account_details_screen.dart';
 
 class NavDrawer extends StatelessWidget {
@@ -7,7 +8,10 @@ class NavDrawer extends StatelessWidget {
     return Drawer(
       child: ListView(children: <Widget>[
         ListTile(
-          leading: Icon(Icons.account_circle,size: 32,),
+          leading: Icon(
+            Icons.account_circle,
+            size: 32,
+          ),
           title: Text(
             'You',
             style: TextStyle(
@@ -19,7 +23,10 @@ class NavDrawer extends StatelessWidget {
           },
         ),
         ListTile(
-          leading: Icon(Icons.collections,size: 32,),
+          leading: Icon(
+            Icons.collections,
+            size: 32,
+          ),
           title: Text(
             'My Work',
             style: TextStyle(
@@ -29,7 +36,10 @@ class NavDrawer extends StatelessWidget {
           onTap: () {},
         ),
         ListTile(
-          leading: Icon(Icons.favorite,size: 32,),
+          leading: Icon(
+            Icons.favorite,
+            size: 32,
+          ),
           title: Text(
             'Liked Memes',
             style: TextStyle(
@@ -39,17 +49,25 @@ class NavDrawer extends StatelessWidget {
           onTap: () {},
         ),
         ListTile(
-          leading: Icon(Icons.settings,size: 32,),
+          leading: Icon(
+            Icons.settings,
+            size: 32,
+          ),
           title: Text(
             'Settings',
             style: TextStyle(
               fontSize: 20,
             ),
           ),
-          onTap: () {},
+          onTap: () {
+            Navigator.pushNamed(context, SettingsPage.route);
+          },
         ),
         ListTile(
-          leading: Icon(Icons.info,size: 32,),
+          leading: Icon(
+            Icons.info,
+            size: 32,
+          ),
           title: Text(
             'About',
             style: TextStyle(
@@ -59,7 +77,10 @@ class NavDrawer extends StatelessWidget {
           onTap: () {},
         ),
         ListTile(
-          leading: Icon(Icons.help,size: 32,),
+          leading: Icon(
+            Icons.help,
+            size: 32,
+          ),
           title: Text(
             'Help',
             style: TextStyle(
