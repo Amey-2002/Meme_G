@@ -95,11 +95,19 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
           ),
           //const SizedBox(height: 10.0),
-          RaisedButton(
-            child: Text("Set Profile Picture"),
-            onPressed: () async {
-              await _showPickOptionsDialog(context);
-            },
+          ClipRRect(
+            child: RaisedButton(
+              color: Colors.green,
+              child: Text(
+                "Set Profile Picture",
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+              onPressed: () async {
+                await _showPickOptionsDialog(context);
+              },
+            ),
           )
         ],
       ),
@@ -159,13 +167,15 @@ class _ProfilePageState extends State<ProfilePage> {
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             ListTile(
+              leading: Icon(Icons.photo_library),
               title: Text("Pick from Gallery"),
               onTap: () {
                 _loadPicker(ImageSource.gallery);
               },
             ),
             ListTile(
-              title: Text("Take a pictuer"),
+              leading: Icon(Icons.camera_alt),
+              title: Text("Take a picture"),
               onTap: () {
                 _loadPicker(ImageSource.camera);
               },
@@ -194,14 +204,16 @@ class _ProfilePageState extends State<ProfilePage> {
           .child('Profile-Image/${Path.basename(_pickedImage!.path)}');
       await ref.putFile(_pickedImage!).whenComplete(() async {
         await ref.getDownloadURL().then((value) async {
-          await profileImgRef.doc(uid).set({'url': value});
-          setState(() {
-            profileImageUrl = value;
-          });
+          /*if (uid == '') {
+            setState(() {
+              profileImageUrl = value;
+            });
+          } else {*/
           //Database(uid: uid).updateUserProfileImage(url: value);
           //FirebaseFirestore.instance
           //.collection('')
-          /*profileImgRef
+          await profileImgRef.doc(uid).set({'url': value});
+          profileImgRef
               .doc(uid)
               .get()
               .then((DocumentSnapshot documentSnapshot) {
@@ -210,7 +222,8 @@ class _ProfilePageState extends State<ProfilePage> {
                 profileImageUrl = documentSnapshot.get(FieldPath(['url']));
               });
             }
-          });*/
+          });
+          //}
         });
       });
     } else {
@@ -240,6 +253,15 @@ class _ProfilePageState extends State<ProfilePage> {
   void initState() {
     super.initState();
     profileImgRef = FirebaseFirestore.instance.collection('ProfileImageURL');
+    if (uid != '') {
+      profileImgRef.doc(uid).get().then((DocumentSnapshot documentSnapshot) {
+        if (documentSnapshot.exists) {
+          setState(() {
+            profileImageUrl = documentSnapshot.get(FieldPath(['url']));
+          });
+        }
+      });
+    }
   }
 
   /*Future _uploadImageToFirebase(BuildContext context) async {

@@ -55,7 +55,7 @@ class _Account_detState extends State<Account_det> {
             },
           ),*/
           //ProfilePage(),
-          dp,
+          //dp,
           ListTile(
             leading: Icon(
               Icons.sort_by_alpha,
@@ -175,11 +175,38 @@ class _Account_detState extends State<Account_det> {
                 if (result == null) {
                   print("Enter valid Details");
                 } else {
-                  Navigator.pushNamed(context, Homescreen.route);
+                  //using dialogue box to set profile Image
                   setState(() {
                     dp.setUid =
                         result.uid; //uid acquired for user profile image
                   });
+                  await showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      content: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                          dp,
+                          ClipRRect(
+                            child: RaisedButton(
+                              color: Colors.green,
+                              child: Text('Done'),
+                              onPressed: () => Navigator.pop(context),
+                            ),
+                          ),
+                          ClipRRect(
+                            child: RaisedButton(
+                              color: Colors.grey,
+                              child: Text('Later'),
+                              onPressed: () => Navigator.pop(context),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  );
+                  Navigator.pop(context);
+                  Navigator.pushNamed(context, Homescreen.route);
                   print(result.uid);
                 }
               })
