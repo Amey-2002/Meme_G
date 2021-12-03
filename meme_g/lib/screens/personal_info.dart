@@ -1,16 +1,23 @@
 import 'dart:ui';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:meme_g/screens/account_details_screen.dart';
 import 'package:meme_g/services/auth.dart';
+import 'package:meme_g/widgets/user.dart';
 import '../widgets/textfields.dart';
 import 'homescreen.dart';
 
 
 class personal_info extends StatefulWidget {
   static const route = 'personal_info_screen';
-
+  personal_info(this.uid);
+  String? uid ;
+  /*set setuid
+  (UserId){
+    uid = UserId;
+  }*/
   @override
   State<personal_info> createState() => _personal_infoState();
 }

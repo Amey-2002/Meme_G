@@ -12,6 +12,7 @@ import 'package:meme_g/services/auth.dart';
 import 'package:meme_g/widgets/create.dart';
 
 import 'package:meme_g/widgets/meme_list.dart';
+import 'package:meme_g/widgets/user.dart';
 import 'package:provider/provider.dart';
 import './widgets/drawer.dart';
 
@@ -24,12 +25,12 @@ import 'package:meme_g/services/authstate.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(const MyApp());
+  runApp( MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
+  
+  UserF getuid = new UserF.senduid();
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -52,7 +53,7 @@ class MyApp extends StatelessWidget {
           Account_det.route: (context) => Account_det(),
           Homescreen.route: (context) => Homescreen(),
           EmailandPass.route: (context) => EmailandPass(),
-          personal_info.route:(context) => personal_info(),
+          personal_info.route:(context) => personal_info(getuid.senduid()),
         },
       ),
     );

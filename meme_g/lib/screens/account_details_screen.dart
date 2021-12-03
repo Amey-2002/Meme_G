@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:meme_g/services/auth.dart';
+import 'package:meme_g/widgets/user.dart';
 import '../widgets/textfields.dart';
 import 'homescreen.dart';
 
@@ -177,6 +178,8 @@ class _Account_detState extends State<Account_det> {
                 if (result == null) {
                   print("Enter valid Details");
                 } else {
+                  UserF.accountDetails(name, userid, country, birthdate);
+                  Navigator.pop(context);
                   Navigator.pushNamed(context, Homescreen.route);
                   print(result.uid);
                 }
