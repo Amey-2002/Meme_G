@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:meme_g/services/auth.dart';
 
+import 'package:meme_g/widgets/user.dart';
 import '../widgets/textfields.dart';
 import 'homescreen.dart';
 import 'package:meme_g/screens/working/profile_image_picker.dart';
@@ -20,6 +21,10 @@ class Account_det extends StatefulWidget {
   @override
   State<Account_det> createState() => _Account_detState();
 }
+
+dynamic name, userid, country;
+String? birthdate; 
+var emailid, upassword;
 
 class _Account_detState extends State<Account_det> {
   var authObject = Auth();
@@ -63,7 +68,15 @@ class _Account_detState extends State<Account_det> {
             ),
             title: Text('Name'),
           ),
-          Text_fields("Enter name", name),
+          Container(
+            child: TextField(
+                decoration: InputDecoration(hintText: "Enter name" ),
+                onChanged: (uname) {
+                  setState(() {
+                    name = uname;
+                  });
+                }),
+          ),
           ListTile(
             leading: Icon(
               Icons.sort_by_alpha,
@@ -71,7 +84,16 @@ class _Account_detState extends State<Account_det> {
             ),
             title: Text('User Id'),
           ),
-          Text_fields("Enter User Id", userid),
+
+          Container(
+            child: TextField(
+                decoration: InputDecoration(hintText: "Enter UserId "),
+                onChanged: (uid) {
+                  setState(() {
+                    userid = uid;
+                  });
+                }),
+          ),
           ListTile(
             leading: Icon(
               Icons.email,
@@ -141,6 +163,9 @@ class _Account_detState extends State<Account_det> {
                       date.timeZoneOffset.inHours.toString());
                 }, onConfirm: (date) {
                   print('confirm $date');
+                  setState(() {
+                    birthdate= date.toString();
+                  });
                 }, currentTime: DateTime.now(), locale: LocaleType.en);
               },
               child: Container(
@@ -166,7 +191,18 @@ class _Account_detState extends State<Account_det> {
             ),
             title: Text('Country of origin'),
           ),
-          Text_fields("Enter Native Country", country),
+
+          Container(
+          child: TextField(
+            decoration: InputDecoration(hintText: "Enter country  "),
+            onChanged:(ucountry){
+              setState(() {
+                country = ucountry;
+              });
+            }
+          ),
+        ),
+
           ElevatedButton(
               child: Text("Create Account"),
               onPressed: () async {
@@ -205,6 +241,7 @@ class _Account_detState extends State<Account_det> {
                       ),
                     ),
                   );
+                  UserF.accountDetails(name, userid, country, birthdate);
                   Navigator.pop(context);
                   Navigator.pushNamed(context, Homescreen.route);
                   print(result.uid);
