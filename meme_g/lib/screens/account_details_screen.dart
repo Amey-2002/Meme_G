@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:meme_g/services/auth.dart';
@@ -9,29 +10,25 @@ import '../widgets/textfields.dart';
 import 'homescreen.dart';
 import 'package:meme_g/screens/working/profile_image_picker.dart';
 
-dynamic uid = '';
-
 class Account_det extends StatefulWidget {
   static const route = 'account_det_screen';
-
-  set setUid(uId) {
-    uid = uId;
-  }
 
   @override
   State<Account_det> createState() => _Account_detState();
 }
 
-dynamic name, userid, country;
-String? birthdate; 
+dynamic name, username, country;
+String? birthdate;
 var emailid, upassword;
 
 class _Account_detState extends State<Account_det> {
   var authObject = Auth();
-  dynamic name, userid, country;
+  dynamic name, username, country;
   var emailid, upassword;
 
   var dp = new ProfilePage();
+
+  late CollectionReference usersCollectionRef;
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +67,7 @@ class _Account_detState extends State<Account_det> {
           ),
           Container(
             child: TextField(
-                decoration: InputDecoration(hintText: "Enter name" ),
+                decoration: InputDecoration(hintText: "Enter name"),
                 onChanged: (uname) {
                   setState(() {
                     name = uname;
@@ -88,9 +85,9 @@ class _Account_detState extends State<Account_det> {
           Container(
             child: TextField(
                 decoration: InputDecoration(hintText: "Enter UserId "),
-                onChanged: (uid) {
+                onChanged: (userName) {
                   setState(() {
-                    userid = uid;
+                    username = userName;
                   });
                 }),
           ),
@@ -164,7 +161,7 @@ class _Account_detState extends State<Account_det> {
                 }, onConfirm: (date) {
                   print('confirm $date');
                   setState(() {
-                    birthdate= date.toString();
+                    birthdate = date.toString();
                   });
                 }, currentTime: DateTime.now(), locale: LocaleType.en);
               },
@@ -193,15 +190,14 @@ class _Account_detState extends State<Account_det> {
           ),
 
           Container(
-          child: TextField(
-            decoration: InputDecoration(hintText: "Enter country  "),
-            onChanged:(ucountry){
-              setState(() {
-                country = ucountry;
-              });
-            }
+            child: TextField(
+                decoration: InputDecoration(hintText: "Enter country  "),
+                onChanged: (ucountry) {
+                  setState(() {
+                    country = ucountry;
+                  });
+                }),
           ),
-        ),
 
           ElevatedButton(
               child: Text("Create Account"),
@@ -216,6 +212,15 @@ class _Account_detState extends State<Account_det> {
                     dp.setUid =
                         result.uid; //uid acquired for user profile image
                   });
+                  UserF.accountDetails(name, username, country, birthdate);
+                  _updateToDatabase(
+                      uid: result.uid,
+                      uName: name,
+                      uBirthdate: birthdate,
+                      uCountry: country,
+                      uEmailId: emailid,
+                      uPassword: upassword,
+                      userName: username);
                   await showDialog(
                     context: context,
                     builder: (context) => AlertDialog(
@@ -241,12 +246,36 @@ class _Account_detState extends State<Account_det> {
                       ),
                     ),
                   );
-                  UserF.accountDetails(name, userid, country, birthdate);
                   Navigator.pop(context);
                   Navigator.pushNamed(context, Homescreen.route);
                   print(result.uid);
                 }
               })
         ])));
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    usersCollectionRef = FirebaseFirestore.instance.collection('Users');
+  }
+
+  void _updateToDatabase(
+      {required String uid,
+      dynamic uName,
+      dynamic userName,
+      dynamic uCountry,
+      dynamic uBirthdate,
+      dynamic uEmailId,
+      dynamic uPassword}) {
+    usersCollectionRef.doc(uid).set({
+      'Name': uName,
+      'Username': userName,
+      'EmailId': uEmailId,
+      'Password': uPassword,
+      'Country': uCountry,
+      'Birthdate': uBirthdate,
+    });
   }
 }
