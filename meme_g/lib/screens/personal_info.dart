@@ -152,6 +152,8 @@ class _personal_infoState extends State<personal_info> {
           ),
           TextField(
             controller: TextEditingController(text: upassword),
+            obscureText: true,
+            obscuringCharacter: '*',
             enableIMEPersonalizedLearning: true,
             readOnly: no_edit_info,
           ),

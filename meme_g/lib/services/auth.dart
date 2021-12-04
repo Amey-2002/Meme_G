@@ -13,6 +13,7 @@ class Auth {
   final FirebaseAuth _Authenctication = FirebaseAuth.instance;
   GoogleSignIn _googleSignIn = GoogleSignIn();
   UserF? _userfirebase(User user) {
+
     return user != null ? UserF.uid(user.uid) : null;
   }
 
@@ -73,8 +74,17 @@ class Auth {
       print("signin failed");
     }
   }
+    //sign out
+  Future<User?> signout() async{
+   
+   try { await _Authenctication.signOut(); 
+   print("signed out");}
+   catch(error){
+    print(error);
+   }
+  }
+  }
+ 
 
-  //sign out
 
-}
  
