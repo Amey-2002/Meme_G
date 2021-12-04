@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:meme_g/screens/working/save_upload.dart';
-import '../screens/image_editor.dart';
-import '../screens/photo_editor.dart';
+import '../screens/editor/image_editor.dart';
+import '../screens/editor/photo_editor.dart';
 
 class Create extends StatelessWidget {
   

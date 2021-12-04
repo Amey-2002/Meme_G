@@ -58,6 +58,56 @@ class _SelectBottomPanelState extends State<SelectBottomPanel> {
     }
   }
 
+  //by shubham
+  _showPickOptionsDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            ListTile(
+              leading: Icon(Icons.photo_library),
+              title: Text("Pick from Gallery"),
+              onTap: () {
+                _loadPicker(ImageSource.gallery);
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.camera_alt),
+              title: Text("Take a picture"),
+              onTap: () {
+                _loadPicker(ImageSource.camera);
+              },
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  _loadPicker(ImageSource source) async {
+    //File picked = await ImagePicker.pickImage(source: source);
+    PickedFile? picked =
+        await picker.getImage(source: source /*ImageSource.camera*/);
+    if (picked != null) {
+      setState(() {
+        _image = File(picked.path);
+      });
+      Future.delayed(Duration(seconds: 0)).then(
+        (value) => Navigator.push(
+          context,
+          CupertinoPageRoute(
+            builder: (context) => EditPhotoScreen(
+              arguments: [_image],
+            ),
+          ),
+        ),
+      );
+    }
+  }
+  //
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -73,7 +123,31 @@ class _SelectBottomPanelState extends State<SelectBottomPanel> {
             style: Theme.of(context).textTheme.headline4,
           ),
           Spacer(),
-          Row(
+          //by shubham
+          Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                ListTile(
+                  leading: Icon(Icons.photo_library),
+                  title: Text("Pick from Gallery"),
+                  onTap: () {
+                    _loadPicker(ImageSource.gallery);
+                  },
+                ),
+                ListTile(
+                  leading: Icon(Icons.camera_alt),
+                  title: Text("Take a picture"),
+                  onTap: () {
+                    _loadPicker(ImageSource.camera);
+                  },
+                )
+              ],
+            ),
+          ),
+          //original code
+          /*Row(
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.max,
             children: <Widget>[
@@ -85,7 +159,7 @@ class _SelectBottomPanelState extends State<SelectBottomPanel> {
                     padding: const EdgeInsets.all(8.0),
                     child: GestureDetector(
                       onTap: () async {
-                        await getImage();
+                        await _showPickOptionsDialog(context);
                       },
                       child: Container(
                         width: MediaQuery.of(context).size.width / 2 - 20,
@@ -157,7 +231,7 @@ class _SelectBottomPanelState extends State<SelectBottomPanel> {
                 ],
               ),
             ],
-          ),
+          ),*/
           Spacer(),
           Padding(
             padding: const EdgeInsets.fromLTRB(0, 0, 0, 32),

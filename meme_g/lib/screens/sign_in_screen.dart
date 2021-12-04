@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meme_g/screens/emailandpass_signin.dart';
 import 'package:meme_g/screens/homescreen.dart';
-import 'package:meme_g/screens/working/dummy_sign_in.dart';
 import 'account_details_screen.dart';
 import '../services/auth.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';

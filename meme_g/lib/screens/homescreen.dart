@@ -3,7 +3,7 @@ import 'package:meme_g/screens/personal_info.dart';
 import 'package:meme_g/widgets/create.dart';
 import 'package:meme_g/widgets/meme_list.dart';
 import '../widgets/drawer.dart';
-import '../screens/photo_editor.dart';
+import 'editor/photo_editor.dart';
 import '../screens/account_details_screen.dart';
 
 class Homescreen extends StatefulWidget {
