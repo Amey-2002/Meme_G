@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meme_g/screens/homescreen.dart';
+import 'package:meme_g/screens/sign_in_screen.dart';
 import 'package:meme_g/widgets/textfields.dart';
 import '../services/auth.dart';
 
@@ -10,6 +11,9 @@ class EmailandPass extends StatefulWidget {
 }
 
 class _EmailandPassState extends State<EmailandPass> {
+  final snackBar = SnackBar(
+            content: const Text('Yay! A SnackBar!'),
+              );
   dynamic emailid, upassword;
   var authObject = new Auth();
   @override
@@ -43,6 +47,7 @@ class _EmailandPassState extends State<EmailandPass> {
               dynamic resultuser =
                   await authObject.EmailandpassSignIn(emailid, upassword);
               if (resultuser == null) {
+                
                 print("sign in failed");
               } else {
                  Navigator.pop(context);

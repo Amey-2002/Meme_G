@@ -7,12 +7,14 @@ import 'package:flutter_signin_button/flutter_signin_button.dart';
 
 class signIn extends StatefulWidget {
   @override
+    static const route = "Sign in screen";
   State<signIn> createState() => _signInState();
 }
 
 class _signInState extends State<signIn> {
   final Auth _Authentication = Auth();
   dynamic emailid, upassword;
+
   var authObject = new Auth();
   @override
   Widget build(BuildContext context) {

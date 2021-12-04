@@ -38,6 +38,7 @@ class MyApp extends StatelessWidget {
       providers: [
         Provider<authforState?>(
             create: (_) => authforState(FirebaseAuth.instance)),
+        Provider<Auth>(create: (_) => Auth()),
         StreamProvider(
             initialData: null,
             create: (context) => context.read<authforState>().authstatechanges),
@@ -54,6 +55,7 @@ class MyApp extends StatelessWidget {
           Homescreen.route: (context) => Homescreen(),
           EmailandPass.route: (context) => EmailandPass(),
           personal_info.route:(context) => personal_info(getuid.senduid()),
+          signIn.route:(context) => signIn(),
         },
       ),
     );
@@ -84,9 +86,11 @@ class _MyHomePageState extends State<MyHomePage> {
     )
   );
   }*/
+  
   @override
   Widget build(BuildContext context) {
     return Wrapper();
+    
      /*WillPopScope(
       child: Wrapper(),
       onWillPop: /*_onbackepressed*/);*/
