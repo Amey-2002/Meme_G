@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:meme_g/services/database.dart';
 import 'dart:io';
@@ -10,6 +12,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:firebase_core/firebase_core.dart' as firebase_core;
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:path/path.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:path/path.dart' as Path;
 
 class SaveUpload extends StatefulWidget {
   const SaveUpload({Key? key}) : super(key: key);
@@ -69,24 +73,69 @@ class _SaveUploadState extends State<SaveUpload> {
     );
   }*/
   File? _imageFile=null;
+  User? user = FirebaseAuth.instance.currentUser;
+  late CollectionReference postedMemesRef;
+  late firebase_storage.Reference ref;
 
   ///NOTE: Only supported on Android & iOS
   ///Needs image_picker plugin {https://pub.dev/packages/image_picker}
   final picker = ImagePicker();
 
+  @override
+  void initState() {
+    super.initState();
+    postedMemesRef = FirebaseFirestore.instance.collection('Users').doc(user!.uid).collection('PostedMemeURLs');
+  }
+
   Future pickImage() async {
-    final pickedFile = await picker.getImage(source: ImageSource.camera);
+    final pickedFile = await picker.getImage(source: ImageSource.gallery);
 
     setState(() {
       _imageFile = File(pickedFile!.path);
     });
   }
 
-  Future uploadImageToFirebase(BuildContext context) async {
+  Future _uploadImageToFirebase(BuildContext context) async {
+    //Check Permissions
+    await Permission.photos.request();
+    var permissionStatus = await Permission.photos.status;
+    if (permissionStatus.isGranted) {
+      ref = firebase_storage.FirebaseStorage.instance
+          .ref()
+          .child('Posted-Memes/${Path.basename(_imageFile!.path)}');
+      await ref.putFile(_imageFile!).whenComplete(() async {
+        await ref.getDownloadURL().then((value) async {
+          await postedMemesRef.add({'url': value});
+          });
+        });
+      } else {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          content: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
+            Text('Permission not granted. Try Again with permission access'),
+            FlatButton(
+              color: Colors.green,
+              child: Text(
+                'Ok',
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+              onPressed: () => Navigator.pop(context),
+            ),
+          ]),
+        ),
+      );
+      //print('Permission not granted. Try Again with permission access');
+    }
+  }
+
+  /*Future uploadImageToFirebase(BuildContext context) async {
     String fileName = basename(_imageFile!.path);
     firebase_storage.Reference ref =
     firebase_storage.FirebaseStorage.instance
-        .ref().child('uploads').child('/$fileName');
+        .ref().child(user!.uid+'Posted Memes').child('/$fileName');
 
     final metadata = firebase_storage.SettableMetadata(
         contentType: 'image/jpeg',
@@ -101,10 +150,7 @@ class _SaveUploadState extends State<SaveUpload> {
     }).onError((error, stackTrace) => {
       print("Upload file path error ${error.toString()} ")
     });
-
-
-
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) {
@@ -187,7 +233,7 @@ class _SaveUploadState extends State<SaveUpload> {
                 ),
                 borderRadius: BorderRadius.circular(30.0)),
             child: FlatButton(
-              onPressed: () => uploadImageToFirebase(context),
+              onPressed: () => _uploadImageToFirebase(context),
               child: Text(
                 "Upload Image",
                 style: TextStyle(fontSize: 20,color: Colors.white),

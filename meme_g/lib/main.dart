@@ -6,10 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:meme_g/screens/emailandpass_signin.dart';
 import 'package:meme_g/screens/homescreen.dart';
 import 'package:meme_g/screens/personal_info.dart';
+import 'package:meme_g/screens/working/my_work.dart';
 import 'package:meme_g/screens/working/save_upload.dart';
 import 'package:meme_g/widgets/user.dart';
 import 'screens/editor/image_editor.dart';
-import 'screens/working/profile_image_picker.dart';
+import 'screens/profile_image_picker.dart';
 import 'package:meme_g/screens/sign_in_screen.dart';
 import 'package:meme_g/screens/wrapper.dart';
 import 'package:meme_g/services/auth.dart';
@@ -61,6 +62,7 @@ class MyApp extends StatelessWidget {
           personal_info.route:(context) => personal_info(),
           ImageEditor.route: (context) => ImageEditor(),
           SaveUpload.route: (context) => SaveUpload(),
+          MyWork.route: (context) => MyWork(),
           //ProflieImagePicker.route: (context) => ProflieImagePicker(),
           signIn.route:(context) => signIn(),
 

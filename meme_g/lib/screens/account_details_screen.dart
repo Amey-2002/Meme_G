@@ -8,7 +8,7 @@ import 'package:meme_g/services/auth.dart';
 import 'package:meme_g/widgets/user.dart';
 import '../widgets/textfields.dart';
 import 'homescreen.dart';
-import 'package:meme_g/screens/working/profile_image_picker.dart';
+import 'package:meme_g/screens/profile_image_picker.dart';
 
 class Account_det extends StatefulWidget {
   static const route = 'account_det_screen';

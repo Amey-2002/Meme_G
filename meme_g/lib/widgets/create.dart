@@ -13,7 +13,8 @@ class Create extends StatelessWidget {
         children: <Widget>[
           FlatButton(
             onPressed: () {
-              Navigator.pushNamed(context, ImageEditor.route);
+              Navigator.pushNamed(context, SaveUpload.route);
+              //Navigator.pushNamed(context, ImageEditor.route);
             },
             child: const Text(
               'LET\'S MEME',

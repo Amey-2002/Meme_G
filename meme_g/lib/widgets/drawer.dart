@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:meme_g/screens/personal_info.dart';
 import 'package:meme_g/screens/sign_in_screen.dart';
+import 'package:meme_g/screens/working/my_work.dart';
 import 'package:meme_g/services/auth.dart';
 import 'package:meme_g/services/authstate.dart';
 import 'package:provider/src/provider.dart';
@@ -20,7 +22,7 @@ class NavDrawer extends StatelessWidget {
             ),
           ),
           onTap: () {
-            Navigator.pushNamed(context, Account_det.route);
+            Navigator.pushNamed(context, personal_info.route);
           },
         ),
         ListTile(
@@ -31,7 +33,9 @@ class NavDrawer extends StatelessWidget {
               fontSize: 20,
             ),
           ),
-          onTap: () {},
+          onTap: () {
+            Navigator.pushNamed(context, MyWork.route);
+          },
         ),
         ListTile(
           leading: Icon(Icons.favorite,size: 32,),

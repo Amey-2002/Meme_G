@@ -5,7 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 //import 'package:meme_g/screens/account_details_screen.dart';
-import 'package:meme_g/screens/working/profile_image_picker.dart';
+import 'package:meme_g/screens/profile_image_picker.dart';
 import 'package:meme_g/services/auth.dart';
 import 'package:meme_g/widgets/user.dart';
 import '../widgets/textfields.dart';
