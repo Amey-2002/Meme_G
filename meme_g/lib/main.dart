@@ -54,7 +54,7 @@ class MyApp extends StatelessWidget {
         ),
         home: MyHomePage(),
         routes: {
-          PhotoEditor.route: (context) => PhotoEditor(),
+          //PhotoEditor.route: (context) => PhotoEditor(),
           Account_det.route: (context) => Account_det(),
           Homescreen.route: (context) => Homescreen(),
           EmailandPass.route: (context) => EmailandPass(),

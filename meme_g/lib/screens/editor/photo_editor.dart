@@ -7,7 +7,8 @@ import 'package:flutter_painter/flutter_painter.dart';
 import 'dart:ui' as ui;
 
 class PhotoEditor extends StatefulWidget {
-
+  final List arguments;
+  PhotoEditor({required this.arguments});
   static const route = 'photo_editor_screen';
 
   @override
@@ -20,9 +21,17 @@ class _PhotoEditorState extends State<PhotoEditor> {
   late PainterController controller;
   ui.Image? backgroundImage;
 
+  /*late File image;
   @override
   void initState() {
     super.initState();
+    backgroundImage = widget.arguments[0];
+  }*/
+
+  @override
+  void initState() {
+    super.initState();
+    backgroundImage = widget.arguments[0];
     controller = PainterController(
         settings: PainterSettings(
             text: TextSettings(
@@ -38,7 +47,7 @@ class _PhotoEditorState extends State<PhotoEditor> {
     // Listen to focus events of the text field
     textFocusNode.addListener(onFocus);
     // Initialize background
-    initBackground();
+    //initBackground();
   }
 
   /// Fetches image from an [ImageProvider] (in this example, [NetworkImage])

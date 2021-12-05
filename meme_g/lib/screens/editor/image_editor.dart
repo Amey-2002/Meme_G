@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:meme_g/screens/editor/photo_editor.dart';
 import 'ie_edit_screen.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -36,6 +37,17 @@ class _SelectBottomPanelState extends State<SelectBottomPanel> {
   @override
   void initState() {
     super.initState();
+  }
+
+  var convertedImage;
+
+  Future getImage1() async {
+    final pickedFile = await picker.getImage(source: ImageSource.gallery);
+    convertedImage = await pickedFile!.readAsBytes();
+    convertedImage = await decodeImageFromList(convertedImage);
+    setState(() {
+      convertedImage = convertedImage;
+    });
   }
 
   Future getImage() async {
@@ -88,8 +100,13 @@ class _SelectBottomPanelState extends State<SelectBottomPanel> {
 
   _loadPicker(ImageSource source) async {
     //File picked = await ImagePicker.pickImage(source: source);
-    PickedFile? picked =
-        await picker.getImage(source: source /*ImageSource.camera*/);
+    //PickedFile? picked = await picker.getImage(source: source /*ImageSource.camera*/);
+    final picked = await picker.getImage(source: source);
+    convertedImage = await picked!.readAsBytes();
+    convertedImage = await decodeImageFromList(convertedImage);
+    setState(() {
+      convertedImage = convertedImage;
+    });
     if (picked != null) {
       setState(() {
         _image = File(picked.path);
@@ -98,8 +115,9 @@ class _SelectBottomPanelState extends State<SelectBottomPanel> {
         (value) => Navigator.push(
           context,
           CupertinoPageRoute(
-            builder: (context) => EditPhotoScreen(
-              arguments: [_image],
+            builder: (context) => PhotoEditor(
+              //arguments: [_image],
+              arguments: [convertedImage],
             ),
           ),
         ),
