@@ -22,76 +22,88 @@ class _signInState extends State<signIn> {
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),*/
-        body: Center(
-      // Center is a layout widget. It takes a single child and positions it
-      // in the middle of the parent.
-      child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Container(
-              child: FloatingActionButton.extended(
-                heroTag: "btn1",
-                icon: Icon(Icons.login_sharp),
-                onPressed: () {
-                  Navigator.pushNamed(context, EmailandPass.route);
-                },
-                label: Text(
-                  'Sign In',
-                ),
-              ),
-            ),
-            Container(
-              child: FloatingActionButton.extended(
-                heroTag: "btn2",
-                label: Text(
-                  'Guest',
-                ),
-                onPressed: () async {
-                  dynamic resultuser = await authObject.AnonymousSignIn();
-                  if (resultuser == null) {
-                    print("sign in failed");
-                  } else {
-                    Navigator.pushNamed(context, Homescreen.route);
-                    print(resultuser.uid);
-                  }
-                },
-              ),
-            ),
-            Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+        body: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
               Container(
-                child: TextButton(
-                  //foregroundColor: Colors.green,
-                  //backgroundColor: Colors.white,
-                  onPressed: () {},
-                  child: const Text(
-                    'New user ?',
+                height: 300,
+                width: double.infinity,
+                child: Image.asset(
+                  'assets/Wall post-amico (1).png',
+                  
+                ),
+              ),
+            
+
+              Container(
+                 padding: EdgeInsets.all(10),
+                child: FloatingActionButton.extended(
+                  heroTag: "btn1",
+                  icon: Icon(Icons.login_sharp),
+                  onPressed: () {
+                    Navigator.pushNamed(context, EmailandPass.route);
+                  },
+                  label: Text(
+                    'Sign In',
                   ),
                 ),
               ),
               Container(
-                child: TextButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, Account_det.route);
-                    print('accounts_det screen called');
+                 padding: EdgeInsets.all(10),
+                child: FloatingActionButton.extended(
+                  heroTag: "btn2",
+                  label: Text(
+                    'Guest',
+                  ),
+                  onPressed: () async {
+                    dynamic resultuser = await authObject.AnonymousSignIn();
+                    if (resultuser == null) {
+                      print("sign in failed");
+                    } else {
+                      Navigator.pushNamed(context, Homescreen.route);
+                      print(resultuser.uid);
+                    }
                   },
-                  child: const Text('Create Account'),
                 ),
+              ),
+              Row(mainAxisAlignment: MainAxisAlignment.center,
+               children: [
+                Container(
+                  child: Text('New User?'
+                    //foregroundColor: Colors.green,
+                    //backgroundColor: Colors.white,
+                    ),
+                  ),
+                
+                Container(
+                  child: TextButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, Account_det.route);
+                      print('accounts_det screen called');
+                    },
+                    child: const Text('Create Account'),
+                  ),
+                )
+              ]),
+              SignInButton(
+                Buttons.Google,
+                text: "Sign up with Google",
+                shape:  RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5),
+                )  ,
+                onPressed: () async {
+                    dynamic resultuser = await authObject.googleSignin();
+                    if (resultuser == null) {
+                      print("sign in failed");
+                    } else {
+                      Navigator.pushNamed(context, Homescreen.route);
+                      print(resultuser.uid);
+                    } 
+                  },
+                   
               )
             ]),
-            SignInButton(
-              Buttons.Google,
-              text: "Sign up with Google",
-              onPressed: () async {
-                  dynamic resultuser = await authObject.googleSignin();
-                  if (resultuser == null) {
-                    print("sign in failed");
-                  } else {
-                    Navigator.pushNamed(context, Homescreen.route);
-                    print(resultuser.uid);
-                  }
-                },
-            )
-          ]),
-    ));
+      
+    );
   }
 }
