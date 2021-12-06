@@ -35,6 +35,7 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -60,12 +61,16 @@ class MyApp extends StatelessWidget {
           Homescreen.route: (context) => Homescreen(),
           EmailandPass.route: (context) => EmailandPass(),
 
+
           personal_info.route:(context) => personal_info(),
           ImageEditor.route: (context) => ImageEditor(),
           SaveUpload.route: (context) => SaveUpload(),
           MyWork.route: (context) => MyWork(),
           //ImageEditorPro.route: (context) => ImageEditorPro(),
           //ProflieImagePicker.route: (context) => ProflieImagePicker(),
+
+          
+
           signIn.route:(context) => signIn(),
 
         },

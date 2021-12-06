@@ -30,7 +30,7 @@ class _HomescreenState extends State<Homescreen> {
               icon: IconButton(
                 icon: Icon(Icons.account_circle),
                 onPressed: () {
-                  Navigator.pushNamed(context,personal_info.route);
+                  Navigator.pushReplacementNamed(context,personal_info.route);
                 },
               ),
               title: Text('You')),

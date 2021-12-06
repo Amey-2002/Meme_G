@@ -14,6 +14,7 @@ import 'homescreen.dart';
 
 class personal_info extends StatefulWidget {
   static const route = 'personal_info_screen';
+
   //personal_info(this.uId);
   //String? uId;
   /*set setuid
@@ -30,7 +31,10 @@ class _personal_infoState extends State<personal_info> {
   late CollectionReference usersCollectionRef;
 
   bool no_edit_info = true;
-  void edit_info() {}
+
+
+  //void edit_info() {}
+
 
   dynamic name, birthdate, country, username, emailid, upassword;
 
