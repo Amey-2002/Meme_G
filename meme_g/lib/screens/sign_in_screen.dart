@@ -49,13 +49,14 @@ class _signInState extends State<signIn> {
                   'Guest',
                 ),
                 onPressed: () async {
-                  dynamic resultuser = await authObject.AnonymousSignIn();
+                  Navigator.pushNamed(context, Homescreen.route);
+                  /*dynamic resultuser = await authObject.AnonymousSignIn();
                   if (resultuser == null) {
                     print("sign in failed");
                   } else {
                     Navigator.pushNamed(context, Homescreen.route);
                     print(resultuser.uid);
-                  }
+                  }*/
                 },
               ),
             ),

@@ -130,3 +130,6 @@ Picking Image',
 
 //error while using flutter image editor pro
 RangeError (RangeError (index): Invalid value: Valid value range is empty: -1)
+
+toDoList
+1) from personal Info page add function to let user edit its info 
