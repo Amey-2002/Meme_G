@@ -17,6 +17,9 @@ class _EmailandPassState extends State<EmailandPass> {
     return Scaffold(
       appBar: AppBar(
         title : Text('Sign In'),
+        backgroundColor: Colors.transparent,
+        foregroundColor : Colors.black,
+        elevation: 0,
       ),
        body: Card(
            elevation: 5, 
@@ -66,10 +69,10 @@ class _EmailandPassState extends State<EmailandPass> {
 
           ElevatedButton(
                 style : ButtonStyle(
-                 padding : MaterialStateProperty.all(const EdgeInsets.all(5)),
+                 padding : MaterialStateProperty.all(const EdgeInsets.all(10)),
                   shape: MaterialStateProperty.all(
                     RoundedRectangleBorder(
-                      borderRadius: BorderRadius.vertical(top: Radius.circular(15),
+                      borderRadius: BorderRadius.vertical(top: Radius.circular(5),
                       bottom: Radius.circular(15)),
                     )
                   )   ,
