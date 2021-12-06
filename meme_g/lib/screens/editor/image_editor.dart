@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:meme_g/FlutterIEP/coderjava_image_editor_pro.dart';
+import 'package:meme_g/screens/editor/flutter_ie_pro.dart';
 import 'package:meme_g/screens/editor/photo_editor.dart';
 import 'ie_edit_screen.dart';
 import 'package:image_picker/image_picker.dart';
@@ -32,7 +34,8 @@ class SelectBottomPanel extends StatefulWidget {
 }
 
 class _SelectBottomPanelState extends State<SelectBottomPanel> {
-  late File _image;
+  File? _image;
+  File? _defaultImage;
   final picker = ImagePicker();
   @override
   void initState() {
@@ -50,7 +53,7 @@ class _SelectBottomPanelState extends State<SelectBottomPanel> {
     });
   }
 
-  Future getImage() async {
+  /*Future getImage() async {
     final pickedFile = await picker.getImage(source: ImageSource.gallery);
     //final pickedFile = await ImagePicker.pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
@@ -68,7 +71,7 @@ class _SelectBottomPanelState extends State<SelectBottomPanel> {
         ),
       );
     }
-  }
+  }*/
 
   //by shubham
   _showPickOptionsDialog(BuildContext context) {
@@ -100,29 +103,62 @@ class _SelectBottomPanelState extends State<SelectBottomPanel> {
 
   _loadPicker(ImageSource source) async {
     //File picked = await ImagePicker.pickImage(source: source);
-    //PickedFile? picked = await picker.getImage(source: source /*ImageSource.camera*/);
-    final picked = await picker.getImage(source: source);
+    PickedFile? picked = await picker.getImage(source: source /*ImageSource.camera*/);
+    /*final picked = await picker.getImage(source: source);
     convertedImage = await picked!.readAsBytes();
     convertedImage = await decodeImageFromList(convertedImage);
     setState(() {
       convertedImage = convertedImage;
-    });
+    });*/
     if (picked != null) {
       setState(() {
-        _image = File(picked.path);
+         //File(picked.path)
+        _defaultImage = File(picked.path);
       });
-      Future.delayed(Duration(seconds: 0)).then(
+      getImageEditor();
+      /*Future.delayed(Duration(seconds: 0)).then(
         (value) => Navigator.push(
           context,
           CupertinoPageRoute(
-            builder: (context) => PhotoEditor(
-              //arguments: [_image],
-              arguments: [convertedImage],
+            builder: (context) => ImageEditorPro(
+              arguments: [_image],
+              //arguments: [convertedImage],
             ),
           ),
         ),
-      );
+      );*/
     }
+  }
+
+  Future<void> getImageEditor() {
+    return Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) {
+          return CoderJavaImageEditorPro(
+            appBarColor: Colors.black87,
+            bottomBarColor: Colors.black87,
+            pathSave: null,
+            
+            defaultPathImage: _defaultImage == null ? '' : _defaultImage!.path,
+            isShowingChooseImage: false,
+            isShowingFlip: false,
+            isShowingRotate: false,
+            isShowingBlur: false,
+            isShowingFilter: false,
+            isShowingEmoji: false,
+          );
+        },
+      ),
+    ).then((value) {
+      if (value != null) {
+        setState(() {
+          _image = value;
+        });
+      }
+    }).catchError((er) {
+      print(er);
+    });
   }
   //
 

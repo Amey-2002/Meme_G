@@ -3,6 +3,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:meme_g/screens/editor/flutter_ie_pro.dart';
 import 'package:meme_g/screens/emailandpass_signin.dart';
 import 'package:meme_g/screens/homescreen.dart';
 import 'package:meme_g/screens/personal_info.dart';
@@ -63,6 +64,7 @@ class MyApp extends StatelessWidget {
           ImageEditor.route: (context) => ImageEditor(),
           SaveUpload.route: (context) => SaveUpload(),
           MyWork.route: (context) => MyWork(),
+          //ImageEditorPro.route: (context) => ImageEditorPro(),
           //ProflieImagePicker.route: (context) => ProflieImagePicker(),
           signIn.route:(context) => signIn(),
 

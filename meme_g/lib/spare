@@ -98,3 +98,35 @@ void main() async {
 >>>> C:\Users\shubh\Downloads\flutter_windows_2.5.2-stable\flutter\.pub-cache\hosted\pub.dartlang.org\extended_image_library-3.1.0\lib\src\_platform_web.dart
 In _platform_web.dart,
 Line 26 >>> void writeAsBytesSync(List<int> bytes);
+
+//showImage widget takes an File and displays as image
+Widget showImage() {
+    return FutureBuilder<File>(
+      future: imageFile,
+      builder: (BuildContext context, AsyncSnapshot<File> snapshot) {
+        imageFileReturn = snapshot.data;
+        if (snapshot.connectionState == ConnectionState.done &&
+            snapshot.data != null) {
+          return Image.file(
+            snapshot.data,
+            width: 400,
+            height: 400,
+          );
+        } else if (snapshot.error != null) {
+          return const Text(
+            'Error
+Picking Image',
+            textAlign: TextAlign.center,
+          );
+        } else {
+          return const Text(
+            'No Image Selected',
+            textAlign: TextAlign.center,
+          );
+        }
+      },
+    );
+  }
+
+//error while using flutter image editor pro
+RangeError (RangeError (index): Invalid value: Valid value range is empty: -1)

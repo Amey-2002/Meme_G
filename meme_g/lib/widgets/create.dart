@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meme_g/screens/editor/flutter_ie_pro.dart';
 import 'package:meme_g/screens/working/save_upload.dart';
 import '../screens/editor/image_editor.dart';
 import '../screens/editor/photo_editor.dart';
@@ -15,6 +16,7 @@ class Create extends StatelessWidget {
             onPressed: () {
               //Navigator.pushNamed(context, SaveUpload.route);
               Navigator.pushNamed(context, ImageEditor.route);
+              //Navigator.pushNamed(context, ImageEditorPro.route);
             },
             child: const Text(
               'LET\'S MEME',
