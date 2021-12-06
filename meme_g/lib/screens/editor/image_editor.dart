@@ -1,13 +1,21 @@
-/*import 'dart:io';
+import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:meme_g/FlutterIEP/coderjava_image_editor_pro.dart';
+import 'package:meme_g/screens/editor/flutter_ie_pro.dart';
+import 'package:meme_g/screens/editor/photo_editor.dart';
 import 'ie_edit_screen.dart';
 import 'package:image_picker/image_picker.dart';
 
-class ImageEditor extends StatelessWidget {
+class ImageEditor extends StatefulWidget {
   static const route = 'image_editor_screen';
 
+  @override
+  State<ImageEditor> createState() => _ImageEditorState();
+}
+
+class _ImageEditorState extends State<ImageEditor> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -26,15 +34,28 @@ class SelectBottomPanel extends StatefulWidget {
 }
 
 class _SelectBottomPanelState extends State<SelectBottomPanel> {
-  late File _image;
+  File? _image;
+  File? _defaultImage;
   final picker = ImagePicker();
   @override
   void initState() {
     super.initState();
   }
 
-  Future getImage() async {
+  var convertedImage;
+
+  Future getImage1() async {
     final pickedFile = await picker.getImage(source: ImageSource.gallery);
+    convertedImage = await pickedFile!.readAsBytes();
+    convertedImage = await decodeImageFromList(convertedImage);
+    setState(() {
+      convertedImage = convertedImage;
+    });
+  }
+
+  /*Future getImage() async {
+    final pickedFile = await picker.getImage(source: ImageSource.gallery);
+    //final pickedFile = await ImagePicker.pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
       setState(() {
         _image = File(pickedFile.path);
@@ -50,7 +71,96 @@ class _SelectBottomPanelState extends State<SelectBottomPanel> {
         ),
       );
     }
+  }*/
+
+  //by shubham
+  _showPickOptionsDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            ListTile(
+              leading: Icon(Icons.photo_library),
+              title: Text("Pick from Gallery"),
+              onTap: () {
+                _loadPicker(ImageSource.gallery);
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.camera_alt),
+              title: Text("Take a picture"),
+              onTap: () {
+                _loadPicker(ImageSource.camera);
+              },
+            )
+          ],
+        ),
+      ),
+    );
   }
+
+  _loadPicker(ImageSource source) async {
+    //File picked = await ImagePicker.pickImage(source: source);
+    PickedFile? picked = await picker.getImage(source: source /*ImageSource.camera*/);
+    /*final picked = await picker.getImage(source: source);
+    convertedImage = await picked!.readAsBytes();
+    convertedImage = await decodeImageFromList(convertedImage);
+    setState(() {
+      convertedImage = convertedImage;
+    });*/
+    if (picked != null) {
+      setState(() {
+         //File(picked.path)
+        _defaultImage = File(picked.path);
+      });
+      getImageEditor();
+      /*Future.delayed(Duration(seconds: 0)).then(
+        (value) => Navigator.push(
+          context,
+          CupertinoPageRoute(
+            builder: (context) => ImageEditorPro(
+              arguments: [_image],
+              //arguments: [convertedImage],
+            ),
+          ),
+        ),
+      );*/
+    }
+  }
+
+  Future<void> getImageEditor() {
+    return Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) {
+          return CoderJavaImageEditorPro(
+            appBarColor: Colors.black87,
+            bottomBarColor: Colors.black87,
+            pathSave: null,
+            
+            defaultPathImage: _defaultImage == null ? '' : _defaultImage!.path,
+            isShowingChooseImage: false,
+            isShowingFlip: false,
+            isShowingRotate: false,
+            isShowingBlur: false,
+            isShowingFilter: false,
+            isShowingEmoji: false,
+          );
+        },
+      ),
+    ).then((value) {
+      if (value != null) {
+        setState(() {
+          _image = value;
+        });
+      }
+    }).catchError((er) {
+      print(er);
+    });
+  }
+  //
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +177,31 @@ class _SelectBottomPanelState extends State<SelectBottomPanel> {
             style: Theme.of(context).textTheme.headline4,
           ),
           Spacer(),
-          Row(
+          //by shubham
+          Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                ListTile(
+                  leading: Icon(Icons.photo_library),
+                  title: Text("Pick from Gallery"),
+                  onTap: () {
+                    _loadPicker(ImageSource.gallery);
+                  },
+                ),
+                ListTile(
+                  leading: Icon(Icons.camera_alt),
+                  title: Text("Take a picture"),
+                  onTap: () {
+                    _loadPicker(ImageSource.camera);
+                  },
+                )
+              ],
+            ),
+          ),
+          //original code
+          /*Row(
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.max,
             children: <Widget>[
@@ -79,7 +213,7 @@ class _SelectBottomPanelState extends State<SelectBottomPanel> {
                     padding: const EdgeInsets.all(8.0),
                     child: GestureDetector(
                       onTap: () async {
-                        await getImage();
+                        await _showPickOptionsDialog(context);
                       },
                       child: Container(
                         width: MediaQuery.of(context).size.width / 2 - 20,
@@ -106,9 +240,10 @@ class _SelectBottomPanelState extends State<SelectBottomPanel> {
                                 child: Opacity(
                                     opacity: 1,
                                     child: Image.asset(
-                                      'assets/images/homescreen.jpg',
+                                      'assets/dummyMemes/homescreen.jpg',
                                       fit: BoxFit.cover,
-                                    )),
+                                    ),
+                                  ),
                               ),
                             ),
                             Padding(
@@ -150,7 +285,7 @@ class _SelectBottomPanelState extends State<SelectBottomPanel> {
                 ],
               ),
             ],
-          ),
+          ),*/
           Spacer(),
           Padding(
             padding: const EdgeInsets.fromLTRB(0, 0, 0, 32),
@@ -170,4 +305,4 @@ class _SelectBottomPanelState extends State<SelectBottomPanel> {
       ),
     );
   }
-}*/
+}

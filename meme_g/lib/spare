@@ -55,6 +55,34 @@ class  account_det_state extends State<account_det>
     firebase.initializeApp(firebaseConfig);
   </script>*/
 
+//<<<<<<< Shubham
+  //firestore dependencys
+  //cloud_firestore: ^2.5.4
+
+  //           19th NOV 2021
+  //firebase exception no firebase app [default] has been created
+  //1> in C:\Users\shubh\Documents\GitHub\Meme_G\meme_g\android\app\build.gradle
+  /*
+  line 47>>>>>>> minSdkVersion 19
+  line 49>>>>>>> multiDexEnabled true
+  line 69>>>>>>> implementation 'com.android.support:multidex:1.0.3'
+  //2> in pubspec.yaml
+  //firebase_core: ^1.8.0
+  //3> in main
+  /*import 'package:firebase_core/firebase_core.dart';
+void main() async {
+   WidgetsFlutterBinding.ensureInitialized();
+   await Firebase.initializeApp();
+   runApp(MyApp());
+}*/
+
+//           20th NOV 2021
+//IN >>>\meme_g\android\build.gradle
+//Line 2 >>>> ext.kotlin_version = '1.4.32'
+
+//in >>>> C:\Users\shubh\Downloads\flutter_windows_2.5.2-stable\flutter\.pub-cache\hosted\pub.dartlang.org\extended_image_library-3.1.0\lib\src\extended_image_provider.dart
+//Line 18 >>>>   bool get cacheRawData = true;
+//s>>>>>>> Amey
  // cloud_firestore: ^3.1.0
 
   /* onPressed: () async {
@@ -66,3 +94,39 @@ class  account_det_state extends State<account_det>
                     print(resultuser.uid);
                   }
                 },*/
+
+>>>> C:\Users\shubh\Downloads\flutter_windows_2.5.2-stable\flutter\.pub-cache\hosted\pub.dartlang.org\extended_image_library-3.1.0\lib\src\_platform_web.dart
+In _platform_web.dart,
+Line 26 >>> void writeAsBytesSync(List<int> bytes);
+
+//showImage widget takes an File and displays as image
+Widget showImage() {
+    return FutureBuilder<File>(
+      future: imageFile,
+      builder: (BuildContext context, AsyncSnapshot<File> snapshot) {
+        imageFileReturn = snapshot.data;
+        if (snapshot.connectionState == ConnectionState.done &&
+            snapshot.data != null) {
+          return Image.file(
+            snapshot.data,
+            width: 400,
+            height: 400,
+          );
+        } else if (snapshot.error != null) {
+          return const Text(
+            'Error
+Picking Image',
+            textAlign: TextAlign.center,
+          );
+        } else {
+          return const Text(
+            'No Image Selected',
+            textAlign: TextAlign.center,
+          );
+        }
+      },
+    );
+  }
+
+//error while using flutter image editor pro
+RangeError (RangeError (index): Invalid value: Valid value range is empty: -1)

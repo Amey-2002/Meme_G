@@ -7,12 +7,14 @@ import 'package:flutter_signin_button/flutter_signin_button.dart';
 
 class signIn extends StatefulWidget {
   @override
+    static const route = "Sign in screen";
   State<signIn> createState() => _signInState();
 }
 
 class _signInState extends State<signIn> {
   final Auth _Authentication = Auth();
   dynamic emailid, upassword;
+
   var authObject = new Auth();
   @override
   Widget build(BuildContext context) {
@@ -105,5 +107,21 @@ class _signInState extends State<signIn> {
             ]),
       
     );
+            SignInButton(
+              Buttons.Google,
+              text: "Sign up with Google",
+              onPressed: () async {
+                  dynamic resultuser = await authObject.googleSignin();
+                  if (resultuser == null) {
+                    print("sign in failed");
+                  } else {
+                    Navigator.pop(context);
+                    Navigator.pushNamed(context, Homescreen.route);
+                    print(resultuser.accessToken);
+                  }
+                },
+            )
+          ]),
+    ));
   }
 }

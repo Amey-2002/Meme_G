@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:meme_g/screens/personal_info.dart';
 import 'package:meme_g/widgets/create.dart';
 import 'package:meme_g/widgets/meme_list.dart';
 import '../widgets/drawer.dart';
-import '../screens/photo_editor.dart';
+import 'editor/photo_editor.dart';
 import '../screens/account_details_screen.dart';
 
 class Homescreen extends StatefulWidget {
@@ -13,8 +14,7 @@ class Homescreen extends StatefulWidget {
 }
 
 class _HomescreenState extends State<Homescreen> {
-   
-
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +30,7 @@ class _HomescreenState extends State<Homescreen> {
               icon: IconButton(
                 icon: Icon(Icons.account_circle),
                 onPressed: () {
-                  Navigator.pushNamed(context, Account_det.route);
+                  Navigator.pushNamed(context,personal_info.route);
                 },
               ),
               title: Text('You')),

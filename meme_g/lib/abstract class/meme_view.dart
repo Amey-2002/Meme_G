@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 
 class MemeView extends StatelessWidget {
+
+  Image img;
+
+  MemeView({required this.img});
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -23,11 +28,11 @@ class MemeView extends StatelessWidget {
           Container(
             height: 330,
             width: 330,
-            child: const Image(
+            child: img, /*const Image(
               image: NetworkImage(
                   'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl-2.jpg'
-                )
-            ),
+                ),
+            ),*/
           ),
           Padding(
             padding: const EdgeInsets.only(bottom: 20,top: 2),

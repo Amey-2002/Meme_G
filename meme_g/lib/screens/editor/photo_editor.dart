@@ -7,7 +7,8 @@ import 'package:flutter_painter/flutter_painter.dart';
 import 'dart:ui' as ui;
 
 class PhotoEditor extends StatefulWidget {
-
+  final List arguments;
+  PhotoEditor({required this.arguments});
   static const route = 'photo_editor_screen';
 
   @override
@@ -20,9 +21,17 @@ class _PhotoEditorState extends State<PhotoEditor> {
   late PainterController controller;
   ui.Image? backgroundImage;
 
+  /*late File image;
   @override
   void initState() {
     super.initState();
+    backgroundImage = widget.arguments[0];
+  }*/
+
+  @override
+  void initState() {
+    super.initState();
+    backgroundImage = widget.arguments[0];
     controller = PainterController(
         settings: PainterSettings(
             text: TextSettings(
@@ -38,7 +47,7 @@ class _PhotoEditorState extends State<PhotoEditor> {
     // Listen to focus events of the text field
     textFocusNode.addListener(onFocus);
     // Initialize background
-    initBackground();
+    //initBackground();
   }
 
   /// Fetches image from an [ImageProvider] (in this example, [NetworkImage])
@@ -96,52 +105,56 @@ class _PhotoEditorState extends State<PhotoEditor> {
         ),
         onPressed: renderAndDisplayImage,
       ),
-      body: Column(
-        children: [
-          if (backgroundImage != null)
-            // Enforces constraints
-            AspectRatio(
-              aspectRatio: backgroundImage!.width / backgroundImage!.height,
-              child: FlutterPainter(
-                controller: controller,
-              ),
-            ),
-          if (controller.freeStyleSettings.enabled) ...[
-            // Control free style stroke width
-            Slider.adaptive(
-                min: 3,
-                max: 15,
-                value: controller.freeStyleSettings.strokeWidth,
-                onChanged: setFreeStyleStrokeWidth),
-
-            // Control free style color hue
-            Slider.adaptive(
-                min: 0,
-                max: 359.99,
-                value:
-                    HSVColor.fromColor(controller.freeStyleSettings.color).hue,
-                activeColor: controller.freeStyleSettings.color,
-                onChanged: setFreeStyleColor),
-          ],
-          if (textFocusNode.hasFocus) ...[
-            // Control text font size
-            Slider.adaptive(
-                min: 12,
-                max: 48,
-                value: controller.textSettings.textStyle.fontSize ?? 14,
-                onChanged: setTextFontSize),
-
-            // Control text color hue
-            Slider.adaptive(
-                min: 0,
-                max: 359.99,
-                value: HSVColor.fromColor(
-                        controller.textSettings.textStyle.color ?? red)
-                    .hue,
-                activeColor: controller.textSettings.textStyle.color,
-                onChanged: setTextColor),
-          ]
-        ],
+      body: SingleChildScrollView(
+        child: Container(
+          child: Column(
+            children: [
+              if (backgroundImage != null)
+                // Enforces constraints
+                AspectRatio(
+                  aspectRatio: backgroundImage!.width / backgroundImage!.height,
+                  child: FlutterPainter(
+                    controller: controller,
+                  ),
+                ),
+              if (controller.freeStyleSettings.enabled) ...[
+                // Control free style stroke width
+                Slider.adaptive(
+                    min: 3,
+                    max: 15,
+                    value: controller.freeStyleSettings.strokeWidth,
+                    onChanged: setFreeStyleStrokeWidth),
+      
+                // Control free style color hue
+                Slider.adaptive(
+                    min: 0,
+                    max: 359.99,
+                    value:
+                        HSVColor.fromColor(controller.freeStyleSettings.color).hue,
+                    activeColor: controller.freeStyleSettings.color,
+                    onChanged: setFreeStyleColor),
+              ],
+              if (textFocusNode.hasFocus) ...[
+                // Control text font size
+                Slider.adaptive(
+                    min: 12,
+                    max: 48,
+                    value: controller.textSettings.textStyle.fontSize ?? 14,
+                    onChanged: setTextFontSize),
+      
+                // Control text color hue
+                Slider.adaptive(
+                    min: 0,
+                    max: 359.99,
+                    value: HSVColor.fromColor(
+                            controller.textSettings.textStyle.color ?? red)
+                        .hue,
+                    activeColor: controller.textSettings.textStyle.color,
+                    onChanged: setTextColor),
+              ]
+            ],
+          ),
+        ),
       ),
     );
   }

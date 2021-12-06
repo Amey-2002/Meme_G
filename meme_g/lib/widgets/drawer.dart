@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:meme_g/screens/personal_info.dart';
+import 'package:meme_g/screens/sign_in_screen.dart';
+import 'package:meme_g/screens/working/my_work.dart';
+import 'package:meme_g/services/auth.dart';
+import 'package:meme_g/services/authstate.dart';
+import 'package:provider/src/provider.dart';
 import '../screens/account_details_screen.dart';
-
+ bool userstate = false;
 class NavDrawer extends StatelessWidget {
+ 
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -15,7 +22,7 @@ class NavDrawer extends StatelessWidget {
             ),
           ),
           onTap: () {
-            Navigator.pushNamed(context, Account_det.route);
+            Navigator.pushNamed(context, personal_info.route);
           },
         ),
         ListTile(
@@ -26,7 +33,9 @@ class NavDrawer extends StatelessWidget {
               fontSize: 20,
             ),
           ),
-          onTap: () {},
+          onTap: () {
+            Navigator.pushNamed(context, MyWork.route);
+          },
         ),
         ListTile(
           leading: Icon(Icons.favorite,size: 32,),
@@ -66,7 +75,25 @@ class NavDrawer extends StatelessWidget {
               fontSize: 20,
             ),
           ),
-          onTap: () {},
+          onTap: () {
+            
+          },
+        ),
+        ListTile(
+          leading: Icon(Icons.logout_sharp,size: 32,),
+          title: Text(
+            'Log out',
+            style: TextStyle(
+              fontSize: 20,
+            ),
+          ),
+          onTap: () {
+            context.read<Auth>().signout();
+            Navigator.popAndPushNamed(context,signIn.route);
+            print("signed out");
+           // userstate=false;
+            //Navigator.pop(context);
+          },
         ),
       ]),
     );

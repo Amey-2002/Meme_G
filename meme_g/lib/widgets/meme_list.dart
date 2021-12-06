@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import './meme_view.dart';
+import '../abstract class/meme_view.dart';
 
 class MemeList extends StatelessWidget {
   @override
@@ -18,10 +18,24 @@ class MemeList extends StatelessWidget {
         },*/
       child: Column(
         children: <Widget>[
-          MemeView(),
-          MemeView(),
-          MemeView(),
-          MemeView(),
+          MemeView(
+            img: Image.asset(
+              'assets/dummyMemes/1.jpg',
+              fit: BoxFit.cover,
+            ),
+          ),
+          MemeView(
+            img: Image.asset(
+              'assets/dummyMemes/2.png',
+              fit: BoxFit.cover,
+            ),
+          ),
+          MemeView(
+            img: Image.asset(
+              'assets/dummyMemes/3.png',
+              fit: BoxFit.cover,
+            ),
+          ),
         ],
       ),
     );
