@@ -12,7 +12,8 @@ class Create extends StatelessWidget {
         children: <Widget>[
           FlatButton(
             onPressed: () {
-              Navigator.pushNamed(context, PhotoEditor.route);
+              //Navigator.pushNamed(context, PhotoEditor.route);
+                Navigator.pushReplacementNamed(context, PhotoEditor.route);
             },
             child: const Text(
               'LET\'S MEME',
@@ -39,7 +40,7 @@ class Create extends StatelessWidget {
               IconButton(onPressed: () {}, icon: Icon(Icons.search)),
             ],
           ),
-          Row(
+         /* Row(
             children: <Widget>[
               Container(
                 margin: const EdgeInsets.only(left: 15),
@@ -67,7 +68,7 @@ class Create extends StatelessWidget {
                 ),
               ),
             ],
-          ),
+          ),*/
         ],
       ),
     );

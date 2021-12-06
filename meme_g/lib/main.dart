@@ -30,7 +30,7 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   
-  UserF getuid = new UserF.senduid();
+  //UserF getuid = new UserF.senduid();
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -54,7 +54,8 @@ class MyApp extends StatelessWidget {
           Account_det.route: (context) => Account_det(),
           Homescreen.route: (context) => Homescreen(),
           EmailandPass.route: (context) => EmailandPass(),
-          personal_info.route:(context) => personal_info(getuid.senduid()),
+          //personal_info.route:(context) => personal_info((getuid.senduid()),
+          personal_info.route:(context) => personal_info(),
           signIn.route:(context) => signIn(),
         },
       ),

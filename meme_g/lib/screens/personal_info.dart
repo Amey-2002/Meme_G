@@ -12,7 +12,7 @@ import 'homescreen.dart';
 
 class personal_info extends StatefulWidget {
   static const route = 'personal_info_screen';
-  personal_info(this.uid);
+  //personal_info(this.uid);
   String? uid ;
   /*set setuid
   (UserId){
@@ -27,7 +27,7 @@ class _personal_infoState extends State<personal_info> {
 
   bool no_edit_info = true;
 
-  void edit_info() {}
+  //void edit_info() {}
 
  // dynamic name, userid, country;
 

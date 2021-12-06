@@ -73,7 +73,8 @@ class _signInState extends State<signIn> {
               Container(
                 child: TextButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, Account_det.route);
+                   // Navigator.pushNamed(context, Account_det.route);
+                       Navigator.pushReplacementNamed(context, Account_det.route);
                     print('accounts_det screen called');
                   },
                   child: const Text('Create Account'),
@@ -88,8 +89,9 @@ class _signInState extends State<signIn> {
                   if (resultuser == null) {
                     print("sign in failed");
                   } else {
-                    Navigator.pop(context);
-                    Navigator.pushNamed(context, Homescreen.route);
+                   // Navigator.pop(context);
+                   // Navigator.pushNamed(context, Homescreen.route);
+                      Navigator.pushReplacementNamed(context, Homescreen.route);
                     print(resultuser.accessToken);
                   }
                 },

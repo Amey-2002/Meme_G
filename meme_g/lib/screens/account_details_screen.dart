@@ -179,8 +179,9 @@ class _Account_detState extends State<Account_det> {
                   print("Enter valid Details");
                 } else {
                   UserF.accountDetails(name, userid, country, birthdate);
-                  Navigator.pop(context);
-                  Navigator.pushNamed(context, Homescreen.route);
+                 // Navigator.pop(context);
+                 // Navigator.pushNamed(context, Homescreen.route);
+                    Navigator.pushReplacementNamed(context, Homescreen.route);
                   print(result.uid);
                 }
               })
