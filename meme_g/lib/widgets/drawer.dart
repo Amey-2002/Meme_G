@@ -22,7 +22,11 @@ class NavDrawer extends StatelessWidget {
             ),
           ),
           onTap: () {
-            Navigator.pushNamed(context, personal_info.route);
+
+           // Navigator.pushNamed(context, personal_info.route);
+
+            Navigator.pushReplacementNamed(context, Account_det.route);
+
           },
         ),
         ListTile(
@@ -87,10 +91,12 @@ class NavDrawer extends StatelessWidget {
               fontSize: 20,
             ),
           ),
-          onTap: () {
-            context.read<Auth>().signout();
-            Navigator.popAndPushNamed(context,signIn.route);
+          onTap: () async {
+            await context.read<Auth>().signout();
+           //await Navigator.popAndPushNamed(context,signIn.route);
+            await  Navigator.pushReplacementNamed(context,signIn.route);
             print("signed out");
+            CircularProgressIndicator(backgroundColor: Colors.greenAccent,);
            // userstate=false;
             //Navigator.pop(context);
           },

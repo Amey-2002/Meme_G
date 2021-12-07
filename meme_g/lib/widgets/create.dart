@@ -43,7 +43,7 @@ class Create extends StatelessWidget {
               IconButton(onPressed: () {}, icon: Icon(Icons.search)),
             ],
           ),
-          Row(
+         /* Row(
             children: <Widget>[
               Container(
                 margin: const EdgeInsets.only(left: 15),
@@ -71,7 +71,7 @@ class Create extends StatelessWidget {
                 ),
               ),
             ],
-          ),
+          ),*/
         ],
       ),
     );

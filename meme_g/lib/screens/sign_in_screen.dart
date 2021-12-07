@@ -98,8 +98,9 @@ class _signInState extends State<signIn> {
                   if (resultuser == null) {
                     print("sign in failed");
                   } else {
-                    Navigator.pop(context);
-                    Navigator.pushNamed(context, Homescreen.route);
+                   // Navigator.pop(context);
+                   // Navigator.pushNamed(context, Homescreen.route);
+                      Navigator.pushReplacementNamed(context, Homescreen.route);
                     print(resultuser.accessToken);
                   }
                   },

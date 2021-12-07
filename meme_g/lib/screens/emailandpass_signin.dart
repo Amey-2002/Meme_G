@@ -87,16 +87,22 @@ class _EmailandPassState extends State<EmailandPass> {
                   if (resultuser == null) {
                     print("sign in failed");
                   } else {
-                    Navigator.pushNamed(context, Homescreen.route);
-                    print(resultuser.uid);
+                   // Navigator.pop(context);
+                //Navigator.pushNamed(context, Homescreen.route);
+                 await Navigator.pushReplacementNamed(context, Homescreen.route);
+                print(resultuser.uid);
+                setState(() {
+                 CircularProgressIndicator(backgroundColor: Colors.greenAccent,); 
+                });
                   }
                 },
                 
                 child: Text("Let's Sign-in"))
-        ],
-      ),
-      ),
-           ),
+        
+      ],
+    )
+    ),
+    )
     );
   }
 }
