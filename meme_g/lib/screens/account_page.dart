@@ -73,18 +73,22 @@ class AccountPage extends StatelessWidget {
       );
     }
 
-    return SimpleSettingsTile(
-      title: 'Account Settings',
-      subtitle: 'Privacy, Security, Langauge',
-      leading: IconWidget(icon: Icons.person, color: Colors.green),
-      child: SettingsScreen(children: <Widget>[
-        buildLangauge(),
-        buildLocation(),
-        buildPassword(),
-        buildPrivacy(context),
-        buildSecurity(context),
-        buildAccountInfo(context),
-      ]),
+    return Column(
+      children: [
+        SimpleSettingsTile(
+          title: 'Account Settings',
+          subtitle: 'Privacy, Security, Langauge',
+          leading: IconWidget(icon: Icons.person, color: Colors.green),
+          child: SettingsScreen(children: <Widget>[
+            buildLangauge(),
+            buildLocation(),
+            buildPassword(),
+            buildPrivacy(context),
+            buildSecurity(context),
+            buildAccountInfo(context),
+          ]),
+        ),
+      ],
     );
   }
 }

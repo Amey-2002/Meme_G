@@ -26,7 +26,7 @@ class MemeList extends StatelessWidget {
           ),
           MemeView(
             img: Image.asset(
-              'assets/dummyMemes/2.png',
+              'assets/dummyMemes/3.png',
               fit: BoxFit.cover,
             ),
           ),

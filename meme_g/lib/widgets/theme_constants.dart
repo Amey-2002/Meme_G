@@ -8,13 +8,13 @@ const COLOR_ACCENT = Colors.orange;
 ThemeData lightTheme = ThemeData(
   brightness: Brightness.light,
   primaryColor: COLOR_PRIMARY,
-  floatingActionButtonTheme:
-      FloatingActionButtonThemeData(backgroundColor: COLOR_ACCENT),
-  elevatedButtonTheme: ElevatedButtonThemeData(
-    style: ButtonStyle(
-      backgroundColor: MaterialStateProperty.all<Color>(COLOR_ACCENT),
-    ),
-  ),
+  // floatingActionButtonTheme:
+  //     FloatingActionButtonThemeData(backgroundColor: COLOR_ACCENT),
+  // elevatedButtonTheme: ElevatedButtonThemeData(
+  //   style: ButtonStyle(
+  //     backgroundColor: MaterialStateProperty.all<Color>(COLOR_ACCENT),
+  //   ),
+  // ),
   inputDecorationTheme: InputDecorationTheme(
     border: OutlineInputBorder(
       borderRadius: BorderRadius.circular(20.0),
@@ -29,7 +29,7 @@ ThemeData darkTheme = ThemeData(
   brightness: Brightness.dark,
   accentColor: Colors.white,
   switchTheme: SwitchThemeData(
-    trackColor: MaterialStateProperty.all<Color>(Colors.grey),
-    thumbColor: MaterialStateProperty.all<Color>(Colors.white),
+    trackColor: MaterialStateProperty.all<Color?>(Colors.grey),
+    thumbColor: MaterialStateProperty.all<Color?>(Colors.white),
   ),
 );

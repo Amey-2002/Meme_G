@@ -241,7 +241,7 @@ class _EditPhotoScreenState extends State<EditPhotoScreen> {
     );
   }
 
-//CODE TO RESOLVE EXCEPTION 
+//CODE TO RESOLVE EXCEPTION
   /*Future crop([bool test = false]) async {
     final ExtendedImageEditorState? state = editorKey.currentState;
     if (state == null) {
@@ -331,6 +331,16 @@ class _EditPhotoScreenState extends State<EditPhotoScreen> {
 
     print('result.length = $result.length');
 
+//    File image;
+// ...
+// image.writeAsBytesSync(result);
+//
+// //XFile image;
+// ...
+// File file = File(image.path);
+// file.writeAsBytesSync(result);
+// image = XFile(file.path);
+
     final Duration diff = DateTime.now().difference(start);
     image.writeAsBytesSync(result!);
     print('image_editor time : $diff');
@@ -338,10 +348,10 @@ class _EditPhotoScreenState extends State<EditPhotoScreen> {
       (value) => Navigator.pushReplacement(
         context,
         CupertinoPageRoute(
-            builder: (context) => SaveImageScreen(
-                  arguments: [image],
-                ),
-              ),
+          builder: (context) => SaveImageScreen(
+            arguments: [image],
+          ),
+        ),
       ),
     );
   }

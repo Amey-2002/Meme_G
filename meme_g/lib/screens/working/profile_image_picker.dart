@@ -73,12 +73,18 @@ class _ProfilePageState extends State<ProfilePage> {
                     Container(
                       decoration: const ShapeDecoration(
                         shape: CircleBorder(),
-                        color: Colors.grey,
+                        color: Colors.white,
                       ),
                       child: (profileImageUrl != null)
                           ? ClipOval(child: Image.network(profileImageUrl!))
                           : ClipOval(
-                              child: Image.network(
+                              child:
+                              // IconButton(
+                              //   onPressed: () {},
+                              //   icon: Icon(Icons.account_circle_rounded),
+                              //   // iconSize: 80,
+                              // ),
+                              Image.network(
                                   'https://cdn3.iconfinder.com/data/icons/google-material-design-icons/48/ic_account_circle_48px-512.png'),
                             ),
                     ),

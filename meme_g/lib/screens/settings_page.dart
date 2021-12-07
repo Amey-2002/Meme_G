@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_settings_screens/flutter_settings_screens.dart';
+import 'package:meme_g/screens/rate.dart';
+import 'package:meme_g/screens/report_bug.dart';
+import 'package:meme_g/screens/wrapper.dart';
 import 'package:meme_g/widgets/change_theme_button_widget.dart';
 import 'package:meme_g/widgets/icon_widget.dart';
+import 'package:path/path.dart';
 import 'account_page.dart';
 import 'homescreen.dart';
 import 'package:switcher_button/switcher_button.dart';
@@ -34,14 +38,18 @@ class _SettingsPageState extends State<SettingsPage> {
         title: 'Report Bug',
         subtitle: '',
         leading: IconWidget(icon: Icons.report, color: Colors.blueAccent),
-        onTap: () {},
+        onTap: () {
+          Navigator.pushNamed(context, ReportBug.route);
+        },
       );
 
   Widget buildSendFeedback(BuildContext context) => SimpleSettingsTile(
         title: 'Send Feedback',
         subtitle: '',
         leading: IconWidget(icon: Icons.feedback, color: Colors.blueAccent),
-        onTap: () {},
+        onTap: () {
+          Navigator.pushNamed(context, RateScreen.route);
+        },
       );
 
   Widget buildChangeTheme(BuildContext context) => SimpleSettingsTile(
@@ -74,6 +82,14 @@ class _SettingsPageState extends State<SettingsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.blue,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pushNamed(context, Homescreen.route);
+          },
+          icon: Icon(Icons.arrow_back),
+          color: Colors.white,
+        ),
         title: Text('Settings'),
       ),
       body: SafeArea(
@@ -84,7 +100,7 @@ class _SettingsPageState extends State<SettingsPage> {
               title: 'GENERAL',
               children: <Widget>[
                 AccountPage(),
-                // buildChangeTheme(context),
+                //buildChangeTheme(context),
                 // buildNotifications(context),
                 //ChangeThemeButtonWidget(),
                 //NotificationsPage(),                            ################################################

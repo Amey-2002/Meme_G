@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:flutter_settings_screens/flutter_settings_screens.dart';
 import 'package:meme_g/screens/homescreen.dart';
+import 'package:meme_g/screens/rate.dart';
 import 'package:meme_g/screens/settings_page.dart';
 import 'package:meme_g/screens/emailandpass_signin.dart';
 import 'package:meme_g/screens/homescreen.dart';
@@ -88,7 +89,7 @@ class _MyAppState extends State<MyApp> {
             initialData: null,
             create: (context) => context.read<authforState>().authstatechanges),
       ],
-      child: MaterialApp(
+      builder: (context, child) => MaterialApp(
         title: 'Flutter Demo',
         theme: lightTheme,
         darkTheme: darkTheme,
@@ -102,6 +103,7 @@ class _MyAppState extends State<MyApp> {
           ImageEditor.route: (context) => ImageEditor(),
           SaveUpload.route: (context) => SaveUpload(),
           SettingsPage.route: (context) => SettingsPage(),
+          RateScreen.route: (context) => RateScreen(),
           //ProflieImagePicker.route: (context) => ProflieImagePicker(),
         },
       ),
