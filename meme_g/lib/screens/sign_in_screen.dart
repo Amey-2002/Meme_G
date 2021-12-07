@@ -94,24 +94,7 @@ class _signInState extends State<signIn> {
                   borderRadius: BorderRadius.circular(5),
                 )  ,
                 onPressed: () async {
-                    dynamic resultuser = await authObject.googleSignin();
-                    if (resultuser == null) {
-                      print("sign in failed");
-                    } else {
-                      Navigator.pushNamed(context, Homescreen.route);
-                      print(resultuser.uid);
-                    } 
-                  },
-                   
-              )
-            ]),
-      
-    );
-            SignInButton(
-              Buttons.Google,
-              text: "Sign up with Google",
-              onPressed: () async {
-                  dynamic resultuser = await authObject.googleSignin();
+                   dynamic resultuser = await authObject.googleSignin();
                   if (resultuser == null) {
                     print("sign in failed");
                   } else {
@@ -119,9 +102,12 @@ class _signInState extends State<signIn> {
                     Navigator.pushNamed(context, Homescreen.route);
                     print(resultuser.accessToken);
                   }
-                },
-            )
-          ]),
-    ));
+                  },
+                   
+              )
+            ]),
+      
+    );
+          
   }
 }

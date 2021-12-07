@@ -12,21 +12,21 @@ class Create extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          FlatButton(
-            onPressed: () {
-              //Navigator.pushNamed(context, SaveUpload.route);
-              Navigator.pushNamed(context, ImageEditor.route);
-              //Navigator.pushNamed(context, ImageEditorPro.route);
-            },
-            child: const Text(
-              'LET\'S MEME',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                decoration: TextDecoration.underline,
-                fontSize: 25
-              ),
-            ),
-          ),
+          // FlatButton(
+          //   onPressed: () {
+          //     //Navigator.pushNamed(context, SaveUpload.route);
+          //     Navigator.pushNamed(context, ImageEditor.route);
+          //     //Navigator.pushNamed(context, ImageEditorPro.route);
+          //   },
+          //   child: const Text(
+          //     'LET\'S MEME',
+          //     style: TextStyle(
+          //       fontWeight: FontWeight.bold,
+          //       decoration: TextDecoration.underline,
+          //       fontSize: 25
+          //     ),
+          //   ),
+          // ),
           Row(
             children: <Widget>[
               Container(
