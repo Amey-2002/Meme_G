@@ -22,11 +22,7 @@ class NavDrawer extends StatelessWidget {
             ),
           ),
           onTap: () {
-
-           // Navigator.pushNamed(context, personal_info.route);
-
-            Navigator.pushReplacementNamed(context, Account_det.route);
-
+            Navigator.pushNamed(context, personal_info.route);
           },
         ),
         ListTile(

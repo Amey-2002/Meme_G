@@ -1,38 +1,69 @@
 import 'package:flutter/material.dart';
 
-class GuestMemeView extends StatelessWidget {
+class GuestMemeView extends StatefulWidget {
 
-  Image img;
+  final String imgUrl;
+  final String userName;
 
-  GuestMemeView({required this.img});
+  GuestMemeView({required this.imgUrl, required this.userName});
 
+  @override
+  State<GuestMemeView> createState() => _GuestMemeViewState();
+}
+
+class _GuestMemeViewState extends State<GuestMemeView> {
   @override
   Widget build(BuildContext context) {
     return Container(
       child: Column(
         children: <Widget>[
           Padding(
-            padding: const EdgeInsets.only(top: 10,bottom: 10),
-            child: Row(
+              padding: const EdgeInsets.only(top: 10, bottom: 10),
+              child: ListTile(
+                leading: Icon(
+                  Icons.account_circle,
+                  size: 37,
+                ),
+                title: Text(
+                  widget.userName,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                  ),
+                ),
+              )
+              /*Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: const <Widget>[
-                Icon(Icons.account_circle,size: 37,),
-                Text('User Name',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
-                ),)
+                Icon(
+                  Icons.account_circle,
+                  size: 37,
+                ),
+                (widget.userName == null)?
+                Text(
+                   'Username',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                  ),
+                ) :
+                
+                Text(
+                  widget.userName,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                  ),
+                )
               ],
-            ),
-          ),
+            ),*/
+              ),
           Container(
             height: 330,
             width: 330,
-            child: img, /*const Image(
-              image: NetworkImage(
-                  'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl-2.jpg'
-                ),
-            ),*/
+            child: Image(
+              image: NetworkImage(widget.imgUrl),
+            ),
           ),
           Padding(
             padding: const EdgeInsets.only(bottom: 20,top: 2),

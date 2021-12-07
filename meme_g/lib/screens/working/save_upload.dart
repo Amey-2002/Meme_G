@@ -72,9 +72,12 @@ class _SaveUploadState extends State<SaveUpload> {
       ),
     );
   }*/
-  File? _imageFile=null;
+  File? _imageFile = null;
   User? user = FirebaseAuth.instance.currentUser;
   late CollectionReference postedMemesRef;
+  late CollectionReference memesCollectionRef;
+  late CollectionReference usersCollectionRef;
+  late String userName, userId;
   late firebase_storage.Reference ref;
 
   ///NOTE: Only supported on Android & iOS
@@ -84,7 +87,23 @@ class _SaveUploadState extends State<SaveUpload> {
   @override
   void initState() {
     super.initState();
-    postedMemesRef = FirebaseFirestore.instance.collection('Users').doc(user!.uid).collection('PostedMemeURLs');
+    usersCollectionRef = FirebaseFirestore.instance.collection('Users');
+    userId = user!.uid;
+    usersCollectionRef
+        .doc(user!.uid)
+        .get()
+        .then((DocumentSnapshot documentSnapshot) {
+      if (documentSnapshot.exists) {
+        setState(() {
+          userName = documentSnapshot.get(FieldPath(['Username']));
+        });
+      }
+    });
+    memesCollectionRef = FirebaseFirestore.instance.collection('Memes');
+    postedMemesRef = FirebaseFirestore.instance
+        .collection('Users')
+        .doc(user!.uid)
+        .collection('PostedMemeURLs');
   }
 
   Future pickImage() async {
@@ -100,15 +119,21 @@ class _SaveUploadState extends State<SaveUpload> {
     await Permission.photos.request();
     var permissionStatus = await Permission.photos.status;
     if (permissionStatus.isGranted) {
+      //Uploading meme To Firebase
       ref = firebase_storage.FirebaseStorage.instance
           .ref()
           .child('Posted-Memes/${Path.basename(_imageFile!.path)}');
       await ref.putFile(_imageFile!).whenComplete(() async {
         await ref.getDownloadURL().then((value) async {
-          await postedMemesRef.add({'url': value});
-          });
+          //sending the received url of uploaded meme to firestore along with userName, userID
+          await postedMemesRef
+              .add({'url': value, 'Username': userName, 'UserID': userId, 'DateTime': DateTime.now().microsecondsSinceEpoch.toString()});
+          //Also storinging in a Memes Collection to use in top list
+          await memesCollectionRef
+              .add({'url': value, 'Username': userName, 'UserID': userId, 'DateTime': DateTime.now().microsecondsSinceEpoch.toString()});
         });
-      } else {
+      });
+    } else {
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
@@ -164,7 +189,7 @@ class _SaveUploadState extends State<SaveUpload> {
                     bottomLeft: Radius.circular(250.0),
                     bottomRight: Radius.circular(10.0)),
                 gradient: LinearGradient(
-                    colors: [Colors.green,Colors.orange],
+                    colors: [Colors.green, Colors.orange],
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight)),
           ),
@@ -197,13 +222,13 @@ class _SaveUploadState extends State<SaveUpload> {
                           child: _imageFile != null
                               ? Image.file(_imageFile!)
                               : FlatButton(
-                            child: Icon(
-                              Icons.add_a_photo,
-                              color: Colors.blue,
-                              size: 50,
-                            ),
-                            onPressed: pickImage,
-                          ),
+                                  child: Icon(
+                                    Icons.add_a_photo,
+                                    color: Colors.blue,
+                                    size: 50,
+                                  ),
+                                  onPressed: pickImage,
+                                ),
                         ),
                       ),
                     ],
@@ -224,7 +249,7 @@ class _SaveUploadState extends State<SaveUpload> {
         children: <Widget>[
           Container(
             padding:
-            const EdgeInsets.symmetric(vertical: 5.0, horizontal: 16.0),
+                const EdgeInsets.symmetric(vertical: 5.0, horizontal: 16.0),
             margin: const EdgeInsets.only(
                 top: 30, left: 20.0, right: 20.0, bottom: 20.0),
             decoration: BoxDecoration(
@@ -236,7 +261,7 @@ class _SaveUploadState extends State<SaveUpload> {
               onPressed: () => _uploadImageToFirebase(context),
               child: Text(
                 "Upload Image",
-                style: TextStyle(fontSize: 20,color: Colors.white),
+                style: TextStyle(fontSize: 20, color: Colors.white),
               ),
             ),
           ),
