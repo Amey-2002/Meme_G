@@ -126,11 +126,19 @@ class _SaveUploadState extends State<SaveUpload> {
       await ref.putFile(_imageFile!).whenComplete(() async {
         await ref.getDownloadURL().then((value) async {
           //sending the received url of uploaded meme to firestore along with userName, userID
-          await postedMemesRef
-              .add({'url': value, 'Username': userName, 'UserID': userId, 'DateTime': DateTime.now().microsecondsSinceEpoch.toString()});
+          await postedMemesRef.add({
+            'url': value,
+            'Username': userName,
+            'UserID': userId,
+            'DateTime': DateTime.now().microsecondsSinceEpoch.toString()
+          });
           //Also storinging in a Memes Collection to use in top list
-          await memesCollectionRef
-              .add({'url': value, 'Username': userName, 'UserID': userId, 'DateTime': DateTime.now().microsecondsSinceEpoch.toString()});
+          await memesCollectionRef.add({
+            'url': value,
+            'Username': userName,
+            'UserID': userId,
+            'DateTime': DateTime.now().microsecondsSinceEpoch.toString()
+          });
         });
       });
     } else {

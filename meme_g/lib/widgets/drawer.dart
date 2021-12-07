@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meme_g/screens/liked_memes.dart';
 import 'package:meme_g/screens/personal_info.dart';
 import 'package:meme_g/screens/sign_in_screen.dart';
 import 'package:meme_g/screens/working/my_work.dart';
@@ -45,7 +46,9 @@ class NavDrawer extends StatelessWidget {
               fontSize: 20,
             ),
           ),
-          onTap: () {},
+          onTap: () {
+            Navigator.pushNamed(context, LikedMemes.route);
+          },
         ),
         ListTile(
           leading: Icon(Icons.settings,size: 32,),

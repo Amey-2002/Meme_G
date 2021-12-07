@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class MemeView extends StatefulWidget {
@@ -11,8 +13,22 @@ class MemeView extends StatefulWidget {
 }
 
 class _MemeViewState extends State<MemeView> {
+  User? user = FirebaseAuth.instance.currentUser;
+  late CollectionReference likedMemesRef;
+
+  @override
+  void initState() {
+    super.initState();
+    likedMemesRef = FirebaseFirestore.instance
+        .collection('Users')
+        .doc(user!.uid)
+        .collection('LikedMemeURLs');
+  }
+
   @override
   Widget build(BuildContext context) {
+    var pressAttention = false;
+
     return Container(
       child: Column(
         children: <Widget>[
@@ -74,8 +90,25 @@ class _MemeViewState extends State<MemeView> {
                 //Icon(Icons.send,size: 27,),
                 //Icon(Icons.share,size: 27,),
                 RaisedButton(
+                  //Shubham : I tried using using this which is a property of ElevatedButton
+                  /*style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                        (Set<MaterialState> states) {
+                      if (states.contains(MaterialState.pressed))
+                        return Colors.greenAccent;
+                      return Colors.grey;
+                    }),
+                  ),*/
                   color: Colors.greenAccent[700],
-                  onPressed: () {},
+                  onPressed: () async {
+                    setState(() => pressAttention = false);
+                    await likedMemesRef.add({
+                      'url': widget.imgUrl,
+                      'Username': widget.userName,
+                      'DateTime':
+                          DateTime.now().microsecondsSinceEpoch.toString()
+                    });
+                  },
                   child: Icon(
                     Icons.favorite_border,
                     size: 27,
