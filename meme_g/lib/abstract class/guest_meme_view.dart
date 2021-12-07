@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:share/share.dart';
 
 class GuestMemeView extends StatefulWidget {
 
@@ -73,7 +74,9 @@ class _GuestMemeViewState extends State<GuestMemeView> {
                 //Icon(Icons.favorite_border,size: 27,),
                 //Icon(Icons.send,size: 27,),
                 //Icon(Icons.share,size: 27,),
-                IconButton(onPressed: () {}, icon: Icon(Icons.share,size: 27,)),
+                IconButton(onPressed: () {
+                  Share.share(widget.imgUrl + ' Meme by ' + widget.userName);
+                }, icon: Icon(Icons.share,size: 27,)),
               ],
             ),
           ),

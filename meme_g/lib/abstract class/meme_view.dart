@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:share/share.dart';
 
 class MemeView extends StatefulWidget {
   final String imgUrl;
@@ -15,6 +16,7 @@ class MemeView extends StatefulWidget {
 class _MemeViewState extends State<MemeView> {
   User? user = FirebaseAuth.instance.currentUser;
   late CollectionReference likedMemesRef;
+  late String currentUsername;
 
   @override
   void initState() {
@@ -23,6 +25,17 @@ class _MemeViewState extends State<MemeView> {
         .collection('Users')
         .doc(user!.uid)
         .collection('LikedMemeURLs');
+    FirebaseFirestore.instance
+        .collection('Users')
+        .doc(user!.uid)
+        .get()
+        .then((DocumentSnapshot documentSnapshot) {
+      if (documentSnapshot.exists) {
+        setState(() {
+          currentUsername = documentSnapshot.get(FieldPath(['Username']));
+        });
+      }
+    });
   }
 
   @override
@@ -117,7 +130,9 @@ class _MemeViewState extends State<MemeView> {
                 //IconButton(onPressed: () {}, icon: Icon(Icons.send,size: 27,)),
                 RaisedButton(
                   color: Colors.greenAccent[700],
-                  onPressed: () {},
+                  onPressed: () {
+                    Share.share(widget.imgUrl + ' Meme by ' + widget.userName + ' shared to you by ' + currentUsername);
+                  },
                   child: Icon(
                     Icons.share,
                     size: 27,
