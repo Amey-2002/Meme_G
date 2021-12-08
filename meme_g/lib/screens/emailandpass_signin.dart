@@ -12,57 +12,63 @@ class EmailandPass extends StatefulWidget {
 
 class _EmailandPassState extends State<EmailandPass> {
   final snackBar = SnackBar(
-            content: const Text('Yay! A SnackBar!'),
-              );
+    content: const Text('Yay! A SnackBar!'),
+  );
   dynamic emailid, upassword;
   var authObject = new Auth();
   @override
   Widget build(BuildContext context) {
-    return Card(
-        child : Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        Container(
-          child: TextField(
-              decoration: InputDecoration(hintText: "Enter EmailId "),
-              onChanged: (email) {
-                setState(() {
-                  emailid = email;
-                });
-              }),
-        ),
-        Container(
-          child: TextField(
-            decoration: InputDecoration(hintText: "Enter Password"),
-            onChanged: (password) {
-              setState(() {
-                upassword = password.trim();
-              });
-            },
-            obscureText: true,
+    return Scaffold(
+      body: Card(
+          child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Container(
+            child: TextField(
+                decoration: InputDecoration(hintText: "Enter EmailId "),
+                onChanged: (email) {
+                  setState(() {
+                    emailid = email;
+                  });
+                }),
           ),
-        ),
-        ElevatedButton(
-            onPressed: () async {
-              dynamic resultuser =
-                  await authObject.EmailandpassSignIn(emailid, upassword);
-              if (resultuser == null) {
-                
-                print("sign in failed");
-              } else {
-                // Navigator.pop(context);
-                //Navigator.pushNamed(context, Homescreen.route);
-                 await Navigator.pushReplacementNamed(context, Homescreen.route);
-                print(resultuser.uid);
+          Container(
+            child: TextField(
+              decoration: InputDecoration(hintText: "Enter Password"),
+              onChanged: (password) {
                 setState(() {
-                 CircularProgressIndicator(backgroundColor: Colors.greenAccent,); 
+                  upassword = password.trim();
                 });
-                
-              }
-            },
-            child: Text("Let's Sign-in"))
-      ],
-    )
+              },
+              obscureText: true,
+            ),
+          ),
+          ElevatedButton(
+              onPressed: () async {
+                dynamic resultuser =
+                    await authObject.EmailandpassSignIn(emailid, upassword);
+                if (resultuser == null) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Sign-in failed! Please Enter valid details'),
+                    ),
+                  );
+                  print("sign in failed");
+                } else {
+                  // Navigator.pop(context);
+                  //Navigator.pushNamed(context, Homescreen.route);
+                  await Navigator.pushReplacementNamed(context, Homescreen.route);
+                  print(resultuser.uid);
+                  setState(() {
+                    CircularProgressIndicator(
+                      backgroundColor: Colors.greenAccent,
+                    );
+                  });
+                }
+              },
+              child: Text("Let's Sign-in"))
+        ],
+      )),
     );
   }
 }

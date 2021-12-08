@@ -60,8 +60,6 @@ class MyApp extends StatelessWidget {
           Account_det.route: (context) => Account_det(),
           Homescreen.route: (context) => Homescreen(),
           EmailandPass.route: (context) => EmailandPass(),
-
-
           personal_info.route:(context) => personal_info(),
           ImageEditor.route: (context) => ImageEditor(),
           SaveUpload.route: (context) => SaveUpload(),

@@ -7,9 +7,11 @@ import 'package:flutter_signin_button/flutter_signin_button.dart';
 
 class signIn extends StatefulWidget {
   @override
-    static const route = "Sign in screen";
+  static const route = "Sign in screen";
   State<signIn> createState() => _signInState();
 }
+
+bool google_details = false;
 
 class _signInState extends State<signIn> {
   final Auth _Authentication = Auth();
@@ -74,8 +76,8 @@ class _signInState extends State<signIn> {
               Container(
                 child: TextButton(
                   onPressed: () {
-                   // Navigator.pushNamed(context, Account_det.route);
-                       Navigator.pushReplacementNamed(context, Account_det.route);
+                    // Navigator.pushNamed(context, Account_det.route);
+                    Navigator.pushReplacementNamed(context, Account_det.route);
                     print('accounts_det screen called');
                   },
                   child: const Text('Create Account'),
@@ -86,16 +88,24 @@ class _signInState extends State<signIn> {
               Buttons.Google,
               text: "Sign up with Google",
               onPressed: () async {
-                  dynamic resultuser = await authObject.googleSignin();
-                  if (resultuser == null) {
-                    print("sign in failed");
-                  } else {
-                   // Navigator.pop(context);
-                   // Navigator.pushNamed(context, Homescreen.route);
-                      Navigator.pushReplacementNamed(context, Homescreen.route);
-                    print(resultuser.accessToken);
-                  }
-                },
+                dynamic resultuser = await authObject.googleSignin();
+                if (resultuser == null) {
+                  print("sign in failed");
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Google Sign-in failed!'),
+                    ),
+                  );
+                } else {
+                  setState(() {
+                    google_details = true;
+                  });
+                  // Navigator.pop(context);
+                  // Navigator.pushNamed(context, Homescreen.route);
+                  Navigator.pushReplacementNamed(context, Account_det.route);
+                  print(resultuser.accessToken);
+                }
+              },
             )
           ]),
     ));

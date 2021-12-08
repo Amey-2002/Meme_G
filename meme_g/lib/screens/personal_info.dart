@@ -4,8 +4,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:meme_g/screens/account_details_screen.dart';
 //import 'package:meme_g/screens/account_details_screen.dart';
 import 'package:meme_g/screens/profile_image_picker.dart';
+import 'package:meme_g/screens/sign_in_screen.dart';
 import 'package:meme_g/services/auth.dart';
 import 'package:meme_g/widgets/user.dart';
 import '../widgets/textfields.dart';
@@ -27,17 +30,18 @@ class personal_info extends StatefulWidget {
 
 class _personal_infoState extends State<personal_info> {
   // var account_info = Account_det();
+  
   User? user = FirebaseAuth.instance.currentUser;
   late CollectionReference usersCollectionRef;
   bool isLoading = false;
-
-  bool no_edit_info = true;
-
-
-  //void edit_info() {}
-
-
   dynamic name, birthdate, country, username, emailid, upassword;
+  bool no_edit_info = true;
+   //void edit_info() {}
+  
+
+ 
+
+
 
   var dp = new ProfilePage();
   void initState() {
@@ -59,7 +63,6 @@ class _personal_infoState extends State<personal_info> {
               username = documentSnapshot.get(FieldPath(['Username']));
               emailid = documentSnapshot.get(FieldPath(['EmailId']));
               upassword = documentSnapshot.get(FieldPath(['Password']));
-            
           });
           setState(() {
               isLoading = false;
@@ -139,7 +142,8 @@ class _personal_infoState extends State<personal_info> {
                         title: Text('Email ID'),
                       ),
                       TextField(
-                        controller: TextEditingController(text: emailid),
+                        controller:
+                          TextEditingController(text:emailid),
                         enableIMEPersonalizedLearning: true,
                         readOnly: no_edit_info,
                       ),
