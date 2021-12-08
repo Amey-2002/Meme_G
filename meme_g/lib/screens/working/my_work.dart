@@ -21,20 +21,46 @@ class MyWork extends StatefulWidget {
 }
 
 class _MyWorkState extends State<MyWork> {
-  User? user = FirebaseAuth.instance.currentUser;
+  //User? user = FirebaseAuth.instance.currentUser;
   late CollectionReference postedMemesRef;
+
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  User? _user;
+
+  checkAuthentification() async {
+    _auth.authStateChanges().listen((user) {
+      _user = user;
+    });
+  }
+
+  /*getUser() async {
+    User? firebaseUser = _auth.currentUser;
+
+    await firebaseUser?.reload();
+
+    firebaseUser = _auth.currentUser;
+
+    if (firebaseUser != null) {
+      setState(() {
+        this._user = firebaseUser;
+
+        this.isloggedin = true;
+      });
+    }
+  }*/
 
   @override
   void initState() {
     super.initState();
-    if (user != null) {
+    checkAuthentification();
+    if (_user != null) {
       postedMemesRef = FirebaseFirestore.instance
           .collection('Users')
-          .doc(user!.uid)
+          .doc(_user!.uid)
           .collection('PostedMemeURLs');
-    } else{
-      postedMemesRef = FirebaseFirestore.instance
-          .collection('Users');
+    } else {
+      postedMemesRef = FirebaseFirestore.instance.collection('Users');
     }
   }
 
@@ -42,7 +68,7 @@ class _MyWorkState extends State<MyWork> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('My Work')),
-      body: (user == null)
+      body: (_user == null)
           ? const Center(
               heightFactor: double.infinity,
               widthFactor: double.infinity,
