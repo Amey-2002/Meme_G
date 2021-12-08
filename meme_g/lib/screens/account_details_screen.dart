@@ -1,8 +1,10 @@
 import 'dart:ui';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:meme_g/screens/sign_in_screen.dart';
 import 'package:meme_g/services/auth.dart';
 
 import 'package:meme_g/widgets/user.dart';
@@ -26,12 +28,19 @@ class _Account_detState extends State<Account_det> {
   dynamic name, username, country;
   var emailid, upassword;
 
+  User? user = FirebaseAuth.instance.currentUser;
+  bool no_edit_info = true;
+
   var dp = new ProfilePage();
 
   late CollectionReference usersCollectionRef;
 
   @override
   Widget build(BuildContext context) {
+    setState(() {
+      name = user!.displayName;
+      emailid = user!.email;
+    });
     // TODO: implement build
     return Scaffold(
         appBar: AppBar(
@@ -65,7 +74,7 @@ class _Account_detState extends State<Account_det> {
             ),
             title: Text('Name'),
           ),
-          Container(
+          /*Container(
             child: TextField(
                 decoration: InputDecoration(hintText: "Enter name"),
                 onChanged: (uname) {
@@ -73,6 +82,23 @@ class _Account_detState extends State<Account_det> {
                     name = uname;
                   });
                 }),
+          ),*/
+          Container(
+            child: (!google_details)
+                ? TextField(
+                    decoration: InputDecoration(hintText: "Enter name"),
+                    onChanged: (uname) {
+                      setState(() {
+                        name = uname;
+                      });
+                    })
+                : Container(
+                    child: TextField(
+                      controller: TextEditingController(text: name),
+                      enableIMEPersonalizedLearning: true,
+                      readOnly: no_edit_info,
+                    ),
+                  ),
           ),
           ListTile(
             leading: Icon(
@@ -99,7 +125,7 @@ class _Account_detState extends State<Account_det> {
             title: Text('Email ID'),
           ),
           // Text_fields("Enter EmailId",emailid),
-          Container(
+          /*Container(
             child: TextField(
                 decoration: InputDecoration(hintText: "Enter EmailId "),
                 onChanged: (email) {
@@ -107,6 +133,23 @@ class _Account_detState extends State<Account_det> {
                     emailid = email;
                   });
                 }),
+          ),*/
+          Container(
+            child: (!google_details)
+                ? TextField(
+                    decoration: InputDecoration(hintText: "Enter EmailId "),
+                    onChanged: (email) {
+                      setState(() {
+                        emailid = email;
+                      });
+                    })
+                : Container(
+                    child: TextField(
+                      controller: TextEditingController(text: emailid),
+                      enableIMEPersonalizedLearning: true,
+                      readOnly: no_edit_info,
+                    ),
+                  ),
           ),
           ListTile(
             leading: Icon(
@@ -207,7 +250,6 @@ class _Account_detState extends State<Account_det> {
                 if (result == null) {
                   print("Enter valid Details");
                 } else {
-
                   //using dialogue box to set profile Image
                   setState(() {
                     dp.setUid =
@@ -247,9 +289,9 @@ class _Account_detState extends State<Account_det> {
                       ),
                     ),
                   );
-                 // Navigator.pop(context);
-                 // Navigator.pushNamed(context, Homescreen.route);
-                    Navigator.pushReplacementNamed(context, Homescreen.route);
+                  // Navigator.pop(context);
+                  // Navigator.pushNamed(context, Homescreen.route);
+                  Navigator.pushReplacementNamed(context, Homescreen.route);
                   print(result.uid);
                 }
               })

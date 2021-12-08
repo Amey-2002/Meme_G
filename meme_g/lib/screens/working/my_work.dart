@@ -24,15 +24,13 @@ class _MyWorkState extends State<MyWork> {
   //User? user = FirebaseAuth.instance.currentUser;
   late CollectionReference postedMemesRef;
 
-  final FirebaseAuth _auth = FirebaseAuth.instance;
+  User? user = FirebaseAuth.instance.currentUser; 
 
-  User? _user;
-
-  checkAuthentification() async {
+  /*checkAuthentification() async {
     _auth.authStateChanges().listen((user) {
       _user = user;
     });
-  }
+  }*/
 
   /*getUser() async {
     User? firebaseUser = _auth.currentUser;
@@ -53,11 +51,10 @@ class _MyWorkState extends State<MyWork> {
   @override
   void initState() {
     super.initState();
-    checkAuthentification();
-    if (_user != null) {
+    if (user != null) {
       postedMemesRef = FirebaseFirestore.instance
           .collection('Users')
-          .doc(_user!.uid)
+          .doc(user!.uid)
           .collection('PostedMemeURLs');
     } else {
       postedMemesRef = FirebaseFirestore.instance.collection('Users');
@@ -68,7 +65,7 @@ class _MyWorkState extends State<MyWork> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('My Work')),
-      body: (_user == null)
+      body: (user == null)
           ? const Center(
               heightFactor: double.infinity,
               widthFactor: double.infinity,

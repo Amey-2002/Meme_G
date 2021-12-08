@@ -210,7 +210,7 @@ class _CoderJavaImageEditorProState extends State<CoderJavaImageEditorPro> {
           TextButton(
             child: Text('SAVE'),
             onPressed: () {
-              _saveScreen(); //from image_gallery_saver 
+              //_saveScreen(); //from image_gallery_saver 
               //tried after reading documentation
               screenshotController
                   .capture(

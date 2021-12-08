@@ -5,6 +5,8 @@ import 'account_details_screen.dart';
 import '../services/auth.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 
+bool google_details = false;
+
 class signIn extends StatefulWidget {
   @override
     static const route = "Sign in screen";
@@ -90,10 +92,13 @@ class _signInState extends State<signIn> {
                   if (resultuser == null) {
                     print("sign in failed");
                   } else {
+                    setState(() {
+                      google_details=true;
+                    });
                    // Navigator.pop(context);
                    // Navigator.pushNamed(context, Homescreen.route);
-                      Navigator.pushReplacementNamed(context, Homescreen.route);
-                    print(resultuser.accessToken);
+                      Navigator.pushReplacementNamed(context, Account_det.route);
+                    //print(resultuser.accessToken);
                   }
                 },
             )
