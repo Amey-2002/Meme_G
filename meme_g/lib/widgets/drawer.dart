@@ -14,7 +14,7 @@ class NavDrawer extends StatelessWidget {
     return Drawer(
       child: ListView(children: <Widget>[
         ListTile(
-          leading: Icon(Icons.account_circle,size: 32,),
+          leading: Icon(Icons.account_circle,size: 32,color: Colors.black),
           title: Text(
             'You',
             style: TextStyle(
@@ -42,7 +42,7 @@ class NavDrawer extends StatelessWidget {
           },
         ),
         ListTile(
-          leading: Icon(Icons.favorite,size: 32,),
+          leading: Icon(Icons.favorite,size: 32,color: Colors.black),
           title: Text(
             'Liked Memes',
             style: TextStyle(
@@ -52,7 +52,7 @@ class NavDrawer extends StatelessWidget {
           onTap: () {},
         ),
         ListTile(
-          leading: Icon(Icons.settings,size: 32,),
+          leading: Icon(Icons.settings,size: 32,color: Colors.black),
           title: Text(
             'Settings',
             style: TextStyle(
@@ -62,7 +62,7 @@ class NavDrawer extends StatelessWidget {
           onTap: () {},
         ),
         ListTile(
-          leading: Icon(Icons.info,size: 32,),
+          leading: Icon(Icons.info,size: 32,color: Colors.black),
           title: Text(
             'About',
             style: TextStyle(
@@ -72,7 +72,7 @@ class NavDrawer extends StatelessWidget {
           onTap: () {},
         ),
         ListTile(
-          leading: Icon(Icons.help,size: 32,),
+          leading: Icon(Icons.help,size: 32,color: Colors.black),
           title: Text(
             'Help',
             style: TextStyle(
@@ -84,7 +84,7 @@ class NavDrawer extends StatelessWidget {
           },
         ),
         ListTile(
-          leading: Icon(Icons.logout_sharp,size: 32,),
+          leading: Icon(Icons.logout_sharp,size: 32,color: Colors.black),
           title: Text(
             'Log out',
             style: TextStyle(
