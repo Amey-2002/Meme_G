@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:share/share.dart';
+import 'package:favorite_button/favorite_button.dart';
 
 class MemeView extends StatefulWidget {
   final String imgUrl;
@@ -17,14 +18,33 @@ class _MemeViewState extends State<MemeView> {
   User? user = FirebaseAuth.instance.currentUser;
   late CollectionReference likedMemesRef;
   late String currentUsername;
+  late String likedMemeDoc;
+  late String likedMemeDocFinal;
+  bool liked = false;
 
   @override
   void initState() {
     super.initState();
+    likedMemeDoc = widget.imgUrl.replaceAll(new RegExp(r'[^\w\s]+'), '0');
+    likedMemeDocFinal = likedMemeDoc.replaceAll('_', '0');
     likedMemesRef = FirebaseFirestore.instance
         .collection('Users')
         .doc(user!.uid)
         .collection('LikedMemeURLs');
+    FirebaseFirestore.instance
+        .collection('Users')
+        .doc(user!.uid)
+        .collection('LikedMemeURLs')
+        .doc(likedMemeDocFinal)
+        .get()
+        .then((DocumentSnapshot documentSnapshot) {
+      if (documentSnapshot.exists) {
+        setState(() {
+          liked = true;
+          print(documentSnapshot.get(FieldPath(['url'])));
+        });
+      }
+    });
     FirebaseFirestore.instance
         .collection('Users')
         .doc(user!.uid)
@@ -40,8 +60,6 @@ class _MemeViewState extends State<MemeView> {
 
   @override
   Widget build(BuildContext context) {
-    var pressAttention = false;
-
     return Container(
       child: Column(
         children: <Widget>[
@@ -102,7 +120,34 @@ class _MemeViewState extends State<MemeView> {
                 //Icon(Icons.favorite_border,size: 27,),
                 //Icon(Icons.send,size: 27,),
                 //Icon(Icons.share,size: 27,),
-                RaisedButton(
+                FavoriteButton(
+                  isFavorite: liked,
+                  // iconDisabledColor: Colors.white,
+                  valueChanged: (_liked) {
+                    liked = !liked;
+                    if (liked) {
+                      likedMemesRef.doc(likedMemeDocFinal).set({
+                        'url': widget.imgUrl,
+                        'Username': widget.userName,
+                        'DateTime':
+                            DateTime.now().microsecondsSinceEpoch.toString()
+                      });
+                    } else {
+                      likedMemesRef.doc(likedMemeDocFinal).delete();
+                    }
+                    // if (_liked) {
+                    //   likedMemesRef.doc(likedMemeDocFinal).set({
+                    //     'url': widget.imgUrl,
+                    //     'Username': widget.userName,
+                    //     'DateTime':
+                    //         DateTime.now().microsecondsSinceEpoch.toString()
+                    //   });
+                    // } else {
+                    //   likedMemesRef.doc(likedMemeDocFinal).delete();
+                    // }
+                  },
+                ),
+                /*RaisedButton(
                   //Shubham : I tried using using this which is a property of ElevatedButton
                   /*style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.resolveWith<Color>(
@@ -112,26 +157,42 @@ class _MemeViewState extends State<MemeView> {
                       return Colors.grey;
                     }),
                   ),*/
-                  color: Colors.greenAccent[700],
+                  color: liked ? Colors.greenAccent[700] : Colors.grey,
                   onPressed: () async {
-                    setState(() => pressAttention = false);
-                    await likedMemesRef.add({
+                    liked = !liked;
+                    if (liked) {
+                      likedMemesRef.doc(likedMemeDocFinal).set({
+                        'url': widget.imgUrl,
+                        'Username': widget.userName,
+                        'DateTime':
+                            DateTime.now().microsecondsSinceEpoch.toString()
+                      });
+                    } else {
+                      likedMemesRef.doc(likedMemeDocFinal).delete();
+                    }
+                    //print(likedMemeDocFinal);
+                    //setState(() => pressAttention = false);
+                    /*await likedMemesRef.doc(likedMemeDocFinal).set({
                       'url': widget.imgUrl,
                       'Username': widget.userName,
                       'DateTime':
                           DateTime.now().microsecondsSinceEpoch.toString()
-                    });
+                    });*/
                   },
                   child: Icon(
                     Icons.favorite_border,
                     size: 27,
                   ),
-                ),
+                ),*/
                 //IconButton(onPressed: () {}, icon: Icon(Icons.send,size: 27,)),
                 RaisedButton(
                   color: Colors.greenAccent[700],
                   onPressed: () {
-                    Share.share(widget.imgUrl + ' Meme by ' + widget.userName + ' shared to you by ' + currentUsername);
+                    Share.share(widget.imgUrl +
+                        ' Meme by ' +
+                        widget.userName +
+                        ' shared to you by ' +
+                        currentUsername);
                   },
                   child: Icon(
                     Icons.share,

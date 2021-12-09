@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:meme_g/screens/emailandpass_signin.dart';
 import 'package:meme_g/screens/homescreen.dart';
@@ -6,10 +7,11 @@ import '../services/auth.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 
 bool google_details = false;
+String? googleUserUid;
 
 class signIn extends StatefulWidget {
   @override
-    static const route = "Sign in screen";
+  static const route = "Sign in screen";
   State<signIn> createState() => _signInState();
 }
 
@@ -18,6 +20,16 @@ class _signInState extends State<signIn> {
   dynamic emailid, upassword;
 
   var authObject = new Auth();
+  late CollectionReference usersCollectionRef;
+  bool alreadyUser = false;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    usersCollectionRef = FirebaseFirestore.instance.collection('Users');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -76,8 +88,8 @@ class _signInState extends State<signIn> {
               Container(
                 child: TextButton(
                   onPressed: () {
-                   // Navigator.pushNamed(context, Account_det.route);
-                       Navigator.pushReplacementNamed(context, Account_det.route);
+                    // Navigator.pushNamed(context, Account_det.route);
+                    Navigator.pushReplacementNamed(context, Account_det.route);
                     print('accounts_det screen called');
                   },
                   child: const Text('Create Account'),
@@ -88,19 +100,34 @@ class _signInState extends State<signIn> {
               Buttons.Google,
               text: "Sign up with Google",
               onPressed: () async {
-                  dynamic resultuser = await authObject.googleSignin();
-                  if (resultuser == null) {
-                    print("sign in failed");
+                dynamic resultuser = await authObject.googleSignin();
+                if (resultuser == null) {
+                  print("sign in failed");
+                } else {
+                  setState(() {
+                    google_details = true;
+                  });
+                  // Navigator.pop(context);
+                  // Navigator.pushNamed(context, Homescreen.route);
+                  usersCollectionRef
+                      .doc(googleUserUid)
+                      .get()
+                      .then((DocumentSnapshot documentSnapshot) {
+                    if (documentSnapshot.exists) {
+                      setState(() {
+                        alreadyUser = true;
+                      });
+                    }
+                  });
+                  if (alreadyUser) {
+                    Navigator.pushReplacementNamed(context, Homescreen.route);
                   } else {
-                    setState(() {
-                      google_details=true;
-                    });
-                   // Navigator.pop(context);
-                   // Navigator.pushNamed(context, Homescreen.route);
-                      Navigator.pushReplacementNamed(context, Account_det.route);
-                    //print(resultuser.accessToken);
+                    Navigator.pushReplacementNamed(context, Account_det.route);
                   }
-                },
+
+                  //print(resultuser.accessToken);
+                }
+              },
             )
           ]),
     ));

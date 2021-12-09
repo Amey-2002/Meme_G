@@ -75,8 +75,9 @@ class Auth extends StatefulWidget {
       //User _user;
       UserCredential google_user = await _Authenctication.signInWithCredential(user);
       uSer = FirebaseAuth.instance.currentUser; 
-      
+      googleUserUid = uSer!.uid;
       print(uSer!.displayName);
+
       return googleUser;
     } catch (error) {
       print(error);
@@ -105,6 +106,7 @@ class _AuthState extends State<Auth> {
     setState(() {
       name = uSer!.displayName;
       emailid = uSer!.email;
+      
     });
     return Container(
       
