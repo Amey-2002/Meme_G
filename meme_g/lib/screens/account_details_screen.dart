@@ -245,54 +245,96 @@ class _Account_detState extends State<Account_det> {
           ElevatedButton(
               child: Text("Create Account"),
               onPressed: () async {
-                dynamic result =
-                    await authObject.createAccount(emailid, upassword);
-                if (result == null) {
-                  print("Enter valid Details");
-                } else {
-                  //using dialogue box to set profile Image
+                if (google_details) {
                   setState(() {
-                    dp.setUid =
-                        result.uid; //uid acquired for user profile image
-                  });
-                  UserF.accountDetails(name, username, country, birthdate);
-                  _updateToDatabase(
-                      uid: result.uid,
-                      uName: name,
-                      uBirthdate: birthdate,
-                      uCountry: country,
-                      uEmailId: emailid,
-                      uPassword: upassword,
-                      userName: username);
-                  await showDialog(
-                    context: context,
-                    builder: (context) => AlertDialog(
-                      content: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: <Widget>[
-                          dp,
-                          ClipRRect(
-                            child: RaisedButton(
-                              color: Colors.green,
-                              child: Text('Done'),
-                              onPressed: () => Navigator.pop(context),
+                      dp.setUid = user!.uid;
+                          //result.uid; //uid acquired for user profile image
+                    });
+                    _updateToDatabase(
+                        uid: user!.uid,
+                        uName: name,
+                        uBirthdate: birthdate,
+                        uCountry: country,
+                        uEmailId: emailid,
+                        uPassword: upassword,
+                        userName: username);
+                    await showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                        content: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+                            dp,
+                            ClipRRect(
+                              child: RaisedButton(
+                                color: Colors.green,
+                                child: Text('Done'),
+                                onPressed: () => Navigator.pop(context),
+                              ),
                             ),
-                          ),
-                          ClipRRect(
-                            child: RaisedButton(
-                              color: Colors.grey,
-                              child: Text('Later'),
-                              onPressed: () => Navigator.pop(context),
-                            ),
-                          )
-                        ],
+                            ClipRRect(
+                              child: RaisedButton(
+                                color: Colors.grey,
+                                child: Text('Later'),
+                                onPressed: () => Navigator.pop(context),
+                              ),
+                            )
+                          ],
+                        ),
                       ),
-                    ),
-                  );
-                  // Navigator.pop(context);
-                  // Navigator.pushNamed(context, Homescreen.route);
-                  Navigator.pushReplacementNamed(context, Homescreen.route);
-                  print(result.uid);
+                    );
+                    Navigator.pushReplacementNamed(context, Homescreen.route);
+                    print(user!.uid);
+                } else {
+                  dynamic result =
+                      await authObject.createAccount(emailid, upassword);
+                  if (result == null) {
+                    print("Enter valid Details");
+                  } else {
+                    //using dialogue box to set profile Image
+                    setState(() {
+                      dp.setUid =
+                          result.uid; //uid acquired for user profile image
+                    });
+                    UserF.accountDetails(name, username, country, birthdate);
+                    _updateToDatabase(
+                        uid: result.uid,
+                        uName: name,
+                        uBirthdate: birthdate,
+                        uCountry: country,
+                        uEmailId: emailid,
+                        uPassword: upassword,
+                        userName: username);
+                    await showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                        content: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+                            dp,
+                            ClipRRect(
+                              child: RaisedButton(
+                                color: Colors.green,
+                                child: Text('Done'),
+                                onPressed: () => Navigator.pop(context),
+                              ),
+                            ),
+                            ClipRRect(
+                              child: RaisedButton(
+                                color: Colors.grey,
+                                child: Text('Later'),
+                                onPressed: () => Navigator.pop(context),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    );
+                    // Navigator.pop(context);
+                    // Navigator.pushNamed(context, Homescreen.route);
+                    Navigator.pushReplacementNamed(context, Homescreen.route);
+                    print(result.uid);
+                  }
                 }
               })
         ])));
