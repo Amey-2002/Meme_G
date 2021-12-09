@@ -39,40 +39,57 @@ class MemeView extends StatelessWidget {
                 ),
             ),*/
           ),
-          Padding(
-            padding: const EdgeInsets.only(bottom: 20, top: 2),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: <Widget>[
-                //Icon(Icons.favorite_border,size: 27,),
-                //Icon(Icons.send,size: 27,),
-                //Icon(Icons.share,size: 27,),
-                FloatingActionButton(
-                  heroTag: 'btn3',
-                  onPressed: () {},
-                  child: Center(
-                    heightFactor: 25,
-                    widthFactor: 100,
-                    child: Icon(
-                      Icons.favorite_border,
-                      size: 27,
+          Container(
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 20, top: 2),
+              child: Row(
+                crossAxisAlignment:CrossAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  //Icon(Icons.favorite_border,size: 27,),
+                  //Icon(Icons.send,size: 27,),
+                  //Icon(Icons.share,size: 27,),
+
+                  // FloatingActionButton(
+                  //   heroTag: 'btn3',
+                  //   onPressed: () {},
+                  //   child: Center(
+                  //     heightFactor: 25,
+                  //     widthFactor: 100,
+                  //     child: Icon(
+                  //       Icons.favorite_border,
+                  //       size: 27,
+                  //     ),
+                  //   ),
+                  // ),
+                  //IconButton(onPressed: () {}, icon: Icon(Icons.send,size: 27,)),
+                  // FloatingActionButton(
+                  //   heroTag: 'btn4',
+                  //   onPressed: () {},
+                  //   child: 
+                  //   ClipRRect(
+                  //     child: Center(
+                  //       child: Icon(
+                  //         Icons.share,
+                  //         size: 27,
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
+                  IconButton(
+                    splashColor: Colors.red,
+                    onPressed: () {}, 
+                    icon: Icon(Icons.favorite_border,size: 27,color: Colors.black,),
+                    color : Colors.transparent,
                     ),
-                  ),
-                ),
-                //IconButton(onPressed: () {}, icon: Icon(Icons.send,size: 27,)),
-                FloatingActionButton(
-                  heroTag: 'btn4',
-                  onPressed: () {},
-                  child: ClipRRect(
-                    child: Center(
-                      child: Icon(
-                        Icons.share,
-                        size: 27,
-                      ),
+                  IconButton(
+                    splashColor: Colors.blueAccent,
+                    onPressed: () {}, 
+                    icon: Icon(Icons.share,size: 27,color: Colors.black,),
+                    color : Colors.transparent,
                     ),
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ],

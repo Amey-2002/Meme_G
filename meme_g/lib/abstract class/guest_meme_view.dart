@@ -42,7 +42,11 @@ class GuestMemeView extends StatelessWidget {
                 //Icon(Icons.favorite_border,size: 27,),
                 //Icon(Icons.send,size: 27,),
                 //Icon(Icons.share,size: 27,),
-                IconButton(onPressed: () {}, icon: Icon(Icons.share,size: 27,)),
+                IconButton(
+                  onPressed: () {}, 
+                  icon: Icon(Icons.share,size: 25,color: Colors.black,),
+                  color : Colors.transparent,
+                  ),
               ],
             ),
           ),

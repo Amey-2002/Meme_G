@@ -23,14 +23,14 @@ class NavDrawer extends StatelessWidget {
           ),
           onTap: () {
 
-           // Navigator.pushNamed(context, personal_info.route);
+           Navigator.pushNamed(context, personal_info.route);
 
-            Navigator.pushReplacementNamed(context, Account_det.route);
+           // Navigator.pushReplacementNamed(context, Account_det.route);
 
           },
         ),
         ListTile(
-          leading: Icon(Icons.collections,size: 32,),
+          leading: Icon(Icons.collections,size: 32,color: Colors.black,),
           title: Text(
             'My Work',
             style: TextStyle(

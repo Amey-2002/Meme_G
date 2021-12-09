@@ -36,7 +36,7 @@ class _Account_detState extends State<Account_det> {
     return Scaffold(
         appBar: AppBar(
           title: Text('Account Details'),
-          shadowColor: Colors.green,
+          // shadowColor: Colors.green,
         ),
         body: SingleChildScrollView(
             child: Column(children: <Widget>[
@@ -61,7 +61,7 @@ class _Account_detState extends State<Account_det> {
           ListTile(
             leading: Icon(
               Icons.sort_by_alpha,
-              color: Colors.green,
+              //color: Colors.purple,
             ),
             title: Text('Name'),
           ),
@@ -77,7 +77,7 @@ class _Account_detState extends State<Account_det> {
           ListTile(
             leading: Icon(
               Icons.sort_by_alpha,
-              color: Colors.green,
+              
             ),
             title: Text('User Id'),
           ),
@@ -94,7 +94,7 @@ class _Account_detState extends State<Account_det> {
           ListTile(
             leading: Icon(
               Icons.email,
-              color: Colors.green,
+              
             ),
             title: Text('Email ID'),
           ),
@@ -111,7 +111,7 @@ class _Account_detState extends State<Account_det> {
           ListTile(
             leading: Icon(
               Icons.email,
-              color: Colors.green,
+              
             ),
             title: Text('Password'),
           ),
@@ -137,7 +137,7 @@ class _Account_detState extends State<Account_det> {
               child: Icon(
                 //Icons.format_list_numbered,
                 Icons.calendar_today,
-                color: Colors.green,
+                color: Colors.redAccent,
               ),
             ),
             title: TextButton(
@@ -169,7 +169,7 @@ class _Account_detState extends State<Account_det> {
                 alignment: Alignment.centerLeft,
                 decoration: BoxDecoration(
                   //borderRadius: BorderRadius.circular(16.0),
-                  color: Colors.green.shade100,
+                  color: Colors.purpleAccent,
                 ),
                 child: Text(
                   'Choose Birthdate',
@@ -184,7 +184,7 @@ class _Account_detState extends State<Account_det> {
           ListTile(
             leading: Icon(
               Icons.perm_identity_sharp,
-              color: Colors.green,
+             
             ),
             title: Text('Country of origin'),
           ),
@@ -231,7 +231,7 @@ class _Account_detState extends State<Account_det> {
                           dp,
                           ClipRRect(
                             child: RaisedButton(
-                              color: Colors.green,
+                              
                               child: Text('Done'),
                               onPressed: () => Navigator.pop(context),
                             ),

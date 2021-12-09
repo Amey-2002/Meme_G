@@ -75,7 +75,6 @@ class _personal_infoState extends State<personal_info> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Personal Information'),
-        shadowColor: Colors.green,
       ),
       body: (user == null)
           ? const Center(
@@ -134,7 +133,7 @@ class _personal_infoState extends State<personal_info> {
                       ListTile(
                         leading: Icon(
                           Icons.email,
-                          color: Colors.green,
+                          color: Colors.purpleAccent,
                         ),
                         title: Text('Email ID'),
                       ),
@@ -146,7 +145,7 @@ class _personal_infoState extends State<personal_info> {
                       ListTile(
                         leading: Icon(
                           Icons.password,
-                          color: Colors.green,
+                          color: Colors.purpleAccent,
                         ),
                         title: Text('Password'),
                         trailing: IconButton(
