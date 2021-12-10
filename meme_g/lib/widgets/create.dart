@@ -17,8 +17,8 @@ class Create extends StatelessWidget {
               //Navigator.pushNamed(context, SaveUpload.route);
               //Navigator.pushReplacementNamed(context, ImageEditor.route);
               //Navigator.pushNamed(context, SaveUpload.route);
-              Navigator.pushNamed(context, ImageEditor.route);
-              //Navigator.pushNamed(context, ImageEditorPro.route);
+              //Navigator.pushNamed(context, ImageEditor.route);
+              Navigator.pushNamed(context, ImageEditorPro.route);
 
               //Navigator.pushNamed(context, PhotoEditor.route);
               //Navigator.pushReplacementNamed(context, PhotoEditor.route);

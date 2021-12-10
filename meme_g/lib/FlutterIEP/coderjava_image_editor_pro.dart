@@ -211,23 +211,24 @@ class _CoderJavaImageEditorProState extends State<CoderJavaImageEditorPro> {
             child: Text('SAVE'),
             onPressed: () {
               //_saveScreen(); //from image_gallery_saver 
+
               //tried after reading documentation
               screenshotController
                   .capture(
                       delay: const Duration(milliseconds: 10),
                       pixelRatio: widget.pixelRatio ?? 1.5)
-                  .then((image /*binaryIntList*/) async {
-                final directory = await getApplicationDocumentsDirectory();
-                final imagePath =
-                    await File('${directory.path}/image.png').create();
-                await imagePath.writeAsBytes(image!);
+                  .then((/*image*/ binaryIntList) async {
+                // final directory = await getApplicationDocumentsDirectory();
+                // final imagePath =
+                //     await File('${directory.path}/image.png').create();
+                // imagePath.writeAsBytesSync(image!);
               //what i tried earlier ends here
 
                 //original code
-                // final paths = widget.pathSave ?? await getTemporaryDirectory();
-                // final file = await File('${paths.path}/' + DateTime.now().toString() + '.jpg').create();
-                // file.writeAsBytesSync(binaryIntList!);
-                //Navigator.pop(context, imagePath);
+                final paths = widget.pathSave ?? await getTemporaryDirectory();
+                final file = await File('${paths.path}/' + DateTime.now().toString() + '.jpg').create();
+                file.writeAsBytesSync(binaryIntList!);
+                Navigator.pop(context, file);
 
               }).catchError((onError) {
                 print(onError);
@@ -255,8 +256,8 @@ class _CoderJavaImageEditorProState extends State<CoderJavaImageEditorPro> {
               child: Container(
                 margin: EdgeInsets.all(20),
                 color: Colors.white,
-                width: width.toDouble(),
-                height: height.toDouble(),
+                width: 370, //width.toDouble(),
+                height: 370, //height.toDouble(),
                 child: RepaintBoundary(
                   key: globalKey,
                   child: Stack(
@@ -267,8 +268,8 @@ class _CoderJavaImageEditorProState extends State<CoderJavaImageEditorPro> {
                               transform: Matrix4.rotationY(flipValue),
                               child: ClipRect(
                                 child: Container(
-                                  width: width.toDouble(),
-                                  height: height.toDouble(),
+                                  width: 370, //width.toDouble(),
+                                  height: 370, //height.toDouble(),
                                   decoration: BoxDecoration(
                                     image: DecorationImage(
                                       alignment: Alignment.center,

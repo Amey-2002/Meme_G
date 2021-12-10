@@ -62,7 +62,7 @@ class MyApp extends StatelessWidget {
           SaveUpload.route: (context) => SaveUpload(),
           MyWork.route: (context) => MyWork(),
           LikedMemes.route: (context) => LikedMemes(),
-          //ImageEditorPro.route: (context) => ImageEditorPro(),
+          ImageEditorPro.route: (context) => ImageEditorPro(),
           //ProflieImagePicker.route: (context) => ProflieImagePicker(),
 
           signIn.route: (context) => signIn(),

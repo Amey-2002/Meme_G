@@ -121,7 +121,7 @@ class _SelectBottomPanelState extends State<SelectBottomPanel> {
           context,
           CupertinoPageRoute(
             builder: (context) => ImageEditorPro(
-              arguments: [_image],
+              arguments: [_image], 
               //arguments: [convertedImage],
             ),
           ),
