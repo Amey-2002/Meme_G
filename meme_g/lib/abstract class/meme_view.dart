@@ -7,8 +7,10 @@ import 'package:favorite_button/favorite_button.dart';
 class MemeView extends StatefulWidget {
   final String imgUrl;
   final String userName;
+  late bool isLiked;
 
-  MemeView({required this.imgUrl, required this.userName});
+  MemeView(
+      {required this.imgUrl, required this.userName, required this.isLiked});
 
   @override
   State<MemeView> createState() => _MemeViewState();
@@ -20,31 +22,34 @@ class _MemeViewState extends State<MemeView> {
   late String currentUsername;
   late String likedMemeDoc;
   late String likedMemeDocFinal;
-  bool liked = false;
+  late CollectionReference memesCollectionRef;
+  //bool liked = false;
 
   @override
   void initState() {
     super.initState();
     likedMemeDoc = widget.imgUrl.replaceAll(new RegExp(r'[^\w\s]+'), '0');
     likedMemeDocFinal = likedMemeDoc.replaceAll('_', '0');
+    memesCollectionRef = FirebaseFirestore.instance.collection('Memes');
     likedMemesRef = FirebaseFirestore.instance
         .collection('Users')
         .doc(user!.uid)
         .collection('LikedMemeURLs');
-    FirebaseFirestore.instance
-        .collection('Users')
-        .doc(user!.uid)
-        .collection('LikedMemeURLs')
-        .doc(likedMemeDocFinal)
-        .get()
-        .then((DocumentSnapshot documentSnapshot) {
-      if (documentSnapshot.exists) {
-        setState(() {
-          liked = true;
-          print(documentSnapshot.get(FieldPath(['url'])));
-        });
-      }
-    });
+    // FirebaseFirestore.instance
+    //     .collection('Users')
+    //     .doc(user!.uid)
+    //     .collection('LikedMemeURLs')
+    //     .doc(likedMemeDocFinal)
+    //     .get()
+    //     .then((DocumentSnapshot documentSnapshot) {
+    //   if (documentSnapshot.exists) {
+    //     setState(() {
+    //       liked = true;
+    //       print(documentSnapshot.get(FieldPath(['url'])));
+    //     });
+    //   }
+    // });
+    // print(liked);
     FirebaseFirestore.instance
         .collection('Users')
         .doc(user!.uid)
@@ -121,11 +126,15 @@ class _MemeViewState extends State<MemeView> {
                 //Icon(Icons.send,size: 27,),
                 //Icon(Icons.share,size: 27,),
                 FavoriteButton(
-                  isFavorite: liked,
+                  isFavorite: widget.isLiked,
                   // iconDisabledColor: Colors.white,
                   valueChanged: (_liked) {
-                    liked = !liked;
-                    if (liked) {
+                    widget.isLiked = !widget.isLiked;
+                    //List array = likedMemesRef.doc(likedMemeDocFinal).get(Field) as List;
+                    if (widget.isLiked) {
+                      memesCollectionRef.doc(likedMemeDocFinal).update({
+                        'likedBy': FieldValue.arrayUnion([user!.uid])
+                      });
                       likedMemesRef.doc(likedMemeDocFinal).set({
                         'url': widget.imgUrl,
                         'Username': widget.userName,
@@ -133,6 +142,9 @@ class _MemeViewState extends State<MemeView> {
                             DateTime.now().microsecondsSinceEpoch.toString()
                       });
                     } else {
+                      memesCollectionRef.doc(likedMemeDocFinal).update({
+                        'likedBy': FieldValue.arrayRemove([user!.uid])
+                      });
                       likedMemesRef.doc(likedMemeDocFinal).delete();
                     }
                     // if (_liked) {

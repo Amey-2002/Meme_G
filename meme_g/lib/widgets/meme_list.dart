@@ -15,12 +15,12 @@ class _MemeListState extends State<MemeList> {
   late CollectionReference memesCollectionRef;
   var latestMemesQuery;
 
-  List<MemeView> latestMemes = [
-    MemeView(
-        userName: 'Username',
-        imgUrl:
-            'https://cdn3.iconfinder.com/data/icons/google-material-design-icons/48/ic_account_circle_48px-512.png'),
-  ];
+  // List<MemeView> latestMemes = [
+  //   MemeView(
+  //       userName: 'Username',
+  //       imgUrl:
+  //           'https://cdn3.iconfinder.com/data/icons/google-material-design-icons/48/ic_account_circle_48px-512.png'),
+  // ];
 
   @override
   void initState() {
@@ -58,9 +58,13 @@ class _MemeListState extends State<MemeList> {
                           userName: snapshot.data?.docs[index].get('Username'),
                         );
                       } else {
+                        List array = snapshot.data?.docs[index].get('likedBy');
+                        bool _isLiked = array.contains(user!.uid);
+                        print(_isLiked);
                         return MemeView(
                           imgUrl: snapshot.data?.docs[index].get('url'),
                           userName: snapshot.data?.docs[index].get('Username'),
+                          isLiked: _isLiked,
                         );
                       }
                     },

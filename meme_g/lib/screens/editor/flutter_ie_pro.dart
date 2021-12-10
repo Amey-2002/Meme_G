@@ -33,6 +33,9 @@ class _ImageEditorProState extends State<ImageEditorPro> {
   late String userName, userId;
   late firebase_storage.Reference ref;
 
+  late String likedMemeDoc;
+  late String likedMemeDocFinal;
+
   //late File image;
   @override
   void initState() {
@@ -269,13 +272,16 @@ class _ImageEditorProState extends State<ImageEditorPro> {
                         if (Platform.isAndroid) {
                           Share.shareFiles([_image!.path],
                               subject: 'Image edited by Photo Editor',
-                              text:
-                                  'Meme created and shared by ' + userName + ' using Meme Generator',
+                              text: 'Meme created and shared by ' +
+                                  userName +
+                                  ' using Meme Generator',
                               sharePositionOrigin:
                                   box!.localToGlobal(Offset.zero) & box.size);
                         } else {
                           Share.share(
-                              'Meme created and shared by ' + userName + ' using Meme Generator',
+                              'Meme created and shared by ' +
+                                  userName +
+                                  ' using Meme Generator',
                               subject: 'Image edited by Photo Editor',
                               sharePositionOrigin:
                                   box!.localToGlobal(Offset.zero) & box.size);
@@ -284,14 +290,19 @@ class _ImageEditorProState extends State<ImageEditorPro> {
                       child: Text('Share')),
                   ElevatedButton(
                       onPressed: () async {
+                        //Uploading meme To Firebase Storage
                         ref = firebase_storage.FirebaseStorage.instance
                             .ref()
                             .child(
                                 'Posted-Memes/${Path.basename(_image!.path)}');
                         await ref.putFile(_image!).whenComplete(() async {
                           await ref.getDownloadURL().then((value) async {
+                            likedMemeDoc =
+                                value.replaceAll(new RegExp(r'[^\w\s]+'), '0');
+                            likedMemeDocFinal =
+                                likedMemeDoc.replaceAll('_', '0');
                             //sending the received url of uploaded meme to firestore along with userName, userID
-                            await postedMemesRef.add({
+                            await postedMemesRef.doc(likedMemeDocFinal).set({
                               'url': value,
                               'Username': userName,
                               'UserID': userId,
@@ -300,10 +311,13 @@ class _ImageEditorProState extends State<ImageEditorPro> {
                                   .toString()
                             });
                             //Also storinging in a Memes Collection to use in top list
-                            await memesCollectionRef.add({
+                            await memesCollectionRef
+                                .doc(likedMemeDocFinal)
+                                .set({
                               'url': value,
                               'Username': userName,
                               'UserID': userId,
+                              'likedBy': [],
                               'DateTime': DateTime.now()
                                   .microsecondsSinceEpoch
                                   .toString()

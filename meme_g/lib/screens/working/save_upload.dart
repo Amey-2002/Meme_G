@@ -80,6 +80,9 @@ class _SaveUploadState extends State<SaveUpload> {
   late String userName, userId;
   late firebase_storage.Reference ref;
 
+  late String likedMemeDoc;
+  late String likedMemeDocFinal;
+
   ///NOTE: Only supported on Android & iOS
   ///Needs image_picker plugin {https://pub.dev/packages/image_picker}
   final picker = ImagePicker();
@@ -119,24 +122,27 @@ class _SaveUploadState extends State<SaveUpload> {
     await Permission.photos.request();
     var permissionStatus = await Permission.photos.status;
     if (permissionStatus.isGranted) {
-      //Uploading meme To Firebase
+      //Uploading meme To Firebase Storage
       ref = firebase_storage.FirebaseStorage.instance
           .ref()
           .child('Posted-Memes/${Path.basename(_imageFile!.path)}');
       await ref.putFile(_imageFile!).whenComplete(() async {
         await ref.getDownloadURL().then((value) async {
+          likedMemeDoc = value.replaceAll(new RegExp(r'[^\w\s]+'), '0');
+          likedMemeDocFinal = likedMemeDoc.replaceAll('_', '0');
           //sending the received url of uploaded meme to firestore along with userName, userID
-          await postedMemesRef.add({
+          await postedMemesRef.doc(likedMemeDocFinal).set({
             'url': value,
             'Username': userName,
             'UserID': userId,
             'DateTime': DateTime.now().microsecondsSinceEpoch.toString()
           });
           //Also storinging in a Memes Collection to use in top list
-          await memesCollectionRef.add({
+          await memesCollectionRef.doc(likedMemeDocFinal).set({
             'url': value,
             'Username': userName,
             'UserID': userId,
+            'likedBy': [],
             'DateTime': DateTime.now().microsecondsSinceEpoch.toString()
           });
         });
