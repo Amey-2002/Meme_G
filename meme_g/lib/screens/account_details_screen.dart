@@ -38,8 +38,10 @@ class _Account_detState extends State<Account_det> {
   @override
   Widget build(BuildContext context) {
     setState(() {
-      name = user!.displayName;
-      emailid = user!.email;
+      if (user != null) {
+        name = user!.displayName;
+        emailid = user!.email;
+      }
     });
     // TODO: implement build
     return Scaffold(
@@ -204,7 +206,7 @@ class _Account_detState extends State<Account_det> {
                 }, onConfirm: (date) {
                   print('confirm $date');
                   setState(() {
-                    birthdate = date.toString();
+                    birthdate = date.day.toString()+'-'+date.month.toString()+'-'+date.year.toString();
                   });
                 }, currentTime: DateTime.now(), locale: LocaleType.en);
               },
@@ -247,44 +249,44 @@ class _Account_detState extends State<Account_det> {
               onPressed: () async {
                 if (google_details) {
                   setState(() {
-                      dp.setUid = user!.uid;
-                          //result.uid; //uid acquired for user profile image
-                    });
-                    _updateToDatabase(
-                        uid: user!.uid,
-                        uName: name,
-                        uBirthdate: birthdate,
-                        uCountry: country,
-                        uEmailId: emailid,
-                        uPassword: upassword,
-                        userName: username);
-                    await showDialog(
-                      context: context,
-                      builder: (context) => AlertDialog(
-                        content: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
-                            dp,
-                            ClipRRect(
-                              child: RaisedButton(
-                                color: Colors.green,
-                                child: Text('Done'),
-                                onPressed: () => Navigator.pop(context),
-                              ),
+                    dp.setUid = user!.uid;
+                    //result.uid; //uid acquired for user profile image
+                  });
+                  _updateToDatabase(
+                      uid: user!.uid,
+                      uName: name,
+                      uBirthdate: birthdate,
+                      uCountry: country,
+                      uEmailId: emailid,
+                      uPassword: upassword,
+                      userName: username);
+                  await showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      content: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                          dp,
+                          ClipRRect(
+                            child: RaisedButton(
+                              color: Colors.green,
+                              child: Text('Done'),
+                              onPressed: () => Navigator.pop(context),
                             ),
-                            ClipRRect(
-                              child: RaisedButton(
-                                color: Colors.grey,
-                                child: Text('Later'),
-                                onPressed: () => Navigator.pop(context),
-                              ),
-                            )
-                          ],
-                        ),
+                          ),
+                          ClipRRect(
+                            child: RaisedButton(
+                              color: Colors.grey,
+                              child: Text('Later'),
+                              onPressed: () => Navigator.pop(context),
+                            ),
+                          )
+                        ],
                       ),
-                    );
-                    Navigator.pushReplacementNamed(context, Homescreen.route);
-                    print(user!.uid);
+                    ),
+                  );
+                  Navigator.pushReplacementNamed(context, Homescreen.route);
+                  print(user!.uid);
                 } else {
                   dynamic result =
                       await authObject.createAccount(emailid, upassword);

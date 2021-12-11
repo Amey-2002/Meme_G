@@ -25,7 +25,7 @@ class _HomescreenState extends State<Homescreen> {
     return Scaffold(
       endDrawer: NavDrawer(),
       appBar: AppBar(
-        leading: CircleAvatar(
+        /*leading: CircleAvatar(
           backgroundColor: Colors.white,
           foregroundColor: Colors.white,
           radius: 36,
@@ -39,7 +39,7 @@ class _HomescreenState extends State<Homescreen> {
           //   ),
           //   iconSize: 40,
           // ),
-        ),
+        ),*/
         // IconButton(
         //   onPressed: () {},
         //   icon: Icon(Icons.account_circle_rounded),

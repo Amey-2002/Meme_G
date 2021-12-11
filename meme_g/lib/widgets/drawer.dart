@@ -38,7 +38,7 @@ class NavDrawer extends StatelessWidget {
             size: 32,
           ),
           title: Text(
-            'My Work',
+            'Posted Memes',
             style: TextStyle(
               fontSize: 20,
             ),
