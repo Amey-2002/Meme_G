@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:meme_g/screens/about.dart';
+import 'package:meme_g/screens/help.dart';
 import 'package:meme_g/screens/settings_page.dart';
 import '../screens/account_details_screen.dart';
 
@@ -74,7 +76,9 @@ class NavDrawer extends StatelessWidget {
               fontSize: 20,
             ),
           ),
-          onTap: () {},
+          onTap: () {
+            Navigator.pushNamed(context, AboutScreen.route);
+          },
         ),
         ListTile(
           leading: Icon(
@@ -87,7 +91,9 @@ class NavDrawer extends StatelessWidget {
               fontSize: 20,
             ),
           ),
-          onTap: () {},
+          onTap: () {
+            Navigator.pushNamed(context, HelpScreen.route);
+          },
         ),
       ]),
     );

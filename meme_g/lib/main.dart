@@ -4,11 +4,14 @@ import 'package:flutter/material.dart';
 
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:flutter_settings_screens/flutter_settings_screens.dart';
+import 'package:meme_g/screens/about.dart';
+import 'package:meme_g/screens/ask_question.dart';
+import 'package:meme_g/screens/help.dart';
 import 'package:meme_g/screens/homescreen.dart';
 import 'package:meme_g/screens/rate.dart';
+import 'package:meme_g/screens/report_bug.dart';
 import 'package:meme_g/screens/settings_page.dart';
 import 'package:meme_g/screens/emailandpass_signin.dart';
-import 'package:meme_g/screens/homescreen.dart';
 import 'package:meme_g/screens/working/dummy_sign_in.dart';
 import 'package:meme_g/screens/working/save_upload.dart';
 import 'package:meme_g/widgets/user.dart';
@@ -104,6 +107,10 @@ class _MyAppState extends State<MyApp> {
           SaveUpload.route: (context) => SaveUpload(),
           SettingsPage.route: (context) => SettingsPage(),
           RateScreen.route: (context) => RateScreen(),
+          ReportBug.route: (context) => ReportBug(),
+          AboutScreen.route: (context) => AboutScreen(),
+          HelpScreen.route: (context) => HelpScreen(),
+          AskQuestion.route: (context) => AskQuestion(),
           //ProflieImagePicker.route: (context) => ProflieImagePicker(),
         },
       ),
