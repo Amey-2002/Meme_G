@@ -6,6 +6,9 @@ import 'package:meme_g/screens/working/my_work.dart';
 import 'package:meme_g/services/auth.dart';
 import 'package:meme_g/services/authstate.dart';
 import 'package:provider/src/provider.dart';
+import 'package:meme_g/screens/about.dart';
+import 'package:meme_g/screens/help.dart';
+import 'package:meme_g/screens/settings_page.dart';
 import '../screens/account_details_screen.dart';
  bool userstate = false;
 class NavDrawer extends StatelessWidget {
@@ -15,7 +18,10 @@ class NavDrawer extends StatelessWidget {
     return Drawer(
       child: ListView(children: <Widget>[
         ListTile(
-          leading: Icon(Icons.account_circle,size: 32,),
+          leading: Icon(
+            Icons.account_circle,
+            size: 32,
+          ),
           title: Text(
             'You',
             style: TextStyle(
@@ -27,7 +33,10 @@ class NavDrawer extends StatelessWidget {
           },
         ),
         ListTile(
-          leading: Icon(Icons.collections,size: 32,),
+          leading: Icon(
+            Icons.collections,
+            size: 32,
+          ),
           title: Text(
             'My Work',
             style: TextStyle(
@@ -39,7 +48,10 @@ class NavDrawer extends StatelessWidget {
           },
         ),
         ListTile(
-          leading: Icon(Icons.favorite,size: 32,),
+          leading: Icon(
+            Icons.favorite,
+            size: 32,
+          ),
           title: Text(
             'Liked Memes',
             style: TextStyle(
@@ -51,27 +63,40 @@ class NavDrawer extends StatelessWidget {
           },
         ),
         ListTile(
-          leading: Icon(Icons.settings,size: 32,),
+          leading: Icon(
+            Icons.settings,
+            size: 32,
+          ),
           title: Text(
             'Settings',
             style: TextStyle(
               fontSize: 20,
             ),
           ),
-          onTap: () {},
+          onTap: () {
+            Navigator.pushNamed(context, SettingsPage.route);
+          },
         ),
         ListTile(
-          leading: Icon(Icons.info,size: 32,),
+          leading: Icon(
+            Icons.info,
+            size: 32,
+          ),
           title: Text(
             'About',
             style: TextStyle(
               fontSize: 20,
             ),
           ),
-          onTap: () {},
+          onTap: () {
+            Navigator.pushNamed(context, AboutScreen.route);
+          },
         ),
         ListTile(
-          leading: Icon(Icons.help,size: 32,),
+          leading: Icon(
+            Icons.help,
+            size: 32,
+          ),
           title: Text(
             'Help',
             style: TextStyle(
@@ -79,7 +104,7 @@ class NavDrawer extends StatelessWidget {
             ),
           ),
           onTap: () {
-            
+            Navigator.pushNamed(context, HelpScreen.route);
           },
         ),
         ListTile(
