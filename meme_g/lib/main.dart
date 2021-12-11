@@ -10,13 +10,13 @@ import 'package:meme_g/screens/personal_info.dart';
 import 'package:meme_g/screens/working/my_work.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:flutter_settings_screens/flutter_settings_screens.dart';
-import 'package:meme_g/screens/about.dart';
-import 'package:meme_g/screens/ask_question.dart';
-import 'package:meme_g/screens/help.dart';
+import 'package:meme_g/SettingsScreen/about.dart';
+import 'package:meme_g/SettingsScreen/ask_question.dart';
+import 'package:meme_g/SettingsScreen/help.dart';
 import 'package:meme_g/screens/homescreen.dart';
-import 'package:meme_g/screens/rate.dart';
-import 'package:meme_g/screens/report_bug.dart';
-import 'package:meme_g/screens/settings_page.dart';
+import 'package:meme_g/SettingsScreen/rate.dart';
+import 'package:meme_g/SettingsScreen/report_bug.dart';
+import 'package:meme_g/SettingsScreen/settings_page.dart';
 import 'package:meme_g/screens/emailandpass_signin.dart';
 import 'package:meme_g/screens/working/save_upload.dart';
 import 'package:meme_g/widgets/user.dart';
@@ -31,9 +31,8 @@ import 'package:meme_g/widgets/create.dart';
 import 'package:meme_g/widgets/meme_list.dart';
 
 import 'package:meme_g/widgets/user.dart';
-import 'package:meme_g/widgets/theme_changer.dart';
-import 'package:meme_g/widgets/theme_constants.dart';
-import 'package:meme_g/widgets/theme_manager.dart';
+import 'package:meme_g/Theme/theme_constants.dart';
+import 'package:meme_g/Theme/theme_manager.dart';
 // import 'package:meme_g/widgets/theme_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -101,7 +100,7 @@ class _MyAppState extends State<MyApp> {
       ],
       builder: (context, child) => MaterialApp(
         title: 'Flutter Demo',
-        theme: ThemeData(accentColor: Colors.green),
+        theme: ThemeData(primarySwatch: Colors.green,),
         darkTheme: ThemeData.dark(),
         themeMode: themeManager.themeMode,
         home: MyHomePage(),

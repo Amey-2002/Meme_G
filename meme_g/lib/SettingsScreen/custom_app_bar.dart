@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:meme_g/screens/settings_page.dart';
+import 'package:meme_g/SettingsScreen/settings_page.dart';
 
 import 'rounded_button.dart';
 

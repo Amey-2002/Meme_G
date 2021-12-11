@@ -1,38 +1,47 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:meme_g/screens/app_header.dart';
-import 'package:meme_g/screens/rounded_button.dart';
-import 'package:meme_g/screens/settings_page.dart';
-import 'package:meme_g/screens/working/profile_image_picker.dart';
+import 'package:meme_g/SettingsScreen/rounded_button.dart';
+import 'package:meme_g/screens/profile_image_picker.dart';
+import 'package:meme_g/SettingsScreen/proportionals.dart';
+import 'package:smooth_star_rating_null_safety/smooth_star_rating_null_safety.dart';
 
-class ReportBug extends StatefulWidget {
-  const ReportBug({Key? key}) : super(key: key);
-  static const route = 'report_bug';
+import 'app_header.dart';
+import 'custom_app_bar.dart';
+
+class RateScreen extends StatefulWidget {
+  static const route = 'ratescreen';
+
+  RateScreen({Key? key}) : super(key: key);
+
   @override
-  _ReportBugState createState() => _ReportBugState();
+  State<RateScreen> createState() => _RateScreenState();
 }
 
-class _ReportBugState extends State<ReportBug> {
+class _RateScreenState extends State<RateScreen> {
   User? user = FirebaseAuth.instance.currentUser;
-  late CollectionReference reportRef;
+  late CollectionReference feedbackRef;
   String? profileImageUrl;
 
+  var rating = 0.0;
   var dp = new ProfilePage();
-  var report = '';
+  var comment = '';
 
+  @override
   void initState() {
     super.initState();
     dp.setUid = user!.uid;
-    reportRef = FirebaseFirestore.instance.collection('Report');
+    feedbackRef = FirebaseFirestore.instance.collection('FeedBack');
   }
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: SingleChildScrollView(
         child: Stack(
           children: [
+            SizedBox(height: 20.0),
             AppHeader(),
             Positioned(
               top: -380,
@@ -48,35 +57,32 @@ class _ReportBugState extends State<ReportBug> {
                 child: Column(
                   children: [
                     SizedBox(height: 20.0),
-                    //CustomAppBar(),
-                    Row(
-                      children: [
-                        RoundedButton(
-                          icon: Icon(Icons.arrow_back),
-                          iconColor: Colors.indigo,
-                          bgColor: Colors.white,
-                          tap: () => {
-                            Navigator.pushNamed(context, SettingsPage.route),
-                          },
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Text(
-                          'Report Bug',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 24,
-                          ),
-                        ),
-                      ],
-                    ),
-
+                    CustomAppBar(),
                     SizedBox(height: 50.0),
-
                     dp,
+                    // // CircleAvatar(
+                    // //   backgroundColor: Colors.white,
+                    // //   child: Icon(
+                    // //     Icons.account_circle_rounded,
+                    // //     size: 150,
+                    // //   ),
+                    //   // foregroundImage: NetworkImage(),
+                    //   // backgroundImage: NetworkImage('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRlybPj2CVQpdYMY2HSNEKLbT5PFv33ZThDg&usqp=CAU'),
+                    //   // foregroundImage: NetworkImage(
+                    //   //      'https://thumbs.dreamstime.com/b/feedback-concept-image-arrows-blue-chalkboard-background-40378284.jpg'),
+                    //   radius: 90,
+                    // ),
+                    // Image.asset(
+                    //   'assets/dummyMemes/1.jpg',
+                    //   width: getScreenProportionWidth(166, size),
+                    //   // height: getScreenProportionHeight(166,size),
+                    //   // fit: BoxFit.cover,
+                    // ),
 
+                    // Image.asset(
+                    //   'assets/dummyMemes/2.png',
+                    //   width: getScreenProportionWidth(166, size),
+                    // ),
                     SizedBox(
                       height: 5.0,
                     ),
@@ -109,7 +115,7 @@ class _ReportBugState extends State<ReportBug> {
                     ),
 
                     Text(
-                      'What problem are you facing?',
+                      'How much did you like this app?',
                       style: TextStyle(
                           fontStyle: FontStyle.italic,
                           color: Colors.black87,
@@ -119,6 +125,25 @@ class _ReportBugState extends State<ReportBug> {
 
                     SizedBox(
                       height: 18.0,
+                    ),
+
+                    SmoothStarRating(
+                      allowHalfRating: false,
+                      onRatingChanged: (value) {
+                        rating = value;
+                        print(rating);
+                      },
+                      starCount: 5,
+                      rating: rating,
+                      size: 45,
+                      filledIconData: Icons.star_rate,
+                      color: Colors.yellowAccent,
+                      borderColor: Colors.grey,
+                      spacing: 18.0,
+                    ),
+
+                    SizedBox(
+                      height: 20.0,
                     ),
 
                     // MultiLineInput(),
@@ -141,14 +166,14 @@ class _ReportBugState extends State<ReportBug> {
                         maxLines: 5,
                         decoration: InputDecoration(
                           border: InputBorder.none,
-                          hintText: 'Enter bug',
+                          hintText: 'Additional Comment',
                           hintStyle: TextStyle(
                             color: Colors.black,
                           ),
                         ),
                         onChanged: (value) {
                           // print("The value entered is : $value");
-                          report = value;
+                          comment = value;
                         },
                       ),
                     ),
@@ -161,7 +186,7 @@ class _ReportBugState extends State<ReportBug> {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         Text(
-                          'Report',
+                          'Submit',
                           style: TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.bold,
@@ -175,13 +200,15 @@ class _ReportBugState extends State<ReportBug> {
                         RoundedButton(
                           icon: Icon(Icons.arrow_forward),
                           iconColor: Colors.white,
-                          bgColor: Colors.deepOrangeAccent,
+                          bgColor: Colors.lightGreen,
                           tap: () {
                             setState(() {
-                              reportRef.doc(user!.uid).set({'report': report});
+                              feedbackRef
+                                  .doc(user!.uid)
+                                  .set({'stars': rating, 'comment': comment});
                             });
                           },
-                        ),
+                        )
                       ],
                     ),
                   ],
@@ -193,4 +220,6 @@ class _ReportBugState extends State<ReportBug> {
       ),
     );
   }
+
+  // void setState(Null Function() param0) {}
 }

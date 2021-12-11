@@ -6,9 +6,9 @@ import 'package:meme_g/screens/working/my_work.dart';
 import 'package:meme_g/services/auth.dart';
 import 'package:meme_g/services/authstate.dart';
 import 'package:provider/src/provider.dart';
-import 'package:meme_g/screens/about.dart';
-import 'package:meme_g/screens/help.dart';
-import 'package:meme_g/screens/settings_page.dart';
+import 'package:meme_g/SettingsScreen/about.dart';
+import 'package:meme_g/SettingsScreen/help.dart';
+import 'package:meme_g/SettingsScreen/settings_page.dart';
 import '../screens/account_details_screen.dart';
  bool userstate = false;
 class NavDrawer extends StatelessWidget {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:meme_g/screens/ask_question.dart';
+import 'package:meme_g/SettingsScreen/ask_question.dart';
 import 'package:meme_g/screens/homescreen.dart';
-import 'package:meme_g/screens/report_bug.dart';
+import 'package:meme_g/SettingsScreen/report_bug.dart';
 
 class HelpScreen extends StatefulWidget {
   const HelpScreen({Key? key}) : super(key: key);

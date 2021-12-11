@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:meme_g/screens/personal_info.dart';
 import 'package:meme_g/widgets/create.dart';
 import 'package:meme_g/widgets/meme_list.dart';
-import 'package:meme_g/widgets/theme_provider.dart';
 import '../widgets/drawer.dart';
 import 'editor/photo_editor.dart';
 import '../screens/account_details_screen.dart';
