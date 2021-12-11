@@ -94,8 +94,8 @@ class _MyAppState extends State<MyApp> {
       ],
       builder: (context, child) => MaterialApp(
         title: 'Flutter Demo',
-        theme: lightTheme,
-        darkTheme: darkTheme,
+        theme: ThemeData(accentColor: Colors.green),
+        darkTheme: ThemeData.dark(),
         themeMode: themeManager.themeMode,
         home: MyHomePage(),
         routes: {

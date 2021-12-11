@@ -44,7 +44,7 @@ class _HomescreenState extends State<Homescreen> {
         //   iconSize: 36,
         // ),
         title: Text('Meme Gen'),
-        backgroundColor: Colors.red[900],
+       // backgroundColor: Colors.red[900],
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: [

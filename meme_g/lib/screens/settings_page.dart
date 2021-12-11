@@ -52,8 +52,8 @@ class _SettingsPageState extends State<SettingsPage> {
         },
       );
 
-  Widget buildChangeTheme(BuildContext context) => SimpleSettingsTile(
-        title: 'Dark Mode',
+  Widget buildChangeTheme(BuildContext context) => ListTile(
+        title: Text('Dark Mode'),
         leading: Switch(
           value: themeManager.themeMode == ThemeMode.dark,
           onChanged: (newvalue) {
@@ -82,7 +82,7 @@ class _SettingsPageState extends State<SettingsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.blue,
+        // backgroundColor: Colors.blue,
         leading: IconButton(
           onPressed: () {
             Navigator.pushNamed(context, Homescreen.route);
@@ -100,12 +100,12 @@ class _SettingsPageState extends State<SettingsPage> {
               title: 'GENERAL',
               children: <Widget>[
                 AccountPage(),
-                //buildChangeTheme(context),
                 // buildNotifications(context),
                 //ChangeThemeButtonWidget(),
                 //NotificationsPage(),                            ################################################
                 buildLogout(),
                 buildDeleteAccount(),
+                buildChangeTheme(context),
               ],
             ),
             const SizedBox(
