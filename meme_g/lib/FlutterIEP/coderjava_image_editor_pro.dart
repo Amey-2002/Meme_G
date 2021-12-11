@@ -2,6 +2,15 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:math' as math;
 import 'dart:ui';
+import 'dart:typed_data';
+import 'dart:ui' as ui;
+
+import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
+import 'package:meme_g/screens/editor/image_gallery_saver.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 import './modules/all_emojies.dart';
 import './modules/bottombar_container.dart';
@@ -27,7 +36,8 @@ List<Map?> widgetJson = [];
 var howmuchwidgetis = 0;
 Color currentcolors = Colors.white;
 var opicity = 0.0;
-SignatureController _controller = SignatureController(penStrokeWidth: 5, penColor: Colors.green);
+SignatureController _controller =
+    SignatureController(penStrokeWidth: 5, penColor: Colors.green);
 
 class CoderJavaImageEditorPro extends StatefulWidget {
   final Color? appBarColor;
@@ -63,7 +73,8 @@ class CoderJavaImageEditorPro extends StatefulWidget {
   });
 
   @override
-  _CoderJavaImageEditorProState createState() => _CoderJavaImageEditorProState();
+  _CoderJavaImageEditorProState createState() =>
+      _CoderJavaImageEditorProState();
 }
 
 var slider = 0.0;
@@ -76,7 +87,8 @@ class _CoderJavaImageEditorProState extends State<CoderJavaImageEditorPro> {
   void changeColor(Color color) {
     setState(() => pickerColor = color);
     var points = _controller.points;
-    _controller = SignatureController(penStrokeWidth: 5, penColor: color, points: points);
+    _controller =
+        SignatureController(penStrokeWidth: 5, penColor: color, points: points);
   }
 
   List<Offset> offsets = [];
@@ -101,13 +113,49 @@ class _CoderJavaImageEditorProState extends State<CoderJavaImageEditorPro> {
     });
   }
 
+//Code added by Shubham
+  GlobalKey _globalKey = GlobalKey();
+
+  _saveScreen() async {
+    RenderRepaintBoundary boundary =
+        _globalKey.currentContext!.findRenderObject() as RenderRepaintBoundary;
+    ui.Image image = await boundary.toImage();
+    ByteData? byteData = await (image.toByteData(format: ui.ImageByteFormat.png)
+        as FutureOr<ByteData?>);
+    if (byteData != null) {
+      final result =
+          await ImageGallerySaver.saveImage(byteData.buffer.asUint8List());
+      print(result);
+      _toastInfo(result.toString());
+    }
+  }
+
+  _toastInfo(String info) {
+    Fluttertoast.showToast(msg: info, toastLength: Toast.LENGTH_LONG);
+  }
+
+  _requestPermission() async {
+    Map<Permission, PermissionStatus> statuses = await [
+      Permission.storage,
+    ].request();
+
+    final info = statuses[Permission.storage].toString();
+    print(info);
+    _toastInfo(info);
+  }
+
+//
   @override
   void initState() {
+    _requestPermission(); //by Shubham
+
     WidgetsBinding.instance!.addPostFrameCallback((_) async {
-      if (widget.defaultPathImage != null && widget.defaultPathImage!.isNotEmpty) {
+      if (widget.defaultPathImage != null &&
+          widget.defaultPathImage!.isNotEmpty) {
         var fileImage = File(widget.defaultPathImage!);
         if (fileImage.existsSync()) {
-          final decodedImage = await decodeImageFromList(fileImage.readAsBytesSync());
+          final decodedImage =
+              await decodeImageFromList(fileImage.readAsBytesSync());
           setState(() {
             width = decodedImage.width;
             height = decodedImage.height;
@@ -162,11 +210,26 @@ class _CoderJavaImageEditorProState extends State<CoderJavaImageEditorPro> {
           TextButton(
             child: Text('SAVE'),
             onPressed: () {
-              screenshotController.capture(pixelRatio: widget.pixelRatio ?? 1.5).then((binaryIntList) async {
+              //_saveScreen(); //from image_gallery_saver 
+
+              //tried after reading documentation
+              screenshotController
+                  .capture(
+                      delay: const Duration(milliseconds: 10),
+                      pixelRatio: widget.pixelRatio ?? 1.5)
+                  .then((/*image*/ binaryIntList) async {
+                // final directory = await getApplicationDocumentsDirectory();
+                // final imagePath =
+                //     await File('${directory.path}/image.png').create();
+                // imagePath.writeAsBytesSync(image!);
+              //what i tried earlier ends here
+
+                //original code
                 final paths = widget.pathSave ?? await getTemporaryDirectory();
                 final file = await File('${paths.path}/' + DateTime.now().toString() + '.jpg').create();
                 file.writeAsBytesSync(binaryIntList!);
                 Navigator.pop(context, file);
+
               }).catchError((onError) {
                 print(onError);
               });
@@ -179,7 +242,8 @@ class _CoderJavaImageEditorProState extends State<CoderJavaImageEditorPro> {
         brightness: Brightness.dark,
         backgroundColor: widget.appBarColor ?? Colors.black87,
       ),
-      bottomNavigationBar: openbottomsheet ? Container() : _buildWidgetListMenu(),
+      bottomNavigationBar:
+          openbottomsheet ? Container() : _buildWidgetListMenu(),
       body: Screenshot(
         controller: screenshotController,
         child: Center(
@@ -192,8 +256,8 @@ class _CoderJavaImageEditorProState extends State<CoderJavaImageEditorPro> {
               child: Container(
                 margin: EdgeInsets.all(20),
                 color: Colors.white,
-                width: width.toDouble(),
-                height: height.toDouble(),
+                width: 370, //width.toDouble(),
+                height: 370, //height.toDouble(),
                 child: RepaintBoundary(
                   key: globalKey,
                   child: Stack(
@@ -204,8 +268,8 @@ class _CoderJavaImageEditorProState extends State<CoderJavaImageEditorPro> {
                               transform: Matrix4.rotationY(flipValue),
                               child: ClipRect(
                                 child: Container(
-                                  width: width.toDouble(),
-                                  height: height.toDouble(),
+                                  width: 370, //width.toDouble(),
+                                  height: 370, //height.toDouble(),
                                   decoration: BoxDecoration(
                                     image: DecorationImage(
                                       alignment: Alignment.center,
@@ -221,7 +285,8 @@ class _CoderJavaImageEditorProState extends State<CoderJavaImageEditorPro> {
                                       sigmaY: blurValue,
                                     ),
                                     child: Container(
-                                      color: colorValue.withOpacity(opacityValue),
+                                      color:
+                                          colorValue.withOpacity(opacityValue),
                                     ),
                                   ),
                                 ),
@@ -232,8 +297,10 @@ class _CoderJavaImageEditorProState extends State<CoderJavaImageEditorPro> {
                         child: GestureDetector(
                           onPanUpdate: (DragUpdateDetails details) {
                             setState(() {
-                              RenderBox object = context.findRenderObject() as RenderBox;
-                              var _localPosition = object.globalToLocal(details.globalPosition);
+                              RenderBox object =
+                                  context.findRenderObject() as RenderBox;
+                              var _localPosition =
+                                  object.globalToLocal(details.globalPosition);
                               _points = List.from(_points)..add(_localPosition);
                             });
                           },
@@ -250,7 +317,8 @@ class _CoderJavaImageEditorProState extends State<CoderJavaImageEditorPro> {
                                   left: offsets[f.key].dx,
                                   top: offsets[f.key].dy,
                                   ontap: () {
-                                    scaf.currentState!.showBottomSheet((context) {
+                                    scaf.currentState!
+                                        .showBottomSheet((context) {
                                       return Sliders(
                                         index: f.key,
                                         mapValue: f.value,
@@ -260,7 +328,8 @@ class _CoderJavaImageEditorProState extends State<CoderJavaImageEditorPro> {
                                   onpanupdate: (details) {
                                     setState(() {
                                       offsets[f.key] = Offset(
-                                          offsets[f.key].dx + details.delta.dx, offsets[f.key].dy + details.delta.dy);
+                                          offsets[f.key].dx + details.delta.dx,
+                                          offsets[f.key].dy + details.delta.dy);
                                     });
                                   },
                                   mapJson: f.value,
@@ -289,8 +358,10 @@ class _CoderJavaImageEditorProState extends State<CoderJavaImageEditorPro> {
                                       onpanupdate: (details) {
                                         setState(() {
                                           offsets[f.key] = Offset(
-                                            offsets[f.key].dx + details.delta.dx,
-                                            offsets[f.key].dy + details.delta.dy,
+                                            offsets[f.key].dx +
+                                                details.delta.dx,
+                                            offsets[f.key].dy +
+                                                details.delta.dy,
                                           );
                                         });
                                       },
@@ -338,8 +409,11 @@ class _CoderJavaImageEditorProState extends State<CoderJavaImageEditorPro> {
                   children: [
                     GestureDetector(
                       onTap: () async {
-                        var image = await (picker.pickImage(source: ImageSource.gallery) as FutureOr<PickedFile>);
-                        var decodedImage = await decodeImageFromList(File(image.path).readAsBytesSync());
+                        var image =
+                            await (picker.pickImage(source: ImageSource.gallery)
+                                as FutureOr<PickedFile>);
+                        var decodedImage = await decodeImageFromList(
+                            File(image.path).readAsBytesSync());
                         setState(() {
                           height = decodedImage.height;
                           width = decodedImage.width;
@@ -365,8 +439,11 @@ class _CoderJavaImageEditorProState extends State<CoderJavaImageEditorPro> {
                     SizedBox(width: 24),
                     GestureDetector(
                       onTap: () async {
-                        var image = await (picker.pickImage(source: ImageSource.camera) as FutureOr<PickedFile>);
-                        var decodedImage = await decodeImageFromList(File(image.path).readAsBytesSync());
+                        var image =
+                            await (picker.pickImage(source: ImageSource.camera)
+                                as FutureOr<PickedFile>);
+                        var decodedImage = await decodeImageFromList(
+                            File(image.path).readAsBytesSync());
 
                         setState(() {
                           height = decodedImage.height;
@@ -932,7 +1009,8 @@ class _CoderJavaImageEditorProState extends State<CoderJavaImageEditorPro> {
   }
 }
 
-Widget imageFilterLatest({required brightness, required saturation, required hue, child}) {
+Widget imageFilterLatest(
+    {required brightness, required saturation, required hue, child}) {
   return ColorFiltered(
     colorFilter: ColorFilter.matrix(
       ColorFilterGenerator.brightnessAdjustMatrix(

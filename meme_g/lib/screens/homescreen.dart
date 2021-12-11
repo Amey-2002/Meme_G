@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:meme_g/screens/personal_info.dart';
 import 'package:meme_g/widgets/create.dart';
-import 'package:meme_g/widgets/guest_meme_list.dart';
 import 'package:meme_g/widgets/meme_list.dart';
 import '../widgets/drawer.dart';
 import 'editor/photo_editor.dart';
@@ -16,8 +15,7 @@ class Homescreen extends StatefulWidget {
 }
 
 class _HomescreenState extends State<Homescreen> {
-  User? user = FirebaseAuth.instance.currentUser;
-
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,7 +46,7 @@ class _HomescreenState extends State<Homescreen> {
           child: Column(
             children: <Widget>[
               Create(),
-              (user == null) ? GuestMemeList() : MemeList(),
+              MemeList(),
             ],
           ),
         ),

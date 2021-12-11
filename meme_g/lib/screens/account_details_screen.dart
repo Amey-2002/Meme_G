@@ -1,8 +1,10 @@
 import 'dart:ui';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:meme_g/screens/sign_in_screen.dart';
 import 'package:meme_g/services/auth.dart';
@@ -25,11 +27,14 @@ var emailid, upassword;
 
 class _Account_detState extends State<Account_det> {
   var authObject = Auth();
-  //  dynamic name, username, country;
-  // var emailid, upassword;
-  late GoogleSignInAccount google_user;
-  @override
+
+  dynamic name, username, country;
+  var emailid, upassword;
+
+  User? user = FirebaseAuth.instance.currentUser;
   bool no_edit_info = true;
+
+
   var dp = new ProfilePage();
 
   late CollectionReference usersCollectionRef;
@@ -37,9 +42,9 @@ class _Account_detState extends State<Account_det> {
   @override
   Widget build(BuildContext context) {
     setState(() {
-      if(google_details){
-      name = google_user.displayName;
-      emailid = google_user.email;}
+
+      name = user!.displayName;
+      emailid = user!.email;
     });
     // TODO: implement build
     return Scaffold(
@@ -73,18 +78,20 @@ class _Account_detState extends State<Account_det> {
               color: Colors.green,
             ),
             title: Text('Name'),
-            trailing: IconButton(
-                onPressed: () {
+
+          ),
+          /*Container(
+            child: TextField(
+                decoration: InputDecoration(hintText: "Enter name"),
+                onChanged: (uname) {
+
                   setState(() {
                     no_edit_info = false;
                   });
-                },
-                icon: Icon(
-                  Icons.edit,
-                )),
-          ),
+                }),
+          ),*/
           Container(
-            child: (google_details)
+            child: (!google_details)
                 ? TextField(
                     decoration: InputDecoration(hintText: "Enter name"),
                     onChanged: (uname) {
@@ -125,8 +132,18 @@ class _Account_detState extends State<Account_det> {
             title: Text('Email ID'),
           ),
           // Text_fields("Enter EmailId",emailid),
+          /*Container(
+            child: TextField(
+                decoration: InputDecoration(hintText: "Enter EmailId "),
+                onChanged: (email) {
+                  setState(() {
+                    emailid = email;
+                  });
+                }),
+          ),*/
           Container(
-            child: (google_details)
+            child: (!google_details)
+
                 ? TextField(
                     decoration: InputDecoration(hintText: "Enter EmailId "),
                     onChanged: (email) {
@@ -248,43 +265,94 @@ class _Account_detState extends State<Account_det> {
                   );
                 } else {
                   //using dialogue box to set profile Image
+
+                if (google_details) {
+
                   setState(() {
-                    dp.setUid =
-                        result.uid; //uid acquired for user profile image
-                  });
-                  UserF.accountDetails(name, username, country, birthdate);
-                  _updateToDatabase(
-                      uid: result.uid,
-                      uName: name,
-                      uBirthdate: birthdate,
-                      uCountry: country,
-                      uEmailId: emailid,
-                      uPassword: upassword,
-                      userName: username);
-                  await showDialog(
-                    context: context,
-                    builder: (context) => AlertDialog(
-                      content: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: <Widget>[
-                          dp,
-                          ClipRRect(
-                            child: RaisedButton(
-                              color: Colors.green,
-                              child: Text('Done'),
-                              onPressed: () => Navigator.pop(context),
+                      dp.setUid = user!.uid;
+                          //result.uid; //uid acquired for user profile image
+                    });
+                    _updateToDatabase(
+                        uid: user!.uid,
+                        uName: name,
+                        uBirthdate: birthdate,
+                        uCountry: country,
+                        uEmailId: emailid,
+                        uPassword: upassword,
+                        userName: username);
+                    await showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                        content: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+                            dp,
+                            ClipRRect(
+                              child: RaisedButton(
+                                color: Colors.green,
+                                child: Text('Done'),
+                                onPressed: () => Navigator.pop(context),
+                              ),
                             ),
-                          ),
-                          ClipRRect(
-                            child: RaisedButton(
-                              color: Colors.grey,
-                              child: Text('Later'),
-                              onPressed: () => Navigator.pop(context),
-                            ),
-                          )
-                        ],
+                            ClipRRect(
+                              child: RaisedButton(
+                                color: Colors.grey,
+                                child: Text('Later'),
+                                onPressed: () => Navigator.pop(context),
+                              ),
+                            )
+                          ],
+                        ),
                       ),
-                    ),
+                    );
+                    Navigator.pushReplacementNamed(context, Homescreen.route);
+                    print(user!.uid);
+                } else {
+                  dynamic result =
+                      await authObject.createAccount(emailid, upassword);
+                  if (result == null) {
+                    print("Enter valid Details");
+                  } else {
+                    //using dialogue box to set profile Image
+                    setState(() {
+                      dp.setUid =
+                          result.uid; //uid acquired for user profile image
+                    });
+                    UserF.accountDetails(name, username, country, birthdate);
+                    _updateToDatabase(
+                        uid: result.uid,
+                        uName: name,
+                        uBirthdate: birthdate,
+                        uCountry: country,
+                        uEmailId: emailid,
+                        uPassword: upassword,
+                        userName: username);
+                    await showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                        content: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+                            dp,
+                            ClipRRect(
+                              child: RaisedButton(
+                                color: Colors.green,
+                                child: Text('Done'),
+                                onPressed: () => Navigator.pop(context),
+                              ),
+                            ),
+                            ClipRRect(
+                              child: RaisedButton(
+                                color: Colors.grey,
+                                child: Text('Later'),
+                                onPressed: () => Navigator.pop(context),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+
+                    
                   );
                   // Navigator.pop(context);
                   // Navigator.pushNamed(context, Homescreen.route);
@@ -295,8 +363,16 @@ class _Account_detState extends State<Account_det> {
                     ),
                   );
                   print(result.uid);
+
+                    
+                    // Navigator.pop(context);
+                    // Navigator.pushNamed(context, Homescreen.route);
+                    Navigator.pushReplacementNamed(context, Homescreen.route);
+                    print(result.uid);
+                  }
+
                 }
-              })
+              }})
         ])));
   }
 
@@ -304,7 +380,7 @@ class _Account_detState extends State<Account_det> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    usersCollectionRef = FirebaseFirestore.instance.collection('Users');
+    var usersCollectionRef = FirebaseFirestore.instance.collection('Users');
   }
 
   void _updateToDatabase(

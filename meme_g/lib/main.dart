@@ -1,11 +1,10 @@
-
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:meme_g/screens/editor/flutter_ie_pro.dart';
 import 'package:meme_g/screens/emailandpass_signin.dart';
 import 'package:meme_g/screens/homescreen.dart';
+import 'package:meme_g/screens/liked_memes.dart';
 import 'package:meme_g/screens/personal_info.dart';
 import 'package:meme_g/screens/working/my_work.dart';
 import 'package:meme_g/screens/working/save_upload.dart';
@@ -31,15 +30,13 @@ import 'package:meme_g/services/authstate.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp( MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-
     return MultiProvider(
       providers: [
         Provider<authforState?>(
@@ -60,17 +57,16 @@ class MyApp extends StatelessWidget {
           Account_det.route: (context) => Account_det(),
           Homescreen.route: (context) => Homescreen(),
           EmailandPass.route: (context) => EmailandPass(),
-          personal_info.route:(context) => personal_info(),
+          personal_info.route: (context) => personal_info(),
+
           ImageEditor.route: (context) => ImageEditor(),
           SaveUpload.route: (context) => SaveUpload(),
           MyWork.route: (context) => MyWork(),
-          //ImageEditorPro.route: (context) => ImageEditorPro(),
+          LikedMemes.route: (context) => LikedMemes(),
+          ImageEditorPro.route: (context) => ImageEditorPro(),
           //ProflieImagePicker.route: (context) => ProflieImagePicker(),
 
-          
-
-          signIn.route:(context) => signIn(),
-
+          signIn.route: (context) => signIn(),
         },
       ),
     );
@@ -97,10 +93,8 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-
-
 class _MyHomePageState extends State<MyHomePage> {
- /* Future<bool> _onbackepressed(){
+  /* Future<bool> _onbackepressed(){
     return showDialog(
     context:  context, 
     builder: (context)=> AlertDialog(
@@ -116,12 +110,12 @@ class _MyHomePageState extends State<MyHomePage> {
     )
   );
   }*/
-  
+
   @override
   Widget build(BuildContext context) {
     return Wrapper();
-    
-     /*WillPopScope(
+
+    /*WillPopScope(
       child: Wrapper(),
       onWillPop: /*_onbackepressed*/);*/
   }

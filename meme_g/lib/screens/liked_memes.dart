@@ -12,59 +12,35 @@ import 'package:firebase_core/firebase_core.dart' as firebase_core;
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:path/path.dart';
 
-class MyWork extends StatefulWidget {
-  const MyWork({Key? key}) : super(key: key);
-  static const route = 'my_work_screen';
+class LikedMemes extends StatefulWidget {
+  const LikedMemes({Key? key}) : super(key: key);
+  static const route = 'liked_memes_screen';
 
   @override
-  State<MyWork> createState() => _MyWorkState();
+  State<LikedMemes> createState() => _LikedMemesState();
 }
 
-class _MyWorkState extends State<MyWork> {
-  //User? user = FirebaseAuth.instance.currentUser;
-  late CollectionReference postedMemesRef;
-
-  User? user = FirebaseAuth.instance.currentUser; 
-
-  /*checkAuthentification() async {
-    _auth.authStateChanges().listen((user) {
-      _user = user;
-    });
-  }*/
-
-  /*getUser() async {
-    User? firebaseUser = _auth.currentUser;
-
-    await firebaseUser?.reload();
-
-    firebaseUser = _auth.currentUser;
-
-    if (firebaseUser != null) {
-      setState(() {
-        this._user = firebaseUser;
-
-        this.isloggedin = true;
-      });
-    }
-  }*/
+class _LikedMemesState extends State<LikedMemes> {
+  User? user = FirebaseAuth.instance.currentUser;
+  late CollectionReference likedMemesRef;
 
   @override
   void initState() {
     super.initState();
     if (user != null) {
-      postedMemesRef = FirebaseFirestore.instance
+      likedMemesRef = FirebaseFirestore.instance
           .collection('Users')
           .doc(user!.uid)
-          .collection('PostedMemeURLs');
+          .collection('LikedMemeURLs');
     } else {
-      postedMemesRef = FirebaseFirestore.instance.collection('Users');
+      likedMemesRef = FirebaseFirestore.instance.collection('Users');
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('My Work')),
+      appBar: AppBar(title: Text('Liked Memes')),
       body: (user == null)
           ? const Center(
               heightFactor: double.infinity,
@@ -72,7 +48,7 @@ class _MyWorkState extends State<MyWork> {
               child: Text('You are not Signed In'),
             )
           : StreamBuilder<QuerySnapshot>(
-              stream: postedMemesRef
+              stream: likedMemesRef
                   .orderBy('DateTime', descending: true)
                   .snapshots(),
               builder: (context, snapshot) {
