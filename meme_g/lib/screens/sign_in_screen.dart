@@ -98,7 +98,7 @@ class _signInState extends State<signIn> {
             ]),
             SignInButton(
               Buttons.Google,
-              text: "Sign up with Google",
+              text: "Register with Google",
               onPressed: () async {
                 dynamic resultuser = await authObject.googleSignin();
                 if (resultuser == null) {
@@ -109,22 +109,17 @@ class _signInState extends State<signIn> {
                   });
                   // Navigator.pop(context);
                   // Navigator.pushNamed(context, Homescreen.route);
-                  usersCollectionRef
-                      .doc(googleUserUid)
-                      .get()
-                      .then((DocumentSnapshot documentSnapshot) {
-                    if (documentSnapshot.exists) {
-                      setState(() {
-                        alreadyUser = true;
-                      });
-                    }
-                  });
-                  if (alreadyUser) {
-                    Navigator.pushReplacementNamed(context, Homescreen.route);
-                  } else {
-                    Navigator.pushReplacementNamed(context, Account_det.route);
-                  }
-
+                  // usersCollectionRef
+                  //     .doc(googleUserUid)
+                  //     .get()
+                  //     .then((DocumentSnapshot documentSnapshot) {
+                  //   if (documentSnapshot.exists) {
+                  //     setState(() {
+                  //       alreadyUser = true;
+                  //     });
+                  //   }
+                  // });
+                  Navigator.pushReplacementNamed(context, Account_det.route);
                   //print(resultuser.accessToken);
                 }
               },
