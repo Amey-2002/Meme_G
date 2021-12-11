@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gallery_saver/gallery_saver.dart';
+import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:meme_g/FlutterIEP/coderjava_image_editor_pro.dart';
 import 'package:share/share.dart';
@@ -97,14 +98,14 @@ class _ImageEditorProState extends State<ImageEditorPro> {
     PickedFile? picked =
         await picker.getImage(source: source /*ImageSource.camera*/);
     if (picked != null) {
-      //_cropImage(picked);
-      _defaultImage = File(picked.path);
-      setState(() => controllerDefaultImage.text = _defaultImage!.path);
+      _cropImage(picked);
+      //_defaultImage = File(picked.path);
+      //setState(() => controllerDefaultImage.text = _defaultImage!.path);
     }
     Navigator.pop(context);
   }
 
-  /*_cropImage(PickedFile picked) async {
+  _cropImage(PickedFile picked) async {
     File? cropped = await ImageCropper.cropImage(
       androidUiSettings: AndroidUiSettings(
         statusBarColor: Colors.red,
@@ -115,28 +116,22 @@ class _ImageEditorProState extends State<ImageEditorPro> {
       sourcePath: picked.path,
       aspectRatioPresets: [
         CropAspectRatioPreset.square,
-        //CropAspectRatioPreset.original,
-        //CropAspectRatioPreset.ratio16x9,
-        //CropAspectRatioPreset.ratio4x3,
+        // CropAspectRatioPreset.original,
+        // CropAspectRatioPreset.ratio16x9,
+        // CropAspectRatioPreset.ratio4x3,
       ],
       maxWidth: 800,
     );
     if (cropped != null) {
       setState(() {
-        _pickedImage = cropped;
+        //_pickedImage = cropped;
+        _defaultImage = cropped;
+        if (_defaultImage != null) {
+          setState(() => controllerDefaultImage.text = _defaultImage!.path);
+        }
       });
     }
-    if (_pickedImage != null) {
-      setState(() {
-        uploading = true;
-      });
-      _uploadProfileImg(context).whenComplete(() {
-        setState(() {
-          uploading = false;
-        });
-      });
-    }
-  }*/
+  }
 
   _showPickOptionsDialog(BuildContext context) {
     showDialog(
