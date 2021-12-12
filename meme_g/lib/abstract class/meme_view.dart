@@ -1,16 +1,21 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:meme_g/screens/profile_image.dart';
 import 'package:share/share.dart';
 import 'package:favorite_button/favorite_button.dart';
 
 class MemeView extends StatefulWidget {
   final String imgUrl;
   final String userName;
+  final String uid;
   late bool isLiked;
 
   MemeView(
-      {required this.imgUrl, required this.userName, required this.isLiked});
+      {required this.imgUrl,
+      required this.userName,
+      required this.uid,
+      required this.isLiked});
 
   @override
   State<MemeView> createState() => _MemeViewState();
@@ -23,7 +28,8 @@ class _MemeViewState extends State<MemeView> {
   late String likedMemeDoc;
   late String likedMemeDocFinal;
   late CollectionReference memesCollectionRef;
-  //bool liked = false;
+
+  var dp = new ProfileImage();
 
   @override
   void initState() {
@@ -35,21 +41,6 @@ class _MemeViewState extends State<MemeView> {
         .collection('Users')
         .doc(user!.uid)
         .collection('LikedMemeURLs');
-    // FirebaseFirestore.instance
-    //     .collection('Users')
-    //     .doc(user!.uid)
-    //     .collection('LikedMemeURLs')
-    //     .doc(likedMemeDocFinal)
-    //     .get()
-    //     .then((DocumentSnapshot documentSnapshot) {
-    //   if (documentSnapshot.exists) {
-    //     setState(() {
-    //       liked = true;
-    //       print(documentSnapshot.get(FieldPath(['url'])));
-    //     });
-    //   }
-    // });
-    // print(liked);
     FirebaseFirestore.instance
         .collection('Users')
         .doc(user!.uid)
@@ -61,6 +52,7 @@ class _MemeViewState extends State<MemeView> {
         });
       }
     });
+    dp.setUid = widget.uid;
   }
 
   @override
@@ -72,10 +64,7 @@ class _MemeViewState extends State<MemeView> {
           Padding(
               padding: const EdgeInsets.only(top: 10, bottom: 10),
               child: ListTile(
-                leading: Icon(
-                  Icons.account_circle,
-                  size: 37,
-                ),
+                leading: dp,
                 title: Text(
                   widget.userName,
                   style: TextStyle(
@@ -198,21 +187,32 @@ class _MemeViewState extends State<MemeView> {
                     size: 27,
                   ),
                 ),*/
-                //IconButton(onPressed: () {}, icon: Icon(Icons.send,size: 27,)),
-                RaisedButton(
-                  color: Colors.greenAccent[700],
-                  onPressed: () {
-                    Share.share(widget.imgUrl +
-                        ' Meme by ' +
-                        widget.userName +
-                        ' shared to you by ' +
-                        currentUsername);
-                  },
-                  child: Icon(
-                    Icons.share,
-                    size: 27,
-                  ),
-                ),
+                IconButton(
+                    onPressed: () {
+                      Share.share(widget.imgUrl +
+                          ' Meme by ' +
+                          widget.userName +
+                          ' shared to you by ' +
+                          currentUsername);
+                    },
+                    icon: Icon(
+                      Icons.share,
+                      size: 27,
+                    )),
+                // RaisedButton(
+                //   color: Colors.greenAccent[700],
+                //   onPressed: () {
+                //     Share.share(widget.imgUrl +
+                //         ' Meme by ' +
+                //         widget.userName +
+                //         ' shared to you by ' +
+                //         currentUsername);
+                //   },
+                //   child: Icon(
+                //     Icons.share,
+                //     size: 27,
+                //   ),
+                // ),
               ],
             ),
           ),

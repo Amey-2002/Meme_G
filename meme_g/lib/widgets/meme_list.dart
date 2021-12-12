@@ -64,6 +64,7 @@ class _MemeListState extends State<MemeList> {
                         return MemeView(
                           imgUrl: snapshot.data?.docs[index].get('url'),
                           userName: snapshot.data?.docs[index].get('Username'),
+                          uid: snapshot.data?.docs[index].get('UserID'),
                           isLiked: _isLiked,
                         );
                       }

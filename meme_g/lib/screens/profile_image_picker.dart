@@ -134,8 +134,9 @@ class _ProfilePageState extends State<ProfilePage> {
   _cropImage(PickedFile picked) async {
     File? cropped = await ImageCropper.cropImage(
       androidUiSettings: AndroidUiSettings(
-        statusBarColor: Colors.red,
-        toolbarColor: Colors.red,
+        activeControlsWidgetColor: Colors.green,
+        statusBarColor: Colors.green,
+        toolbarColor: Colors.green,
         toolbarTitle: "Crop Image",
         toolbarWidgetColor: Colors.white,
       ),
