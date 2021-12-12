@@ -60,12 +60,12 @@ class _MemeListState extends State<MemeList> {
                       } else {
                         List array = snapshot.data?.docs[index].get('likedBy');
                         bool _isLiked = array.contains(user!.uid);
-                        print(_isLiked);
                         return MemeView(
                           imgUrl: snapshot.data?.docs[index].get('url'),
                           userName: snapshot.data?.docs[index].get('Username'),
                           uid: snapshot.data?.docs[index].get('UserID'),
                           isLiked: _isLiked,
+                          likesCount: array.length,
                         );
                       }
                     },

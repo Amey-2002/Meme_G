@@ -10,12 +10,14 @@ class MemeView extends StatefulWidget {
   final String userName;
   final String uid;
   late bool isLiked;
+  late int likesCount;
 
   MemeView(
       {required this.imgUrl,
       required this.userName,
       required this.uid,
-      required this.isLiked});
+      required this.isLiked,
+      required this.likesCount});
 
   @override
   State<MemeView> createState() => _MemeViewState();
@@ -28,6 +30,7 @@ class _MemeViewState extends State<MemeView> {
   late String likedMemeDoc;
   late String likedMemeDocFinal;
   late CollectionReference memesCollectionRef;
+  int likeCount = 0;
 
   var dp = new ProfileImage();
 
@@ -187,32 +190,20 @@ class _MemeViewState extends State<MemeView> {
                     size: 27,
                   ),
                 ),*/
+                Text(widget.likesCount.toString()),
                 IconButton(
-                    onPressed: () {
-                      Share.share(widget.imgUrl +
-                          ' Meme by ' +
-                          widget.userName +
-                          ' shared to you by ' +
-                          currentUsername);
-                    },
-                    icon: Icon(
-                      Icons.share,
-                      size: 27,
-                    )),
-                // RaisedButton(
-                //   color: Colors.greenAccent[700],
-                //   onPressed: () {
-                //     Share.share(widget.imgUrl +
-                //         ' Meme by ' +
-                //         widget.userName +
-                //         ' shared to you by ' +
-                //         currentUsername);
-                //   },
-                //   child: Icon(
-                //     Icons.share,
-                //     size: 27,
-                //   ),
-                // ),
+                  onPressed: () {
+                    Share.share(widget.imgUrl +
+                        ' Meme by ' +
+                        widget.userName +
+                        ' shared to you by ' +
+                        currentUsername);
+                  },
+                  icon: Icon(
+                    Icons.share,
+                    size: 27,
+                  ),
+                ),
               ],
             ),
           ),
