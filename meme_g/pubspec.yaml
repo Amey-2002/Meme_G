@@ -78,6 +78,7 @@ dependencies:
   font_awesome_flutter: ^9.1.0
   #ImageGallerySaver
   fluttertoast: ^8.0.8
+  animated_splash_screen: 1.1.0-nullsafety.0
   
   #image_picker: ^0.6.5+2
   #image_cropper: ^1.2.1
@@ -117,6 +118,8 @@ flutter:
     - assets/dummyMemes/homescreen.jpg
     - assets/dummyMemes/img2.png
     - assets/dummyMemes/lion.jpg
+    - assets/dummyMemes/Tickles.gif
+    - assets/dummyMemes/Tickles.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

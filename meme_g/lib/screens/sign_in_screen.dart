@@ -45,6 +45,14 @@ class _signInState extends State<signIn> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Container(
+                height: 300,
+                width: double.infinity,
+                child: Image.asset(
+                  'assets/dummy/Tickles.png',
+                  
+                ),
+              ),
+            Container(
               child: FloatingActionButton.extended(
                 heroTag: "btn1",
                 icon: Icon(Icons.login_sharp),
@@ -56,6 +64,7 @@ class _signInState extends State<signIn> {
                 ),
               ),
             ),
+            SizedBox(height:20 ,),
             Container(
               child: FloatingActionButton.extended(
                 heroTag: "btn2",
@@ -103,6 +112,11 @@ class _signInState extends State<signIn> {
                 dynamic resultuser = await authObject.googleSignin();
                 if (resultuser == null) {
                   print("sign in failed");
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Some error occured! Please try restarting the application'),
+                    ),
+                  );
                 } else {
                   setState(() {
                     google_details = true;

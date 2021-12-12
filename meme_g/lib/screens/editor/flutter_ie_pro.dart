@@ -319,6 +319,11 @@ class _ImageEditorProState extends State<ImageEditorPro> {
                             });
                           });
                         });
+                        ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Meme posted'),
+                    ),
+                  );
                       },
                       child: Text('Post As Meme'))
                 ],

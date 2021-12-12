@@ -45,7 +45,7 @@ class _HomescreenState extends State<Homescreen> {
         //   icon: Icon(Icons.account_circle_rounded),
         //   iconSize: 36,
         // ),
-        title: Text('Meme Gen'),
+        title: Text('Tickles'),
        // backgroundColor: Colors.red[900],
       ),
       /*bottomNavigationBar: BottomNavigationBar(

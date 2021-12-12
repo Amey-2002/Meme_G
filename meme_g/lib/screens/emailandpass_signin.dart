@@ -23,24 +23,30 @@ class _EmailandPassState extends State<EmailandPass> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Container(
-            child: TextField(
-                decoration: InputDecoration(hintText: "Enter EmailId "),
-                onChanged: (email) {
-                  setState(() {
-                    emailid = email;
-                  });
-                }),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              child: TextField(
+                  decoration: InputDecoration(hintText: "Enter EmailId "),
+                  onChanged: (email) {
+                    setState(() {
+                      emailid = email;
+                    });
+                  }),
+            ),
           ),
-          Container(
-            child: TextField(
-              decoration: InputDecoration(hintText: "Enter Password"),
-              onChanged: (password) {
-                setState(() {
-                  upassword = password.trim();
-                });
-              },
-              obscureText: true,
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              child: TextField(
+                decoration: InputDecoration(hintText: "Enter Password"),
+                onChanged: (password) {
+                  setState(() {
+                    upassword = password.trim();
+                  });
+                },
+                obscureText: true,
+              ),
             ),
           ),
           ElevatedButton(
@@ -48,6 +54,11 @@ class _EmailandPassState extends State<EmailandPass> {
               dynamic resultuser =
                   await authObject.EmailandpassSignIn(emailid, upassword);
               if (resultuser == null) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Sign-in failed! Please Enter valid details'),
+                    ),
+                  );
                 print("sign in failed");
               } else {
                 // Navigator.pop(context);
@@ -70,6 +81,11 @@ class _EmailandPassState extends State<EmailandPass> {
             onPressed: () async {
               dynamic resultuser = await authObject.googleSignin();
               if (resultuser == null) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Some error occured! Please try restarting the application'),
+                    ),
+                  );
                 print("sign in failed");
               } else {
                 setState(() {

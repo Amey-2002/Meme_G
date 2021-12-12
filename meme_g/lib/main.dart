@@ -19,6 +19,7 @@ import 'package:meme_g/SettingsScreen/report_bug.dart';
 import 'package:meme_g/SettingsScreen/settings_page.dart';
 import 'package:meme_g/screens/emailandpass_signin.dart';
 import 'package:meme_g/screens/working/save_upload.dart';
+import 'package:meme_g/widgets/splash_screen.dart';
 import 'package:meme_g/widgets/user.dart';
 import 'screens/editor/image_editor.dart';
 import 'screens/profile_image_picker.dart';
@@ -50,6 +51,8 @@ import 'package:meme_g/services/authstate.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:animated_splash_screen/animated_splash_screen.dart';
+
 
 ThemeManager themeManager = ThemeManager();
 
@@ -171,7 +174,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Wrapper();
+    return splash_screen();
 
     /*WillPopScope(
       child: Wrapper(),

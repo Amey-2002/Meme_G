@@ -27,8 +27,9 @@ class Create extends StatelessWidget {
             child: const Text(
               'LET\'S MEME',
               style: TextStyle(
+                color: Colors.teal,
                 fontWeight: FontWeight.bold,
-                decoration: TextDecoration.underline,
+                //decoration: TextDecoration.underline,
                 fontSize: 25
               ),
             ),
