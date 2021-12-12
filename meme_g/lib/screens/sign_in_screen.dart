@@ -48,7 +48,7 @@ class _signInState extends State<signIn> {
                 height: 300,
                 width: double.infinity,
                 child: Image.asset(
-                  'assets/dummy/Tickles.png',
+                  'assets/dummyMemes/Tickles.png',
                   
                 ),
               ),

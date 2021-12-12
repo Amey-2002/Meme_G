@@ -35,8 +35,8 @@ class _MemeListState extends State<MemeList> {
       //use height if you use ListView.builder
       height: 600, //435 for simulator & 580 for my mobile
       width: double.infinity,
-      margin: const EdgeInsets.all(20),
-      padding: const EdgeInsets.only(top: 10, bottom: 10),
+      margin: const EdgeInsets.only(left: 10, right: 10),
+      //padding: const EdgeInsets.only(top: 10, bottom: 10),
       //if ListView.builder is used then double double scrolling
       child: StreamBuilder<QuerySnapshot>(
         stream: memesCollectionRef

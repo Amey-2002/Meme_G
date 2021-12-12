@@ -206,7 +206,11 @@ class _Account_detState extends State<Account_det> {
                 }, onConfirm: (date) {
                   print('confirm $date');
                   setState(() {
-                    birthdate = date.day.toString()+'-'+date.month.toString()+'-'+date.year.toString();
+                    birthdate = date.day.toString() +
+                        '-' +
+                        date.month.toString() +
+                        '-' +
+                        date.year.toString();
                   });
                 }, currentTime: DateTime.now(), locale: LocaleType.en);
               },
@@ -291,6 +295,12 @@ class _Account_detState extends State<Account_det> {
                   dynamic result =
                       await authObject.createAccount(emailid, upassword);
                   if (result == null) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text(
+                            'Account cannot be created. Please Enter valid Emailid'),
+                      ),
+                    );
                     print("Enter valid Details");
                   } else {
                     //using dialogue box to set profile Image

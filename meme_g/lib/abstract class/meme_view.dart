@@ -114,6 +114,7 @@ class _MemeViewState extends State<MemeView> {
             width: 330,
             child: Image(
               image: NetworkImage(widget.imgUrl),
+              fit: BoxFit.cover,
             ),
           ),
           Padding(

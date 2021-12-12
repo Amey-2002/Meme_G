@@ -15,7 +15,6 @@ class Homescreen extends StatefulWidget {
 }
 
 class _HomescreenState extends State<Homescreen> {
-
   @override
   Widget build(BuildContext context) {
     // final text = Provider.of<ThemeProvider>(context).themeMode ==ThemeMode.dark
@@ -25,6 +24,8 @@ class _HomescreenState extends State<Homescreen> {
     return Scaffold(
       endDrawer: NavDrawer(),
       appBar: AppBar(
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.green,
         /*leading: CircleAvatar(
           backgroundColor: Colors.white,
           foregroundColor: Colors.white,
@@ -45,8 +46,13 @@ class _HomescreenState extends State<Homescreen> {
         //   icon: Icon(Icons.account_circle_rounded),
         //   iconSize: 36,
         // ),
-        title: Text('Tickles'),
-       // backgroundColor: Colors.red[900],
+        title: Image.asset('assets/dummyMemes/Ticklesappbar.png') /*Text(
+          'Tickles',
+          style: TextStyle(
+            fontSize: 25,
+          ),
+        ),*/
+        // backgroundColor: Colors.red[900],
       ),
       /*bottomNavigationBar: BottomNavigationBar(
         items: [
