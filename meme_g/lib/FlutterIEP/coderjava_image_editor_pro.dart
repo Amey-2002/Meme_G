@@ -256,8 +256,8 @@ class _CoderJavaImageEditorProState extends State<CoderJavaImageEditorPro> {
               child: Container(
                 margin: EdgeInsets.all(20),
                 color: Colors.white,
-                width: 370, //width.toDouble(),
-                height: 370, //height.toDouble(),
+                width: width.toDouble(),
+                height: height.toDouble(),
                 child: RepaintBoundary(
                   key: globalKey,
                   child: Stack(
@@ -268,12 +268,12 @@ class _CoderJavaImageEditorProState extends State<CoderJavaImageEditorPro> {
                               transform: Matrix4.rotationY(flipValue),
                               child: ClipRect(
                                 child: Container(
-                                  width: 370, //width.toDouble(),
-                                  height: 370, //height.toDouble(),
+                                  width: width.toDouble(),
+                                  height: height.toDouble(),
                                   decoration: BoxDecoration(
                                     image: DecorationImage(
                                       alignment: Alignment.center,
-                                      fit: BoxFit.fitHeight,
+                                      fit: BoxFit.contain,
                                       image: FileImage(
                                         File(_image!.path),
                                       ),

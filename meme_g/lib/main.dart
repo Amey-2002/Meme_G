@@ -102,6 +102,7 @@ class _MyAppState extends State<MyApp> {
             create: (context) => context.read<authforState>().authstatechanges),
       ],
       builder: (context, child) => MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         theme: ThemeData(primarySwatch: Colors.green,),
         darkTheme: ThemeData.dark(),

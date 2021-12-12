@@ -108,17 +108,18 @@ class _ImageEditorProState extends State<ImageEditorPro> {
   _cropImage(PickedFile picked) async {
     File? cropped = await ImageCropper.cropImage(
       androidUiSettings: AndroidUiSettings(
-        statusBarColor: Colors.red,
-        toolbarColor: Colors.red,
+        activeControlsWidgetColor: Colors.green,
+        statusBarColor: Colors.green,
+        toolbarColor: Colors.green,
         toolbarTitle: "Crop Image",
         toolbarWidgetColor: Colors.white,
       ),
       sourcePath: picked.path,
       aspectRatioPresets: [
         CropAspectRatioPreset.square,
-        // CropAspectRatioPreset.original,
-        // CropAspectRatioPreset.ratio16x9,
-        // CropAspectRatioPreset.ratio4x3,
+        CropAspectRatioPreset.original,
+        CropAspectRatioPreset.ratio16x9,
+        CropAspectRatioPreset.ratio4x3,
       ],
       maxWidth: 800,
     );

@@ -65,7 +65,8 @@ class _MemeViewState extends State<MemeView> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return Card(
+      elevation: 5,
       child: Column(
         children: <Widget>[
           Padding(
@@ -110,8 +111,8 @@ class _MemeViewState extends State<MemeView> {
             ),*/
               ),
           Container(
-            height: 330,
-            width: 330,
+            height: 370,
+            width: 370,
             child: Image(
               image: NetworkImage(widget.imgUrl),
               fit: BoxFit.cover,
