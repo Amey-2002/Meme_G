@@ -4,8 +4,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
-
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:meme_g/screens/sign_in_screen.dart';
 import 'package:meme_g/services/auth.dart';
 
@@ -27,13 +25,11 @@ var emailid, upassword;
 
 class _Account_detState extends State<Account_det> {
   var authObject = Auth();
-
   dynamic name, username, country;
   var emailid, upassword;
 
   User? user = FirebaseAuth.instance.currentUser;
   bool no_edit_info = true;
-
 
   var dp = new ProfilePage();
 
@@ -42,9 +38,10 @@ class _Account_detState extends State<Account_det> {
   @override
   Widget build(BuildContext context) {
     setState(() {
-
-      name = user!.displayName;
-      emailid = user!.email;
+      if (user != null) {
+        name = user!.displayName;
+        emailid = user!.email;
+      }
     });
     // TODO: implement build
     return Scaffold(
@@ -78,15 +75,13 @@ class _Account_detState extends State<Account_det> {
               color: Colors.green,
             ),
             title: Text('Name'),
-
           ),
           /*Container(
             child: TextField(
                 decoration: InputDecoration(hintText: "Enter name"),
                 onChanged: (uname) {
-
                   setState(() {
-                    no_edit_info = false;
+                    name = uname;
                   });
                 }),
           ),*/
@@ -143,7 +138,6 @@ class _Account_detState extends State<Account_det> {
           ),*/
           Container(
             child: (!google_details)
-
                 ? TextField(
                     decoration: InputDecoration(hintText: "Enter EmailId "),
                     onChanged: (email) {
@@ -212,7 +206,11 @@ class _Account_detState extends State<Account_det> {
                 }, onConfirm: (date) {
                   print('confirm $date');
                   setState(() {
-                    birthdate = date.toString();
+                    birthdate = date.day.toString() +
+                        '-' +
+                        date.month.toString() +
+                        '-' +
+                        date.year.toString();
                   });
                 }, currentTime: DateTime.now(), locale: LocaleType.en);
               },
@@ -253,64 +251,56 @@ class _Account_detState extends State<Account_det> {
           ElevatedButton(
               child: Text("Create Account"),
               onPressed: () async {
-                dynamic result =
-                    await authObject.createAccount(emailid, upassword);
-                if (result == null) {
-                  print("Enter valid Details");
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text(
-                          'Account could not be created! Please Enter valid Emailid or password'),
+                if (google_details) {
+                  setState(() {
+                    dp.setUid = user!.uid;
+                    //result.uid; //uid acquired for user profile image
+                  });
+                  _updateToDatabase(
+                      uid: user!.uid,
+                      uName: name,
+                      uBirthdate: birthdate,
+                      uCountry: country,
+                      uEmailId: emailid,
+                      uPassword: upassword,
+                      userName: username);
+                  await showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      content: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                          dp,
+                          ClipRRect(
+                            child: RaisedButton(
+                              color: Colors.green,
+                              child: Text('Done'),
+                              onPressed: () => Navigator.pop(context),
+                            ),
+                          ),
+                          ClipRRect(
+                            child: RaisedButton(
+                              color: Colors.grey,
+                              child: Text('Later'),
+                              onPressed: () => Navigator.pop(context),
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                   );
-                } else {
-                  //using dialogue box to set profile Image
-
-                if (google_details) {
-
-                  setState(() {
-                      dp.setUid = user!.uid;
-                          //result.uid; //uid acquired for user profile image
-                    });
-                    _updateToDatabase(
-                        uid: user!.uid,
-                        uName: name,
-                        uBirthdate: birthdate,
-                        uCountry: country,
-                        uEmailId: emailid,
-                        uPassword: upassword,
-                        userName: username);
-                    await showDialog(
-                      context: context,
-                      builder: (context) => AlertDialog(
-                        content: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
-                            dp,
-                            ClipRRect(
-                              child: RaisedButton(
-                                color: Colors.green,
-                                child: Text('Done'),
-                                onPressed: () => Navigator.pop(context),
-                              ),
-                            ),
-                            ClipRRect(
-                              child: RaisedButton(
-                                color: Colors.grey,
-                                child: Text('Later'),
-                                onPressed: () => Navigator.pop(context),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    );
-                    Navigator.pushReplacementNamed(context, Homescreen.route);
-                    print(user!.uid);
+                  Navigator.pushReplacementNamed(context, Homescreen.route);
+                  print(user!.uid);
                 } else {
                   dynamic result =
                       await authObject.createAccount(emailid, upassword);
                   if (result == null) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text(
+                            'Account cannot be created. Please Enter valid Emailid'),
+                      ),
+                    );
                     print("Enter valid Details");
                   } else {
                     //using dialogue box to set profile Image
@@ -351,28 +341,14 @@ class _Account_detState extends State<Account_det> {
                           ],
                         ),
                       ),
-
-                    
-                  );
-                  // Navigator.pop(context);
-                  // Navigator.pushNamed(context, Homescreen.route);
-                  Navigator.pushReplacementNamed(context, Homescreen.route);
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Account created successfully'),
-                    ),
-                  );
-                  print(result.uid);
-
-                    
+                    );
                     // Navigator.pop(context);
                     // Navigator.pushNamed(context, Homescreen.route);
                     Navigator.pushReplacementNamed(context, Homescreen.route);
                     print(result.uid);
                   }
-
                 }
-              }})
+              })
         ])));
   }
 
@@ -380,7 +356,7 @@ class _Account_detState extends State<Account_det> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    var usersCollectionRef = FirebaseFirestore.instance.collection('Users');
+    usersCollectionRef = FirebaseFirestore.instance.collection('Users');
   }
 
   void _updateToDatabase(

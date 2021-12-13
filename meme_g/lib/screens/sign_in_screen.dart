@@ -15,8 +15,6 @@ class signIn extends StatefulWidget {
   State<signIn> createState() => _signInState();
 }
 
-//bool google_details = false;
-
 class _signInState extends State<signIn> {
   final Auth _Authentication = Auth();
   dynamic emailid, upassword;
@@ -47,6 +45,14 @@ class _signInState extends State<signIn> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Container(
+                height: 300,
+                width: double.infinity,
+                child: Image.asset(
+                  'assets/dummyMemes/Tickles.png',
+                  
+                ),
+              ),
+            Container(
               child: FloatingActionButton.extended(
                 heroTag: "btn1",
                 icon: Icon(Icons.login_sharp),
@@ -58,6 +64,7 @@ class _signInState extends State<signIn> {
                 ),
               ),
             ),
+            SizedBox(height:20 ,),
             Container(
               child: FloatingActionButton.extended(
                 heroTag: "btn2",
@@ -100,42 +107,34 @@ class _signInState extends State<signIn> {
             ]),
             SignInButton(
               Buttons.Google,
-              text: "Sign up with Google",
+              text: "Register with Google",
               onPressed: () async {
                 dynamic resultuser = await authObject.googleSignin();
                 if (resultuser == null) {
                   print("sign in failed");
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
-                      content: Text('Google Sign-in failed!'),
+                      content: Text('Some error occured! Please try restarting the application'),
                     ),
                   );
-
                 } else {
                   setState(() {
                     google_details = true;
                   });
                   // Navigator.pop(context);
                   // Navigator.pushNamed(context, Homescreen.route);
-
-                  usersCollectionRef
-                      .doc(googleUserUid)
-                      .get()
-                      .then((DocumentSnapshot documentSnapshot) {
-                    if (documentSnapshot.exists) {
-                      setState(() {
-                        alreadyUser = true;
-                      });
-                    }
-                  });
-                  if (alreadyUser) {
-                    Navigator.pushReplacementNamed(context, Homescreen.route);
-                  } else {
-                    Navigator.pushReplacementNamed(context, Account_det.route);
-                  }
-
+                  // usersCollectionRef
+                  //     .doc(googleUserUid)
+                  //     .get()
+                  //     .then((DocumentSnapshot documentSnapshot) {
+                  //   if (documentSnapshot.exists) {
+                  //     setState(() {
+                  //       alreadyUser = true;
+                  //     });
+                  //   }
+                  // });
+                  Navigator.pushReplacementNamed(context, Account_det.route);
                   //print(resultuser.accessToken);
-
                 }
               },
             )
