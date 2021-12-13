@@ -7,7 +7,7 @@ import 'package:meme_g/screens/emailandpass_signin.dart';
 import 'package:meme_g/screens/homescreen.dart';
 import 'package:meme_g/screens/liked_memes.dart';
 import 'package:meme_g/screens/personal_info.dart';
-import 'package:meme_g/screens/working/my_work.dart';
+import 'package:meme_g/screens/my_work.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:flutter_settings_screens/flutter_settings_screens.dart';
 import 'package:meme_g/SettingsScreen/about.dart';

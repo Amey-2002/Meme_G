@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:meme_g/screens/liked_memes.dart';
 import 'package:meme_g/screens/personal_info.dart';
 import 'package:meme_g/screens/sign_in_screen.dart';
-import 'package:meme_g/screens/working/my_work.dart';
+import 'package:meme_g/screens/my_work.dart';
 import 'package:meme_g/services/auth.dart';
 import 'package:meme_g/services/authstate.dart';
 import 'package:provider/src/provider.dart';

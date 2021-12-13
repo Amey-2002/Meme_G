@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:share/share.dart';
 
 class GuestMemeView extends StatefulWidget {
-
   final String imgUrl;
   final String userName;
 
@@ -15,8 +14,10 @@ class GuestMemeView extends StatefulWidget {
 class _GuestMemeViewState extends State<GuestMemeView> {
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return Card(
+      elevation: 5,
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           Padding(
               padding: const EdgeInsets.only(top: 10, bottom: 10),
@@ -60,23 +61,29 @@ class _GuestMemeViewState extends State<GuestMemeView> {
             ),*/
               ),
           Container(
-            height: 330,
-            width: 330,
+            height: 370,
+            width: 370,
             child: Image(
               image: NetworkImage(widget.imgUrl),
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(bottom: 20,top: 2),
+            padding: const EdgeInsets.only(bottom: 20, top: 2),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
                 //Icon(Icons.favorite_border,size: 27,),
                 //Icon(Icons.send,size: 27,),
                 //Icon(Icons.share,size: 27,),
-                IconButton(onPressed: () {
-                  Share.share(widget.imgUrl + ' Meme by ' + widget.userName);
-                }, icon: Icon(Icons.share,size: 27,)),
+                IconButton(
+                    onPressed: () {
+                      Share.share(
+                          widget.imgUrl + ' Meme by ' + widget.userName);
+                    },
+                    icon: Icon(
+                      Icons.share,
+                      size: 27,
+                    )),
               ],
             ),
           ),

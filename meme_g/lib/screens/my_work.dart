@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:meme_g/abstract%20class/guest_meme_view.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:transparent_image/transparent_image.dart';
 import 'package:flutter/material.dart';
@@ -101,11 +102,14 @@ class _MyWorkState extends State<MyWork> {
                                         context: context,
                                         builder: (context) => AlertDialog(
                                           content: Container(
-                                            width: double.maxFinite,
-                                            height: MediaQuery.of(context)
-                                                .size
-                                                .width,
-                                            child: /*Column(
+                                            child: GuestMemeView(
+                                              imgUrl: snapshot.data?.docs[index]
+                                                  .get('url'),
+                                              userName: snapshot
+                                                  .data?.docs[index]
+                                                  .get('Username'),
+                                            ),
+                                            /*Column(
                                         mainAxisSize: MainAxisSize.min,
                                         children: [
                                           IconButton(
@@ -113,12 +117,12 @@ class _MyWorkState extends State<MyWork> {
                                             onPressed: () =>
                                                 Navigator.pop(context),
                                           ),*/
-                                                PhotoView(
-                                              imageProvider: NetworkImage(
-                                                snapshot.data?.docs[index]
-                                                    .get('url'),
-                                              ),
-                                            ),
+                                            //     PhotoView(
+                                            //   imageProvider: NetworkImage(
+                                            //     snapshot.data?.docs[index]
+                                            //         .get('url'),
+                                            //   ),
+                                            // ),
                                             /*],
                                       ),*/
                                           ),
