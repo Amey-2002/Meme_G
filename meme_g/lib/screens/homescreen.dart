@@ -24,9 +24,9 @@ class _HomescreenState extends State<Homescreen> {
     return Scaffold(
       endDrawer: NavDrawer(),
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.green,
-        /*leading: CircleAvatar(
+          backgroundColor: Colors.white,
+          foregroundColor: Colors.green,
+          /*leading: CircleAvatar(
           backgroundColor: Colors.white,
           foregroundColor: Colors.white,
           radius: 36,
@@ -41,19 +41,20 @@ class _HomescreenState extends State<Homescreen> {
           //   iconSize: 40,
           // ),
         ),*/
-        // IconButton(
-        //   onPressed: () {},
-        //   icon: Icon(Icons.account_circle_rounded),
-        //   iconSize: 36,
-        // ),
-        title: Image.asset('assets/dummyMemes/Ticklesappbar.png') /*Text(
+          // IconButton(
+          //   onPressed: () {},
+          //   icon: Icon(Icons.account_circle_rounded),
+          //   iconSize: 36,
+          // ),
+          title: Image.asset(
+              'assets/dummyMemes/Ticklesappbar.png') /*Text(
           'Tickles',
           style: TextStyle(
             fontSize: 25,
           ),
         ),*/
-        // backgroundColor: Colors.red[900],
-      ),
+          // backgroundColor: Colors.red[900],
+          ),
       /*bottomNavigationBar: BottomNavigationBar(
         items: [
           BottomNavigationBarItem(icon: Icon(Icons.home), title: Text('Home')),
@@ -72,14 +73,13 @@ class _HomescreenState extends State<Homescreen> {
               title: Text('You')),
         ],
       ),*/
-      body: SingleChildScrollView(
-        child: Container(
-          child: Column(
-            children: <Widget>[
-              Create(),
-              MemeList(),
-            ],
-          ),
+      body: Container(
+        height: double.infinity,
+        child: Column(
+          children: <Widget>[
+            Create(),
+            MemeList(),
+          ],
         ),
       ),
     );
