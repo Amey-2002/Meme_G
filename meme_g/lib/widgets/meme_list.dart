@@ -31,14 +31,15 @@ class _MemeListState extends State<MemeList> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return //Container(
       //use height if you use ListView.builder
-      height: 550, //435 for simulator & 580 for my mobile
-      width: double.infinity,
-      margin: const EdgeInsets.only(left: 10, right: 10),
+      // height: 550, //435 for simulator & 580 for my mobile
+      // width: double.infinity,
+      // margin: const EdgeInsets.only(left: 10, right: 10),
       //padding: const EdgeInsets.only(top: 10, bottom: 10),
       //if ListView.builder is used then double double scrolling
-      child: StreamBuilder<QuerySnapshot>(
+      //child: 
+      StreamBuilder<QuerySnapshot>(
         stream: memesCollectionRef
             .orderBy('DateTime', descending: true)
             .snapshots(),
@@ -72,7 +73,7 @@ class _MemeListState extends State<MemeList> {
                   ),
                 );
         },
-      ),
+      //),
     );
   }
 }

@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:meme_g/SettingsScreen/settings_page.dart';
+import 'package:meme_g/screens/editor/flutter_ie_pro.dart';
 import 'package:meme_g/screens/personal_info.dart';
 import 'package:meme_g/widgets/create.dart';
 import 'package:meme_g/widgets/meme_list.dart';
@@ -17,17 +18,10 @@ class Homescreen extends StatefulWidget {
 
 class _HomescreenState extends State<Homescreen> {
   @override
-  Widget build(BuildContext context) {
-    // final text = Provider.of<ThemeProvider>(context).themeMode ==ThemeMode.dark
-    //     ? 'DarkTheme'
-    //     : 'LightTheme';
-
-    return Scaffold(
-      endDrawer: NavDrawer(),
-      appBar: AppBar(
-          backgroundColor: appbarcolor? Colors.grey.shade800: Colors.white,
-          foregroundColor: Colors.green,
-          /*leading: CircleAvatar(
+  var appBar = AppBar(
+      backgroundColor: appbarcolor ? Colors.grey.shade800 : Colors.white,
+      foregroundColor: Colors.green,
+      /*leading: CircleAvatar(
           backgroundColor: Colors.white,
           foregroundColor: Colors.white,
           radius: 36,
@@ -42,22 +36,69 @@ class _HomescreenState extends State<Homescreen> {
           //   iconSize: 40,
           // ),
         ),*/
-          // IconButton(
-          //   onPressed: () {},
-          //   icon: Icon(Icons.account_circle_rounded),
-          //   iconSize: 36,
-          // ),
-          title: Image.asset(
-               appbarcolor?
-               'assets/dummyMemes/TicklesDarkAppBar.png'
-              :'assets/dummyMemes/Ticklesappbar.png') /*Text(
+      // IconButton(
+      //   onPressed: () {},
+      //   icon: Icon(Icons.account_circle_rounded),
+      //   iconSize: 36,
+      // ),
+      title: Image.asset(appbarcolor
+          ? 'assets/dummyMemes/TicklesDarkAppBar.png'
+          : 'assets/dummyMemes/Ticklesappbar.png') /*Text(
           'Tickles',
           style: TextStyle(
             fontSize: 25,
           ),
         ),*/
-          // backgroundColor: Colors.red[900],
-          ),
+      // backgroundColor: Colors.red[900],
+      );
+
+  var create = new Create();
+  Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
+    final statusBarHeight = MediaQuery.of(context).padding.top;
+    final appBarHeight = appBar.preferredSize.height;
+    //final createHeight = MediaQuery(data: MediaQueryData, child: Create());
+    // final text = Provider.of<ThemeProvider>(context).themeMode ==ThemeMode.dark
+    //     ? 'DarkTheme'
+    //     : 'LightTheme';
+
+    return Scaffold(
+      endDrawer: NavDrawer(),
+      appBar: appBar,
+      // AppBar(
+      //     backgroundColor: appbarcolor? Colors.grey.shade800: Colors.white,
+      //     foregroundColor: Colors.green,
+      //     /*leading: CircleAvatar(
+      //     backgroundColor: Colors.white,
+      //     foregroundColor: Colors.white,
+      //     radius: 36,
+      //     backgroundImage: NetworkImage(
+      //         'https://cdn3.iconfinder.com/data/icons/google-material-design-icons/48/ic_account_circle_48px-512.png'),
+      //     // child: IconButton(
+      //     //   onPressed: () {},
+      //     //   icon: Icon(
+      //     //     Icons.account_circle_sharp,
+      //     //     color: Colors.white,
+      //     //   ),
+      //     //   iconSize: 40,
+      //     // ),
+      //   ),*/
+      //     // IconButton(
+      //     //   onPressed: () {},
+      //     //   icon: Icon(Icons.account_circle_rounded),
+      //     //   iconSize: 36,
+      //     // ),
+      //     title: Image.asset(
+      //          appbarcolor?
+      //          'assets/dummyMemes/TicklesDarkAppBar.png'
+      //         :'assets/dummyMemes/Ticklesappbar.png') /*Text(
+      //     'Tickles',
+      //     style: TextStyle(
+      //       fontSize: 25,
+      //     ),
+      //   ),*/
+      //     // backgroundColor: Colors.red[900],
+      //     ),
       /*bottomNavigationBar: BottomNavigationBar(
         items: [
           BottomNavigationBarItem(icon: Icon(Icons.home), title: Text('Home')),
@@ -76,14 +117,31 @@ class _HomescreenState extends State<Homescreen> {
               title: Text('You')),
         ],
       ),*/
-      body: Container(
-        height: double.infinity,
-        child: Column(
-          children: <Widget>[
-            Create(),
-            MemeList(),
-          ],
-        ),
+      body: Column(
+        children: <Widget>[
+          Container(
+            height: (screenHeight - statusBarHeight - appBarHeight) * 0.09,
+            child: FloatingActionButton.extended(
+              onPressed: () {
+                Navigator.pushNamed(context, ImageEditorPro.route);
+              },
+              label: const Text(
+                'LET\'S TICKLE',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    //decoration: TextDecoration.underline,
+                    fontSize: 25
+                  ),
+              ),
+            ),
+          ),
+          Container(
+            height: (screenHeight - statusBarHeight - appBarHeight) * 0.91,
+            width: double.infinity,
+            child: MemeList(),
+          ),
+        ],
       ),
     );
   }
