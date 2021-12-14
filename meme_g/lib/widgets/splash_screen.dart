@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:meme_g/screens/wrapper.dart';
 
 class splash_screen extends StatelessWidget {
-  const splash_screen({ Key? key }) : super(key: key);
+  const splash_screen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return AnimatedSplashScreen(
       splash: 'assets/dummyMemes/TicklesPhoneWallpaper.gif',
-      nextScreen: Wrapper(),);
+      nextScreen: Wrapper(),
+      splashIconSize: double.infinity,
+    );
   }
 }

@@ -19,7 +19,7 @@ class SettingsPage extends StatefulWidget {
   _SettingsPageState createState() => _SettingsPageState();
 }
 
-dynamic appbarcolor ;
+dynamic appbarcolor = false;
 
 class _SettingsPageState extends State<SettingsPage> {
   Widget buildLogout() => SimpleSettingsTile(

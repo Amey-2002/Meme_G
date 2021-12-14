@@ -193,7 +193,7 @@ class _MemeViewState extends State<MemeView> {
                 ),*/
                 Text(
                  widget.likesCount.toString(),
-                 style: TextStyle(fontSize: 5),
+                 style: TextStyle(fontSize: 18),
                   ),
                 IconButton(
                   onPressed: () {

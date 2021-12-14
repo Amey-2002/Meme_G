@@ -33,7 +33,7 @@ class _MemeListState extends State<MemeList> {
   Widget build(BuildContext context) {
     return Container(
       //use height if you use ListView.builder
-      height: 600, //435 for simulator & 580 for my mobile
+      height: 550, //435 for simulator & 580 for my mobile
       width: double.infinity,
       margin: const EdgeInsets.only(left: 10, right: 10),
       //padding: const EdgeInsets.only(top: 10, bottom: 10),
