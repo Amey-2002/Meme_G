@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:meme_g/SettingsScreen/settings_page.dart';
 import 'package:meme_g/screens/personal_info.dart';
 import 'package:meme_g/widgets/create.dart';
 import 'package:meme_g/widgets/meme_list.dart';
@@ -24,7 +25,7 @@ class _HomescreenState extends State<Homescreen> {
     return Scaffold(
       endDrawer: NavDrawer(),
       appBar: AppBar(
-          backgroundColor: Colors.white,
+          backgroundColor: appbarcolor? Colors.grey.shade800: Colors.white,
           foregroundColor: Colors.green,
           /*leading: CircleAvatar(
           backgroundColor: Colors.white,
@@ -47,7 +48,9 @@ class _HomescreenState extends State<Homescreen> {
           //   iconSize: 36,
           // ),
           title: Image.asset(
-              'assets/dummyMemes/Ticklesappbar.png') /*Text(
+               appbarcolor?
+               'assets/dummyMemes/TicklesDarkAppBar.png'
+              :'assets/dummyMemes/Ticklesappbar.png') /*Text(
           'Tickles',
           style: TextStyle(
             fontSize: 25,

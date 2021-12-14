@@ -19,6 +19,8 @@ class SettingsPage extends StatefulWidget {
   _SettingsPageState createState() => _SettingsPageState();
 }
 
+dynamic appbarcolor ;
+
 class _SettingsPageState extends State<SettingsPage> {
   Widget buildLogout() => SimpleSettingsTile(
         title: 'Logout',
@@ -56,6 +58,9 @@ class _SettingsPageState extends State<SettingsPage> {
         leading: Switch(
           value: themeManager.themeMode == ThemeMode.dark,
           onChanged: (newvalue) {
+            setState(() {
+              appbarcolor = newvalue;
+            });
             themeManager.toggleTheme(newvalue);
           },
         ),
@@ -102,7 +107,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 // buildNotifications(context),
                 //ChangeThemeButtonWidget(),
                 //NotificationsPage(),                            ################################################
-                buildLogout(),
+                //buildLogout(),
                 buildDeleteAccount(),
                 buildChangeTheme(context),
               ],
