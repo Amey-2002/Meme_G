@@ -14,9 +14,7 @@ class CustomAppBar extends StatelessWidget {
       children: [
         RoundedButton(
           icon: Icon(Icons.arrow_back),
-          iconColor: Colors.blueGrey,
-          bgColor: Colors.white,
-          tap: () => {Navigator.pushNamed(context, SettingsPage.route)},
+          tap: () => {Navigator.pushReplacementNamed(context, SettingsPage.route)},
         ),
         SizedBox(
           width: 10,

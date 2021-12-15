@@ -38,18 +38,18 @@ class _SettingsPageState extends State<SettingsPage> {
   Widget buildReportBug(BuildContext context) => SimpleSettingsTile(
         title: 'Report Bug',
         subtitle: '',
-        leading: IconWidget(icon: Icons.report, color: Colors.blueAccent),
+        leading: IconWidget(icon: Icons.report, color: Colors.green),
         onTap: () {
-          Navigator.pushNamed(context, ReportBug.route);
+          Navigator.pushReplacementNamed(context, ReportBug.route);
         },
       );
 
   Widget buildSendFeedback(BuildContext context) => SimpleSettingsTile(
         title: 'Send Feedback',
         subtitle: '',
-        leading: IconWidget(icon: Icons.feedback, color: Colors.blueAccent),
+        leading: IconWidget(icon: Icons.feedback, color: Colors.green),
         onTap: () {
-          Navigator.pushNamed(context, RateScreen.route);
+          Navigator.pushReplacementNamed(context, RateScreen.route);
         },
       );
 
@@ -87,13 +87,6 @@ class _SettingsPageState extends State<SettingsPage> {
     return Scaffold(
       appBar: AppBar(
         // backgroundColor: Colors.blue,
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pushNamed(context, Homescreen.route);
-          },
-          icon: Icon(Icons.arrow_back),
-          color: Colors.white,
-        ),
         title: Text('Settings'),
       ),
       body: SafeArea(
@@ -103,12 +96,12 @@ class _SettingsPageState extends State<SettingsPage> {
             SettingsGroup(
               title: 'GENERAL',
               children: <Widget>[
-                AccountPage(),
+                //AccountPage(),
                 // buildNotifications(context),
                 //ChangeThemeButtonWidget(),
                 //NotificationsPage(),                            ################################################
                 //buildLogout(),
-                buildDeleteAccount(),
+                //buildDeleteAccount(),
                 buildChangeTheme(context),
               ],
             ),

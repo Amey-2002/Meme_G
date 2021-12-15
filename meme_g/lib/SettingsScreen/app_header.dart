@@ -12,7 +12,7 @@ class AppHeader extends StatelessWidget {
       child: Container(
         width: double.infinity,
         height: 350.0,
-        color: Colors.deepOrangeAccent,
+        //color: Colors.deepOrangeAccent,
       ),
     );
   }

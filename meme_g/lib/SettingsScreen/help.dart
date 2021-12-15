@@ -16,16 +16,6 @@ class _HelpScreenState extends State<HelpScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pushNamed(context, Homescreen.route);
-          },
-          icon: Icon(
-            Icons.arrow_back,
-            color: Colors.white,
-          ),
-          iconSize: 30,
-        ),
         title: Text('Help'),
         titleTextStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
       ),

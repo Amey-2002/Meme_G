@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:meme_g/SettingsScreen/profile_image2.dart';
 import 'package:meme_g/SettingsScreen/rounded_button.dart';
 import 'package:meme_g/screens/profile_image_picker.dart';
 import 'package:meme_g/SettingsScreen/proportionals.dart';
@@ -24,7 +25,7 @@ class _RateScreenState extends State<RateScreen> {
   String? profileImageUrl;
 
   var rating = 0.0;
-  var dp = new ProfilePage();
+  var dp = new ProfileImage2();
   var comment = '';
 
   @override
@@ -43,14 +44,14 @@ class _RateScreenState extends State<RateScreen> {
           children: [
             SizedBox(height: 20.0),
             AppHeader(),
-            Positioned(
+            /*Positioned(
               top: -380,
               left: -187,
               child: Opacity(
                 opacity: 0.9,
                 child: Image.asset(''),
               ),
-            ),
+            ),*/
             SafeArea(
               child: Padding(
                 padding: EdgeInsets.all(5),
@@ -90,7 +91,6 @@ class _RateScreenState extends State<RateScreen> {
                     Text(
                       'You',
                       style: TextStyle(
-                        color: Colors.black45,
                         fontSize: 10,
                         fontWeight: FontWeight.bold,
                       ),
@@ -99,15 +99,13 @@ class _RateScreenState extends State<RateScreen> {
                     Text(
                       'You',
                       style: TextStyle(
-                        color: Colors.black,
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
 
-                    Divider(
-                      height: 80,
-                      color: Colors.lightGreenAccent,
+                    SizedBox(
+                      height: 18.0,
                     ),
 
                     SizedBox(
@@ -118,7 +116,6 @@ class _RateScreenState extends State<RateScreen> {
                       'How much did you like this app?',
                       style: TextStyle(
                           fontStyle: FontStyle.italic,
-                          color: Colors.black87,
                           fontWeight: FontWeight.bold,
                           fontSize: 24),
                     ),
@@ -185,13 +182,21 @@ class _RateScreenState extends State<RateScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        Text(
-                          'Submit',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18,
-                            fontStyle: FontStyle.italic,
+                        ElevatedButton(
+                          onPressed: () {
+                            setState(() {
+                              feedbackRef
+                                  .doc(user!.uid)
+                                  .set({'stars': rating, 'comment': comment});
+                            });
+                          },
+                          child: Text(
+                            'Submit',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                              fontStyle: FontStyle.italic,
+                            ),
                           ),
                         ),
                         SizedBox(
@@ -199,8 +204,6 @@ class _RateScreenState extends State<RateScreen> {
                         ),
                         RoundedButton(
                           icon: Icon(Icons.arrow_forward),
-                          iconColor: Colors.white,
-                          bgColor: Colors.lightGreen,
                           tap: () {
                             setState(() {
                               feedbackRef

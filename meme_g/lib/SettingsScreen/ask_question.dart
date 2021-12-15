@@ -29,7 +29,7 @@ class _AskQuestionState extends State<AskQuestion> {
       appBar: AppBar(
         leading: IconButton(
           onPressed: () {
-            Navigator.pushNamed(context, HelpScreen.route);
+            Navigator.pushReplacementNamed(context, HelpScreen.route);
           },
           icon: Icon(
             Icons.arrow_back,
@@ -109,8 +109,6 @@ class _AskQuestionState extends State<AskQuestion> {
                             ),
                             RoundedButton(
                               icon: Icon(Icons.arrow_forward),
-                              iconColor: Colors.white,
-                              bgColor: Colors.teal,
                               tap: () {
                                 setState(() {
                                   questionRef

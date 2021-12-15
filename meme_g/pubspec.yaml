@@ -62,7 +62,7 @@ dependencies:
   image_picker: ^0.8.4+4
   extended_image: ^5.1.3
   image_editor: ^1.0.2
-  flutter_image_editor: ^1.2.0
+  #flutter_image_editor: ^1.2.0
   share: ^2.0.4
   photo_view: ^0.13.0
   gallery_saver: ^2.3.2
@@ -79,6 +79,7 @@ dependencies:
   #ImageGallerySaver
   fluttertoast: ^8.0.8
   animated_splash_screen: 1.1.0-nullsafety.0
+  splash_screen_view: ^3.0.0
   
   #image_picker: ^0.6.5+2
   #image_cropper: ^1.2.1
@@ -122,6 +123,7 @@ flutter:
     - assets/dummyMemes/Tickles.png
     - assets/dummyMemes/Ticklesappbar.png
     - assets/dummyMemes/TicklesDarkAppBar.png
+    - assets/dummyMemes/TicklesPhoneWallpaper_2000_3500px.gif
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

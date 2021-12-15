@@ -15,16 +15,6 @@ class _AboutScreenState extends State<AboutScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pushNamed(context, Homescreen.route);
-          },
-          icon: Icon(
-            Icons.arrow_back,
-            color: Colors.white,
-          ),
-          iconSize: 30,
-        ),
         title: Text('About app'),
         titleTextStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
       ),
@@ -46,12 +36,7 @@ class _AboutScreenState extends State<AboutScreen> {
                       height: 30,
                     ),
                     Text(
-                      'Tickles is a simple and cool Meme generator and which also provides a platform to share and explore memes!\n' +
-                          'It allows you to pick any image and edit it in way you want\n\n' +
-                          'After editing we also can upload it so that other app users can also see your work\n' +
-                          'Any queries related to the working of app can be asked in Ask a Question section\n' +
-                          'Your feedback would be useful for our futher projects!\n\n' +
-                          'Project created by Amey, Amanpreet, Jay and Shubham under the guidance of Priya and Prerna',
+                      'Tickles is a cool Meme generator application to edit images to create tickles/memes and post them on the application itself or share them on other apps(WhatsApp, Facebook, Instagram, etc) with your family, friends or others.',
                       style:
                           TextStyle(fontSize: 20, fontStyle: FontStyle.italic),
                     ),
