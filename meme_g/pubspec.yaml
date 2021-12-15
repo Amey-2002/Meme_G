@@ -119,7 +119,7 @@ flutter:
     - assets/dummyMemes/homescreen.jpg
     - assets/dummyMemes/img2.png
     - assets/dummyMemes/lion.jpg
-    - assets/dummyMemes/TicklesPhoneWallpaper.gif
+    #- assets/dummyMemes/TicklesPhoneWallpaper.gif
     - assets/dummyMemes/Tickles.png
     - assets/dummyMemes/Ticklesappbar.png
     - assets/dummyMemes/TicklesDarkAppBar.png

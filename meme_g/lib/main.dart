@@ -175,7 +175,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return splash_screen();
+    return //Wrapper();
+    splash_screen();
 
     /*WillPopScope(
       child: Wrapper(),
