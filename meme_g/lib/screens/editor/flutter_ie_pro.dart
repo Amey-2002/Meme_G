@@ -43,22 +43,31 @@ class _ImageEditorProState extends State<ImageEditorPro> {
     super.initState();
     //_defaultImage = widget.arguments[0];
     usersCollectionRef = FirebaseFirestore.instance.collection('Users');
-    userId = user!.uid;
-    usersCollectionRef
-        .doc(user!.uid)
-        .get()
-        .then((DocumentSnapshot documentSnapshot) {
-      if (documentSnapshot.exists) {
-        setState(() {
-          userName = documentSnapshot.get(FieldPath(['Username']));
-        });
-      }
-    });
+    if (user != null) {
+      userId = user!.uid;
+      usersCollectionRef
+          .doc(user!.uid)
+          .get()
+          .then((DocumentSnapshot documentSnapshot) {
+        if (documentSnapshot.exists) {
+          setState(() {
+            userName = documentSnapshot.get(FieldPath(['Username']));
+          });
+        }
+      });
+    } else {
+      userId = '';
+      userName = '';
+    }
     memesCollectionRef = FirebaseFirestore.instance.collection('Memes');
-    postedMemesRef = FirebaseFirestore.instance
-        .collection('Users')
-        .doc(user!.uid)
-        .collection('PostedMemeURLs');
+    if (user != null) {
+      postedMemesRef = FirebaseFirestore.instance
+          .collection('Users')
+          .doc(user!.uid)
+          .collection('PostedMemeURLs');
+    } else {
+      postedMemesRef = FirebaseFirestore.instance.collection('Users');
+    }
   }
 
   Future<void> getImageEditor() {
@@ -163,7 +172,7 @@ class _ImageEditorProState extends State<ImageEditorPro> {
 
   @override
   Widget build(BuildContext context) {
-    setState(() {
+    /*setState(() {
       usersCollectionRef = FirebaseFirestore.instance.collection('Users');
       userId = user!.uid;
       usersCollectionRef
@@ -181,12 +190,12 @@ class _ImageEditorProState extends State<ImageEditorPro> {
           .collection('Users')
           .doc(user!.uid)
           .collection('PostedMemeURLs');
-    });
+    });*/
 
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Image Editor Pro Example',
+          'Image Editor',
           style: TextStyle(
             color: Colors.white,
           ),
@@ -215,12 +224,12 @@ class _ImageEditorProState extends State<ImageEditorPro> {
                   readOnly: true,
                   decoration: InputDecoration(
                     isDense: true,
-                    hintText: 'No default image',
+                    hintText: 'No image selected',
                   ),
                 ),
                 SizedBox(height: 16),
                 ElevatedButton(
-                  child: Text('Set Default Image'),
+                  child: Text('Select Image to edit'),
                   onPressed: () async {
                     _showPickOptionsDialog(context);
                     // final imageGallery = await ImagePicker()
@@ -262,71 +271,75 @@ class _ImageEditorProState extends State<ImageEditorPro> {
                     child: Text('Save to Gallery'),
                   ),
                   ElevatedButton(
-                      onPressed: () {
-                        final RenderBox? box =
-                            context.findRenderObject() as RenderBox;
-                        if (Platform.isAndroid) {
-                          Share.shareFiles([_image!.path],
-                              subject: 'Image edited by Photo Editor',
-                              text: 'Meme created and shared by ' +
-                                  userName +
-                                  ' using Meme Generator',
-                              sharePositionOrigin:
-                                  box!.localToGlobal(Offset.zero) & box.size);
-                        } else {
-                          Share.share(
-                              'Meme created and shared by ' +
-                                  userName +
-                                  ' using Meme Generator',
-                              subject: 'Image edited by Photo Editor',
-                              sharePositionOrigin:
-                                  box!.localToGlobal(Offset.zero) & box.size);
-                        }
-                      },
-                      child: Text('Share')),
-                  ElevatedButton(
-                      onPressed: () async {
-                        //Uploading meme To Firebase Storage
-                        ref = firebase_storage.FirebaseStorage.instance
-                            .ref()
-                            .child(
-                                'Posted-Memes/${Path.basename(_image!.path)}');
-                        await ref.putFile(_image!).whenComplete(() async {
-                          await ref.getDownloadURL().then((value) async {
-                            likedMemeDoc =
-                                value.replaceAll(new RegExp(r'[^\w\s]+'), '0');
-                            likedMemeDocFinal =
-                                likedMemeDoc.replaceAll('_', '0');
-                            //sending the received url of uploaded meme to firestore along with userName, userID
-                            await postedMemesRef.doc(likedMemeDocFinal).set({
-                              'url': value,
-                              'Username': userName,
-                              'UserID': userId,
-                              'DateTime': DateTime.now()
-                                  .microsecondsSinceEpoch
-                                  .toString()
+                    onPressed: () {
+                      final RenderBox? box =
+                          context.findRenderObject() as RenderBox;
+                      if (Platform.isAndroid) {
+                        Share.shareFiles([_image!.path],
+                            text: (user == null)
+                                ? (' ')
+                                : ('Tickle shared by ' + userName),
+                            sharePositionOrigin:
+                                box!.localToGlobal(Offset.zero) & box.size);
+                      } else {
+                        Share.share(
+                            (user == null)
+                                ? (' ')
+                                : ('Tickle shared by ' + userName),
+                            sharePositionOrigin:
+                                box!.localToGlobal(Offset.zero) & box.size);
+                      }
+                    },
+                    child: Text('Share'),
+                  ),
+                  (user == null)
+                      ? Container()
+                      : ElevatedButton(
+                          onPressed: () async {
+                            //Uploading meme To Firebase Storage
+                            ref = firebase_storage.FirebaseStorage.instance
+                                .ref()
+                                .child(
+                                    'Posted-Memes/${Path.basename(_image!.path)}');
+                            await ref.putFile(_image!).whenComplete(() async {
+                              await ref.getDownloadURL().then((value) async {
+                                likedMemeDoc = value.replaceAll(
+                                    new RegExp(r'[^\w\s]+'), '0');
+                                likedMemeDocFinal =
+                                    likedMemeDoc.replaceAll('_', '0');
+                                //sending the received url of uploaded meme to firestore along with userName, userID
+                                await postedMemesRef
+                                    .doc(likedMemeDocFinal)
+                                    .set({
+                                  'url': value,
+                                  'Username': userName,
+                                  'UserID': userId,
+                                  'DateTime': DateTime.now()
+                                      .microsecondsSinceEpoch
+                                      .toString()
+                                });
+                                //Also storinging in a Memes Collection to use in top list
+                                await memesCollectionRef
+                                    .doc(likedMemeDocFinal)
+                                    .set({
+                                  'url': value,
+                                  'Username': userName,
+                                  'UserID': userId,
+                                  'likedBy': [],
+                                  'DateTime': DateTime.now()
+                                      .microsecondsSinceEpoch
+                                      .toString()
+                                });
+                              });
                             });
-                            //Also storinging in a Memes Collection to use in top list
-                            await memesCollectionRef
-                                .doc(likedMemeDocFinal)
-                                .set({
-                              'url': value,
-                              'Username': userName,
-                              'UserID': userId,
-                              'likedBy': [],
-                              'DateTime': DateTime.now()
-                                  .microsecondsSinceEpoch
-                                  .toString()
-                            });
-                          });
-                        });
-                        ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Meme posted'),
-                    ),
-                  );
-                      },
-                      child: Text('Post As Meme'))
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('Tickle posted'),
+                              ),
+                            );
+                          },
+                          child: Text('Post Tickle'),
+                        )
                 ],
               ),
       ),

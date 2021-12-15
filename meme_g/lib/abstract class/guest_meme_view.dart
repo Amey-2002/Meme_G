@@ -65,6 +65,7 @@ class _GuestMemeViewState extends State<GuestMemeView> {
             width: 370,
             child: Image(
               image: NetworkImage(widget.imgUrl),
+              fit: BoxFit.cover,
             ),
           ),
           Padding(

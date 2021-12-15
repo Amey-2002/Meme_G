@@ -65,7 +65,7 @@ class _MyWorkState extends State<MyWork> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Posted Memes')),
+      appBar: AppBar(title: Text('Posted Tickles')),
       body: (user == null)
           ? const Center(
               heightFactor: double.infinity,

@@ -38,7 +38,7 @@ class NavDrawer extends StatelessWidget {
             size: 32,
           ),
           title: Text(
-            'Posted Memes',
+            'Posted Tickles',
             style: TextStyle(
               fontSize: 20,
             ),
@@ -53,7 +53,7 @@ class NavDrawer extends StatelessWidget {
             size: 32,
           ),
           title: Text(
-            'Liked Memes',
+            'Liked Tickles',
             style: TextStyle(
               fontSize: 20,
             ),

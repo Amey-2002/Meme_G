@@ -41,7 +41,7 @@ class _LikedMemesState extends State<LikedMemes> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Liked Memes')),
+      appBar: AppBar(title: Text('Liked Tickles')),
       body: (user == null)
           ? const Center(
               heightFactor: double.infinity,
