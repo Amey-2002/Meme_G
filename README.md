@@ -46,11 +46,14 @@ users can add a like or share on other apps.
 * Chat area for users to  share tickles to each other on the app itself.
 
 ***
+## Team Name
+# Coding Noobs
+
 ## Team members
- * Amanpreet Kaur Bains 
- * Amey Bhatuse
- * Jay Sawant
- * Shubham Salunkhe
+ * Amanpreet Kaur Bains (akbains36@gmail.com) 
+ * Amey Bhatuse (ameybhatuse315@gmail.com)
+ * Jay Sawant (jay.sawant2017@gmail.com)
+ * Shubham Salunkhe (shubhamtssalunkhe@gmail.com)
 
 ***
 ## Mentors
