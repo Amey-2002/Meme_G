@@ -33,11 +33,6 @@ class _signInState extends State<signIn> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        /*appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),*/
         body: Center(
       // Center is a layout widget. It takes a single child and positions it
       // in the middle of the parent.
@@ -73,21 +68,12 @@ class _signInState extends State<signIn> {
                 ),
                 onPressed: () async {
                   Navigator.pushNamed(context, Homescreen.route);
-                  /*dynamic resultuser = await authObject.AnonymousSignIn();
-                  if (resultuser == null) {
-                    print("sign in failed");
-                  } else {
-                    Navigator.pushNamed(context, Homescreen.route);
-                    print(resultuser.uid);
-                  }*/
                 },
               ),
             ),
             Row(mainAxisAlignment: MainAxisAlignment.center, children: [
               Container(
                 child: TextButton(
-                  //foregroundColor: Colors.green,
-                  //backgroundColor: Colors.white,
                   onPressed: () {},
                   child: const Text(
                     'New user ?',
@@ -97,9 +83,7 @@ class _signInState extends State<signIn> {
               Container(
                 child: TextButton(
                   onPressed: () {
-                    // Navigator.pushNamed(context, Account_det.route);
                     Navigator.pushReplacementNamed(context, Account_det.route);
-                    print('accounts_det screen called');
                   },
                   child: const Text('Create Account'),
                 ),
@@ -121,20 +105,7 @@ class _signInState extends State<signIn> {
                   setState(() {
                     google_details = true;
                   });
-                  // Navigator.pop(context);
-                  // Navigator.pushNamed(context, Homescreen.route);
-                  // usersCollectionRef
-                  //     .doc(googleUserUid)
-                  //     .get()
-                  //     .then((DocumentSnapshot documentSnapshot) {
-                  //   if (documentSnapshot.exists) {
-                  //     setState(() {
-                  //       alreadyUser = true;
-                  //     });
-                  //   }
-                  // });
                   Navigator.pushReplacementNamed(context, Account_det.route);
-                  //print(resultuser.accessToken);
                 }
               },
             )

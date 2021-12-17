@@ -33,33 +33,7 @@ class _GuestMemeViewState extends State<GuestMemeView> {
                     fontSize: 20,
                   ),
                 ),
-              )
-              /*Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: const <Widget>[
-                Icon(
-                  Icons.account_circle,
-                  size: 37,
-                ),
-                (widget.userName == null)?
-                Text(
-                   'Username',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                  ),
-                ) :
-                
-                Text(
-                  widget.userName,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                  ),
-                )
-              ],
-            ),*/
-              ),
+              )),
           Container(
             height: 370,
             width: 370,
@@ -73,9 +47,6 @@ class _GuestMemeViewState extends State<GuestMemeView> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
-                //Icon(Icons.favorite_border,size: 27,),
-                //Icon(Icons.send,size: 27,),
-                //Icon(Icons.share,size: 27,),
                 IconButton(
                     onPressed: () {
                       Share.share(

@@ -22,32 +22,9 @@ class MyWork extends StatefulWidget {
 }
 
 class _MyWorkState extends State<MyWork> {
-  //User? user = FirebaseAuth.instance.currentUser;
   late CollectionReference postedMemesRef;
 
-  User? user = FirebaseAuth.instance.currentUser; 
-
-  /*checkAuthentification() async {
-    _auth.authStateChanges().listen((user) {
-      _user = user;
-    });
-  }*/
-
-  /*getUser() async {
-    User? firebaseUser = _auth.currentUser;
-
-    await firebaseUser?.reload();
-
-    firebaseUser = _auth.currentUser;
-
-    if (firebaseUser != null) {
-      setState(() {
-        this._user = firebaseUser;
-
-        this.isloggedin = true;
-      });
-    }
-  }*/
+  User? user = FirebaseAuth.instance.currentUser;
 
   @override
   void initState() {
@@ -109,22 +86,6 @@ class _MyWorkState extends State<MyWork> {
                                                   .data?.docs[index]
                                                   .get('Username'),
                                             ),
-                                            /*Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          IconButton(
-                                            icon: Icon(Icons.arrow_back),
-                                            onPressed: () =>
-                                                Navigator.pop(context),
-                                          ),*/
-                                            //     PhotoView(
-                                            //   imageProvider: NetworkImage(
-                                            //     snapshot.data?.docs[index]
-                                            //         .get('url'),
-                                            //   ),
-                                            // ),
-                                            /*],
-                                      ),*/
                                           ),
                                         ),
                                       );

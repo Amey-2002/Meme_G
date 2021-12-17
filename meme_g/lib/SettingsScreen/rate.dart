@@ -44,14 +44,6 @@ class _RateScreenState extends State<RateScreen> {
           children: [
             SizedBox(height: 20.0),
             AppHeader(),
-            /*Positioned(
-              top: -380,
-              left: -187,
-              child: Opacity(
-                opacity: 0.9,
-                child: Image.asset(''),
-              ),
-            ),*/
             SafeArea(
               child: Padding(
                 padding: EdgeInsets.all(5),
@@ -61,29 +53,6 @@ class _RateScreenState extends State<RateScreen> {
                     CustomAppBar(),
                     SizedBox(height: 50.0),
                     dp,
-                    // // CircleAvatar(
-                    // //   backgroundColor: Colors.white,
-                    // //   child: Icon(
-                    // //     Icons.account_circle_rounded,
-                    // //     size: 150,
-                    // //   ),
-                    //   // foregroundImage: NetworkImage(),
-                    //   // backgroundImage: NetworkImage('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRlybPj2CVQpdYMY2HSNEKLbT5PFv33ZThDg&usqp=CAU'),
-                    //   // foregroundImage: NetworkImage(
-                    //   //      'https://thumbs.dreamstime.com/b/feedback-concept-image-arrows-blue-chalkboard-background-40378284.jpg'),
-                    //   radius: 90,
-                    // ),
-                    // Image.asset(
-                    //   'assets/dummyMemes/1.jpg',
-                    //   width: getScreenProportionWidth(166, size),
-                    //   // height: getScreenProportionHeight(166,size),
-                    //   // fit: BoxFit.cover,
-                    // ),
-
-                    // Image.asset(
-                    //   'assets/dummyMemes/2.png',
-                    //   width: getScreenProportionWidth(166, size),
-                    // ),
                     SizedBox(
                       height: 5.0,
                     ),
@@ -224,5 +193,4 @@ class _RateScreenState extends State<RateScreen> {
     );
   }
 
-  // void setState(Null Function() param0) {}
 }

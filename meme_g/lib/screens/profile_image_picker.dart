@@ -14,30 +14,9 @@ import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:path/path.dart' as Path;
 import 'package:permission_handler/permission_handler.dart';
 
-/*class ProflieImagePicker extends StatefulWidget {
-  static const route = 'profile_image_picker_screen';
-  // This widget is the root of your application.
-  @override
-  State<ProflieImagePicker> createState() => _ProflieImagePickerState();
-}
-
-class _ProflieImagePickerState extends State<ProflieImagePicker> {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: ProfilePage(),
-    );
-  }
-}*/
 dynamic uid = '';
 
 class ProfilePage extends StatefulWidget {
-  //final String uid;
-  //ProfilePage({required this.uid});
   set setUid(uId) {
     uid = uId;
   }
@@ -47,10 +26,6 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  //late File _pickedImage;
-  //File _pickedImage = File('C:/Users/shubh/Documents/GitHub/Meme_G/meme_g/lib/spare.txt');
-  //Image(image: NetworkImage('https://cdn3.iconfinder.com/data/icons/google-material-design-icons/48/ic_account_circle_48px-512.png'));
-
   File? _pickedImage = null;
   late CollectionReference profileImgRef;
   late firebase_storage.Reference ref;
@@ -78,13 +53,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       child: (profileImageUrl != null)
                           ? ClipOval(child: Image.network(profileImageUrl!))
                           : ClipOval(
-                              child:
-                              // IconButton(
-                              //   onPressed: () {},
-                              //   icon: Icon(Icons.account_circle_rounded),
-                              //   // iconSize: 80,
-                              // ),
-                              Image.network(
+                              child: Image.network(
                                   'https://cdn3.iconfinder.com/data/icons/google-material-design-icons/48/ic_account_circle_48px-512.png'),
                             ),
                     ),
@@ -95,12 +64,9 @@ class _ProfilePageState extends State<ProfilePage> {
                         : Container(),
                   ],
                 ),
-                //backgroundImage:,
-                //_pickedImage != null ? FileImage(_pickedImage!) : null,
               ),
             ),
           ),
-          //const SizedBox(height: 10.0),
           ClipRRect(
             child: RaisedButton(
               color: Colors.green,
@@ -122,9 +88,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
   final picker = ImagePicker();
   _loadPicker(ImageSource source) async {
-    //File picked = await ImagePicker.pickImage(source: source);
-    PickedFile? picked =
-        await picker.getImage(source: source /*ImageSource.camera*/);
+    PickedFile? picked = await picker.getImage(source: source);
     if (picked != null) {
       _cropImage(picked);
     }
@@ -143,9 +107,6 @@ class _ProfilePageState extends State<ProfilePage> {
       sourcePath: picked.path,
       aspectRatioPresets: [
         CropAspectRatioPreset.square,
-        //CropAspectRatioPreset.original,
-        //CropAspectRatioPreset.ratio16x9,
-        //CropAspectRatioPreset.ratio4x3,
       ],
       maxWidth: 800,
     );
@@ -198,27 +159,11 @@ class _ProfilePageState extends State<ProfilePage> {
     await Permission.photos.request();
     var permissionStatus = await Permission.photos.status;
     if (permissionStatus.isGranted) {
-      /*var snapshot = await firebase_storage.FirebaseStorage.instance
-          .ref()
-          .child('Profile-Image/${Path.basename(_pickedImage!.path)}')
-          .putFile(_pickedImage!);
-      var downloadUrl = await snapshot.ref.getDownloadURL();
-      setState(() {
-        profileImageUrl = downloadUrl;
-      });*/
       ref = firebase_storage.FirebaseStorage.instance
           .ref()
           .child('Profile-Image/${Path.basename(_pickedImage!.path)}');
       await ref.putFile(_pickedImage!).whenComplete(() async {
         await ref.getDownloadURL().then((value) async {
-          /*if (uid == '') {
-            setState(() {
-              profileImageUrl = value;
-            });
-          } else {*/
-          //Database(uid: uid).updateUserProfileImage(url: value);
-          //FirebaseFirestore.instance
-          //.collection('')
           await profileImgRef.doc(uid).set({'url': value});
           profileImgRef
               .doc(uid)
@@ -230,7 +175,6 @@ class _ProfilePageState extends State<ProfilePage> {
               });
             }
           });
-          //}
         });
       });
     } else {
@@ -252,7 +196,6 @@ class _ProfilePageState extends State<ProfilePage> {
           ]),
         ),
       );
-      //print('Permission not granted. Try Again with permission access');
     }
   }
 
@@ -270,26 +213,5 @@ class _ProfilePageState extends State<ProfilePage> {
       });
     }
   }
-
-  /*Future _uploadImageToFirebase(BuildContext context) async {
-    String fileName = Path.basename(_pickedImage!.path);
-    firebase_storage.Reference ref =
-    firebase_storage.FirebaseStorage.instance
-        .ref().child('Profile Photo').child('/$fileName');
-
-    final metadata = firebase_storage.SettableMetadata(
-        contentType: 'image/jpeg',
-        customMetadata: {'picked-file-path': fileName});
-    firebase_storage.UploadTask uploadTask;
-    //late StorageUploadTask uploadTask = firebaseStorageRef.putFile(_imageFile);
-    uploadTask = ref.putFile(io.File(_pickedImage!.path), metadata);
-
-    firebase_storage.UploadTask task= await Future.value(uploadTask);
-    Future.value(uploadTask).then((value) => {
-    print("Upload file path ${value.ref.fullPath}")
-    }).onError((error, stackTrace) => {
-      print("Upload file path error ${error.toString()} ")
-    });
-  }*/
 
 }

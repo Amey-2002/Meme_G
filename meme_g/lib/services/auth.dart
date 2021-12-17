@@ -1,5 +1,3 @@
-//import 'dart:html';
-
 // ignore_for_file: unused_local_variable
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -9,21 +7,15 @@ import 'package:meme_g/screens/account_details_screen.dart';
 import 'package:meme_g/screens/sign_in_screen.dart';
 import 'package:meme_g/widgets/user.dart';
 
-
 User? uSer;
-class Auth extends StatefulWidget {
 
+class Auth extends StatefulWidget {
   dynamic _useremail, _userpassword;
   final FirebaseAuth _Authenctication = FirebaseAuth.instance;
   GoogleSignIn _googleSignIn = GoogleSignIn();
   UserF? _userfirebase(User user) {
-
     return user != null ? UserF.uid(user.uid) : null;
   }
-
-  /*String getFirebaseUserId(User user){
-    return user.uid;
-  }*/
 
   //sign in Anonymously
   Future AnonymousSignIn() async {
@@ -72,9 +64,9 @@ class Auth extends StatefulWidget {
       GoogleSignInAuthentication google_auth = await googleUser!.authentication;
       AuthCredential user = GoogleAuthProvider.credential(
           accessToken: google_auth.accessToken, idToken: google_auth.idToken);
-      //User _user;
-      UserCredential google_user = await _Authenctication.signInWithCredential(user);
-      uSer = FirebaseAuth.instance.currentUser; 
+      UserCredential google_user =
+          await _Authenctication.signInWithCredential(user);
+      uSer = FirebaseAuth.instance.currentUser;
       googleUserUid = uSer!.uid;
       print(uSer!.displayName);
 
@@ -84,14 +76,15 @@ class Auth extends StatefulWidget {
       print("signin failed");
     }
   }
-    //sign out
-  Future<User?> signout() async{
-   
-   try { await _Authenctication.signOut(); 
-   print("signed out");}
-   catch(error){
-    print(error);
-   }
+
+  //sign out
+  Future<User?> signout() async {
+    try {
+      await _Authenctication.signOut();
+      print("signed out");
+    } catch (error) {
+      print(error);
+    }
   }
 
   @override
@@ -99,106 +92,12 @@ class Auth extends StatefulWidget {
 }
 
 class _AuthState extends State<Auth> {
-
-
   @override
   Widget build(BuildContext context) {
     setState(() {
       name = uSer!.displayName;
       emailid = uSer!.email;
-      
     });
-    return Container(
-      
-    );
+    return Container();
   }
 }
-
-/*class Authx {
-  dynamic _useremail, _userpassword;
-  final FirebaseAuth _Authenctication = FirebaseAuth.instance;
-  GoogleSignIn _googleSignIn = GoogleSignIn();
-  UserF? _userfirebase(User user) {
-
-    return user != null ? UserF.uid(user.uid) : null;
-  }
-
-  /*String getFirebaseUserId(User user){
-    return user.uid;
-  }*/
-
-  //sign in Anonymously
-  Future AnonymousSignIn() async {
-    try {
-      UserCredential response = await _Authenctication.signInAnonymously();
-      User? user = response.user;
-      return user;
-    } catch (error) {
-      return print(error.toString());
-      return null;
-    }
-  }
-
-  //sign in with email and password
-  Future EmailandpassSignIn(_useremail, _userpassword) async {
-    try {
-      UserCredential response =
-          await _Authenctication.signInWithEmailAndPassword(
-              email: _useremail, password: _userpassword);
-      User? user = response.user;
-      return user;
-    } catch (error) {
-      return print(error.toString());
-      return null;
-    }
-  }
-
-  //create Account OR register account
-  Future createAccount(_useremail, _userpassword) async {
-    try {
-      UserCredential response =
-          await _Authenctication.createUserWithEmailAndPassword(
-              email: _useremail, password: _userpassword);
-      User? user = response.user;
-      return user;
-    } catch (error) {
-      return print(error.toString());
-      return null;
-    }
-  }
-
-  //Google Sign-in
-  Future googleSignin() async {
-    try {
-      GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
-      GoogleSignInAuthentication google_auth = await googleUser!.authentication;
-      AuthCredential user = GoogleAuthProvider.credential(
-          accessToken: google_auth.accessToken, idToken: google_auth.idToken);
-      //User _user;
-      UserCredential google_user = await _Authenctication.signInWithCredential(user);
-      User? uSer = FirebaseAuth.instance.currentUser; 
-      setState(() {
-      name = user!.displayName;
-      emailid = user!.email;
-    });
-      print(uSer!.displayName);
-      return googleUser;
-    } catch (error) {
-      print(error);
-      print("signin failed");
-    }
-  }
-    //sign out
-  Future<User?> signout() async{
-   
-   try { await _Authenctication.signOut(); 
-   print("signed out");}
-   catch(error){
-    print(error);
-   }
-  }
-  }*/
- 
-
-
- 

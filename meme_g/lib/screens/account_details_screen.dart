@@ -8,7 +8,6 @@ import 'package:meme_g/screens/sign_in_screen.dart';
 import 'package:meme_g/services/auth.dart';
 
 import 'package:meme_g/widgets/user.dart';
-import '../widgets/textfields.dart';
 import 'homescreen.dart';
 import 'package:meme_g/screens/profile_image_picker.dart';
 
@@ -51,24 +50,6 @@ class _Account_detState extends State<Account_det> {
         ),
         body: SingleChildScrollView(
             child: Column(children: <Widget>[
-          /*Center(
-            child: Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: CircleAvatar(
-                radius: 80,
-                child: Icon(Icons.account_circle),
-              ),
-            ),
-          ),*/
-          //ProfilePage().setUid = userid,
-
-          /*RaisedButton(
-            child: Text("Set Profile Picture"),
-            onPressed: () {
-            },
-          ),*/
-          //ProfilePage(),
-          //dp,
           ListTile(
             leading: Icon(
               Icons.sort_by_alpha,
@@ -76,15 +57,6 @@ class _Account_detState extends State<Account_det> {
             ),
             title: Text('Name'),
           ),
-          /*Container(
-            child: TextField(
-                decoration: InputDecoration(hintText: "Enter name"),
-                onChanged: (uname) {
-                  setState(() {
-                    name = uname;
-                  });
-                }),
-          ),*/
           Container(
             child: (!google_details)
                 ? TextField(
@@ -109,7 +81,6 @@ class _Account_detState extends State<Account_det> {
             ),
             title: Text('User Id'),
           ),
-
           Container(
             child: TextField(
                 decoration: InputDecoration(hintText: "Enter UserId "),
@@ -126,16 +97,6 @@ class _Account_detState extends State<Account_det> {
             ),
             title: Text('Email ID'),
           ),
-          // Text_fields("Enter EmailId",emailid),
-          /*Container(
-            child: TextField(
-                decoration: InputDecoration(hintText: "Enter EmailId "),
-                onChanged: (email) {
-                  setState(() {
-                    emailid = email;
-                  });
-                }),
-          ),*/
           Container(
             child: (!google_details)
                 ? TextField(
@@ -160,7 +121,6 @@ class _Account_detState extends State<Account_det> {
             ),
             title: Text('Password'),
           ),
-          // Text_fields("Enter password",upassword),
           Container(
             child: TextField(
               decoration: InputDecoration(hintText: "Enter Password"),
@@ -176,11 +136,9 @@ class _Account_detState extends State<Account_det> {
             tileColor: Colors.green.shade100,
             leading: Container(
               decoration: BoxDecoration(
-                //borderRadius: BorderRadius.circular(16.0),
                 color: Colors.white,
               ),
               child: Icon(
-                //Icons.format_list_numbered,
                 Icons.calendar_today,
                 color: Colors.green,
               ),
@@ -217,18 +175,15 @@ class _Account_detState extends State<Account_det> {
               child: Container(
                 alignment: Alignment.centerLeft,
                 decoration: BoxDecoration(
-                  //borderRadius: BorderRadius.circular(16.0),
                   color: Colors.green.shade100,
                 ),
                 child: Text(
                   'Choose Birthdate',
                   textAlign: TextAlign.left,
                   style: TextStyle(fontSize: 17),
-                  //style: TextStyle(color: Colors.blue),
                 ),
               ),
             ),
-            //Text('Birth Date'),
           ),
           ListTile(
             leading: Icon(
@@ -237,7 +192,6 @@ class _Account_detState extends State<Account_det> {
             ),
             title: Text('Country of origin'),
           ),
-
           Container(
             child: TextField(
                 decoration: InputDecoration(hintText: "Enter country  "),
@@ -247,14 +201,12 @@ class _Account_detState extends State<Account_det> {
                   });
                 }),
           ),
-
           ElevatedButton(
               child: Text("Create Account"),
               onPressed: () async {
                 if (google_details) {
                   setState(() {
-                    dp.setUid = user!.uid;
-                    //result.uid; //uid acquired for user profile image
+                    dp.setUid = user!.uid; //uid acquired for user profile image
                   });
                   _updateToDatabase(
                       uid: user!.uid,
@@ -342,8 +294,6 @@ class _Account_detState extends State<Account_det> {
                         ),
                       ),
                     );
-                    // Navigator.pop(context);
-                    // Navigator.pushNamed(context, Homescreen.route);
                     Navigator.pushReplacementNamed(context, Homescreen.route);
                     print(result.uid);
                   }

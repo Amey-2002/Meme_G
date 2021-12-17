@@ -65,23 +65,7 @@ class _SettingsPageState extends State<SettingsPage> {
             print(newvalue);
           },
         ),
-        // subtitle: '',
-        // leading: IconWidget(icon: Icons.delete, color: Colors.blueAccent),
-        // onTap: () {},
       );
-
-  // Widget buildNotifications(BuildContext context) => SimpleSettingsTile(
-  //       title: 'Notifications',
-  //       leading: Switch(
-  //         value: false,
-  //         onChanged: (newvalue) {},
-  //         trackColor: MaterialStateProperty.all(Colors.grey.shade400),
-  //         thumbColor: MaterialStateProperty.all(Colors.white30),
-  //       ),
-  //       // subtitle: '',
-  //       // leading: IconWidget(icon: Icons.delete, color: Colors.blueAccent),
-  //       // onTap: () {},
-  //     );
 
   @override
   Widget build(BuildContext context) {
@@ -97,12 +81,6 @@ class _SettingsPageState extends State<SettingsPage> {
             SettingsGroup(
               title: 'GENERAL',
               children: <Widget>[
-                //AccountPage(),
-                // buildNotifications(context),
-                //ChangeThemeButtonWidget(),
-                //NotificationsPage(),                            ################################################
-                //buildLogout(),
-                //buildDeleteAccount(),
                 buildChangeTheme(context),
               ],
             ),

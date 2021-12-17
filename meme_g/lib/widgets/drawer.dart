@@ -117,12 +117,9 @@ class NavDrawer extends StatelessWidget {
           ),
           onTap: () async {
             await context.read<Auth>().signout();
-           //await Navigator.popAndPushNamed(context,signIn.route);
             await  Navigator.pushReplacementNamed(context,signIn.route);
             print("signed out");
             CircularProgressIndicator(backgroundColor: Colors.greenAccent,);
-           // userstate=false;
-            //Navigator.pop(context);
           },
         ),
       ]),

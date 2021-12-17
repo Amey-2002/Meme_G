@@ -45,14 +45,8 @@ class _ProfileImageState extends State<ProfileImage> {
         child: (profileImageUrl != null)
             ? ClipOval(child: Image.network(profileImageUrl!))
             : ClipOval(
-                child:
-                    // IconButton(
-                    //   onPressed: () {},
-                    //   icon: Icon(Icons.account_circle_rounded),
-                    //   // iconSize: 80,
-                    // ),
-                    Image.network(
-                        'https://cdn3.iconfinder.com/data/icons/google-material-design-icons/48/ic_account_circle_48px-512.png'),
+                child: Image.network(
+                    'https://cdn3.iconfinder.com/data/icons/google-material-design-icons/48/ic_account_circle_48px-512.png'),
               ),
       ),
     );

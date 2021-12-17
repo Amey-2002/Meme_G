@@ -36,14 +36,6 @@ class _ReportBugState extends State<ReportBug> {
         child: Stack(
           children: [
             AppHeader(),
-            /*Positioned(
-              top: -380,
-              left: -187,
-              child: Opacity(
-                opacity: 0.9,
-                child: Image.asset(''),
-              ),
-            ),*/
             SafeArea(
               child: Padding(
                 padding: EdgeInsets.all(5),

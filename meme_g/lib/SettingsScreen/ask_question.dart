@@ -82,9 +82,7 @@ class _AskQuestionState extends State<AskQuestion> {
                               ),
                             ),
                             onChanged: (value) {
-                              // print("The value entered is : $value");
                               question = value;
-                              print(question);
                             },
                           ),
                         ),
@@ -114,7 +112,6 @@ class _AskQuestionState extends State<AskQuestion> {
                                   questionRef
                                       .doc(user!.uid)
                                       .set({'question': question});
-                                  // reportRef.doc(user!.uid).set({'report': report});
                                 });
                               },
                             ),

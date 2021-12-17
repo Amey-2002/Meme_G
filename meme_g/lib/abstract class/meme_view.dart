@@ -66,43 +66,18 @@ class _MemeViewState extends State<MemeView> {
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           Padding(
-              padding: const EdgeInsets.only(top: 10, bottom: 10),
-              child: ListTile(
-                leading: dp,
-                title: Text(
-                  widget.userName,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                  ),
+            padding: const EdgeInsets.only(top: 10, bottom: 10),
+            child: ListTile(
+              leading: dp,
+              title: Text(
+                widget.userName,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
                 ),
-              )
-              /*Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: const <Widget>[
-                Icon(
-                  Icons.account_circle,
-                  size: 37,
-                ),
-                (widget.userName == null)?
-                Text(
-                   'Username',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                  ),
-                ) :
-                
-                Text(
-                  widget.userName,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                  ),
-                )
-              ],
-            ),*/
               ),
+            ),
+          ),
           Container(
             height: 370,
             width: 370,
@@ -117,15 +92,10 @@ class _MemeViewState extends State<MemeView> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               mainAxisSize: MainAxisSize.max,
               children: <Widget>[
-                //Icon(Icons.favorite_border,size: 27,),
-                //Icon(Icons.send,size: 27,),
-                //Icon(Icons.share,size: 27,),
                 FavoriteButton(
                   isFavorite: widget.isLiked,
-                  // iconDisabledColor: Colors.white,
                   valueChanged: (_liked) {
                     widget.isLiked = !widget.isLiked;
-                    //List array = likedMemesRef.doc(likedMemeDocFinal).get(Field) as List;
                     if (widget.isLiked) {
                       memesCollectionRef.doc(likedMemeDocFinal).update({
                         'likedBy': FieldValue.arrayUnion([user!.uid])
@@ -142,59 +112,12 @@ class _MemeViewState extends State<MemeView> {
                       });
                       likedMemesRef.doc(likedMemeDocFinal).delete();
                     }
-                    // if (_liked) {
-                    //   likedMemesRef.doc(likedMemeDocFinal).set({
-                    //     'url': widget.imgUrl,
-                    //     'Username': widget.userName,
-                    //     'DateTime':
-                    //         DateTime.now().microsecondsSinceEpoch.toString()
-                    //   });
-                    // } else {
-                    //   likedMemesRef.doc(likedMemeDocFinal).delete();
-                    // }
                   },
                 ),
-                /*RaisedButton(
-                  //Shubham : I tried using using this which is a property of ElevatedButton
-                  /*style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.resolveWith<Color>(
-                        (Set<MaterialState> states) {
-                      if (states.contains(MaterialState.pressed))
-                        return Colors.greenAccent;
-                      return Colors.grey;
-                    }),
-                  ),*/
-                  color: liked ? Colors.greenAccent[700] : Colors.grey,
-                  onPressed: () async {
-                    liked = !liked;
-                    if (liked) {
-                      likedMemesRef.doc(likedMemeDocFinal).set({
-                        'url': widget.imgUrl,
-                        'Username': widget.userName,
-                        'DateTime':
-                            DateTime.now().microsecondsSinceEpoch.toString()
-                      });
-                    } else {
-                      likedMemesRef.doc(likedMemeDocFinal).delete();
-                    }
-                    //print(likedMemeDocFinal);
-                    //setState(() => pressAttention = false);
-                    /*await likedMemesRef.doc(likedMemeDocFinal).set({
-                      'url': widget.imgUrl,
-                      'Username': widget.userName,
-                      'DateTime':
-                          DateTime.now().microsecondsSinceEpoch.toString()
-                    });*/
-                  },
-                  child: Icon(
-                    Icons.favorite_border,
-                    size: 27,
-                  ),
-                ),*/
                 Text(
-                 widget.likesCount.toString(),
-                 style: TextStyle(fontSize: 18),
-                  ),
+                  widget.likesCount.toString(),
+                  style: TextStyle(fontSize: 18),
+                ),
                 IconButton(
                   onPressed: () {
                     Share.share(widget.imgUrl +

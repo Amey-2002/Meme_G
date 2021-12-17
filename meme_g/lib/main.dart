@@ -18,28 +18,23 @@ import 'package:meme_g/SettingsScreen/rate.dart';
 import 'package:meme_g/SettingsScreen/report_bug.dart';
 import 'package:meme_g/SettingsScreen/settings_page.dart';
 import 'package:meme_g/screens/emailandpass_signin.dart';
-import 'package:meme_g/screens/working/save_upload.dart';
 import 'package:meme_g/widgets/splash_screen.dart';
 import 'package:meme_g/widgets/user.dart';
-import 'screens/editor/image_editor.dart';
 import 'screens/profile_image_picker.dart';
 import 'package:meme_g/screens/sign_in_screen.dart';
 
 import 'package:meme_g/screens/wrapper.dart';
 import 'package:meme_g/services/auth.dart';
-import 'package:meme_g/widgets/create.dart';
 
 import 'package:meme_g/widgets/meme_list.dart';
 
 import 'package:meme_g/widgets/user.dart';
 import 'package:meme_g/Theme/theme_constants.dart';
 import 'package:meme_g/Theme/theme_manager.dart';
-// import 'package:meme_g/widgets/theme_provider.dart';
 import 'package:provider/provider.dart';
 
 import './widgets/drawer.dart';
 
-import 'screens/editor/photo_editor.dart';
 import 'screens/account_details_screen.dart';
 
 import 'package:theme_provider/theme_provider.dart';
@@ -109,13 +104,10 @@ class _MyAppState extends State<MyApp> {
         themeMode: themeManager.themeMode,
         home: MyHomePage(),
         routes: {
-          //PhotoEditor.route: (context) => PhotoEditor(),
           Account_det.route: (context) => Account_det(),
           Homescreen.route: (context) => Homescreen(),
           EmailandPass.route: (context) => EmailandPass(),
           personal_info.route: (context) => personal_info(),
-          ImageEditor.route: (context) => ImageEditor(),
-          SaveUpload.route: (context) => SaveUpload(),
           MyWork.route: (context) => MyWork(),
           LikedMemes.route: (context) => LikedMemes(),
           ImageEditorPro.route: (context) => ImageEditorPro(),
@@ -125,28 +117,12 @@ class _MyAppState extends State<MyApp> {
           AboutScreen.route: (context) => AboutScreen(),
           HelpScreen.route: (context) => HelpScreen(),
           AskQuestion.route: (context) => AskQuestion(),
-          //ProflieImagePicker.route: (context) => ProflieImagePicker(),
 
           signIn.route: (context) => signIn(),
         },
       ),
     );
   }
-  /*Route<dynamic> generateRoute(RouteSettings routeSettings){
-    switch(routeSettings.name)
-    {
-      case Account_det.route :
-        return MaterialPageRoute(builder: (context) => Account_det());
-      case SaveUpload.route :
-        return MaterialPageRoute(builder: (context) => SaveUpload());
-      case DummySignIn.route :
-        return MaterialPageRoute(builder: (context) => DummySignIn());
-      case ImageEditor.route :
-        return MaterialPageRoute(builder: (context) => ImageEditor());
-      default:
-        return MaterialPageRoute(builder: (context) => Homescreen());
-    }
-  }*/
 }
 
 class MyHomePage extends StatefulWidget {
@@ -156,30 +132,9 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
-  /* Future<bool> _onbackepressed(){
-    return showDialog(
-    context:  context, 
-    builder: (context)=> AlertDialog(
-     title: Text("Do you want to exit?"),
-      actions:<Widget> [
-        FlatButton(onPressed: ()=> Navigator.pop(context,false)  
-        , 
-        child:Text("No") ),
-        FlatButton(
-          onPressed: ()=> Navigator.pop(context,true), 
-            child: Text("Yes"))
-      ],
-    )
-  );
-  }*/
-
   @override
   Widget build(BuildContext context) {
     return //Wrapper();
     splash_screen();
-
-    /*WillPopScope(
-      child: Wrapper(),
-      onWillPop: /*_onbackepressed*/);*/
   }
 }

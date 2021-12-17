@@ -85,22 +85,6 @@ class _LikedMemesState extends State<LikedMemes> {
                                                   .data?.docs[index]
                                                   .get('Username'),
                                             ),
-                                            /*Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          IconButton(
-                                            icon: Icon(Icons.arrow_back),
-                                            onPressed: () =>
-                                                Navigator.pop(context),
-                                          ),*/
-                                            //     PhotoView(
-                                            //   imageProvider: NetworkImage(
-                                            //     snapshot.data?.docs[index]
-                                            //         .get('url'),
-                                            //   ),
-                                            // ),
-                                            /*],
-                                      ),*/
                                           ),
                                         ),
                                       );

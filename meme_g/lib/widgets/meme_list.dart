@@ -31,49 +31,39 @@ class _MemeListState extends State<MemeList> {
 
   @override
   Widget build(BuildContext context) {
-    return //Container(
-      //use height if you use ListView.builder
-      // height: 550, //435 for simulator & 580 for my mobile
-      // width: double.infinity,
-      // margin: const EdgeInsets.only(left: 10, right: 10),
-      //padding: const EdgeInsets.only(top: 10, bottom: 10),
-      //if ListView.builder is used then double double scrolling
-      //child: 
-      StreamBuilder<QuerySnapshot>(
-        stream: memesCollectionRef
-            .orderBy('DateTime', descending: true)
-            .snapshots(),
-        builder: (context, snapshot) {
-          return !snapshot.hasData
-              ? Center(
-                  child: CircularProgressIndicator(),
-                )
-              : Container(
-                  padding: EdgeInsets.all(4),
-                  child: ListView.builder(
-                    itemCount: snapshot.data?.docs.length,
-                    itemBuilder: (context, index) {
-                      if (user == null) {
-                        return GuestMemeView(
-                          imgUrl: snapshot.data?.docs[index].get('url'),
-                          userName: snapshot.data?.docs[index].get('Username'),
-                        );
-                      } else {
-                        List array = snapshot.data?.docs[index].get('likedBy');
-                        bool _isLiked = array.contains(user!.uid);
-                        return MemeView(
-                          imgUrl: snapshot.data?.docs[index].get('url'),
-                          userName: snapshot.data?.docs[index].get('Username'),
-                          uid: snapshot.data?.docs[index].get('UserID'),
-                          isLiked: _isLiked,
-                          likesCount: array.length,
-                        );
-                      }
-                    },
-                  ),
-                );
-        },
-      //),
+    return StreamBuilder<QuerySnapshot>(
+      stream:
+          memesCollectionRef.orderBy('DateTime', descending: true).snapshots(),
+      builder: (context, snapshot) {
+        return !snapshot.hasData
+            ? Center(
+                child: CircularProgressIndicator(),
+              )
+            : Container(
+                padding: EdgeInsets.all(4),
+                child: ListView.builder(
+                  itemCount: snapshot.data?.docs.length,
+                  itemBuilder: (context, index) {
+                    if (user == null) {
+                      return GuestMemeView(
+                        imgUrl: snapshot.data?.docs[index].get('url'),
+                        userName: snapshot.data?.docs[index].get('Username'),
+                      );
+                    } else {
+                      List array = snapshot.data?.docs[index].get('likedBy');
+                      bool _isLiked = array.contains(user!.uid);
+                      return MemeView(
+                        imgUrl: snapshot.data?.docs[index].get('url'),
+                        userName: snapshot.data?.docs[index].get('Username'),
+                        uid: snapshot.data?.docs[index].get('UserID'),
+                        isLiked: _isLiked,
+                        likesCount: array.length,
+                      );
+                    }
+                  },
+                ),
+              );
+      },
     );
   }
 }
