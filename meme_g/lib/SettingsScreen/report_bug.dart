@@ -56,7 +56,7 @@ class _ReportBugState extends State<ReportBug> {
                         RoundedButton(
                           icon: Icon(Icons.arrow_back),
                           tap: () => {
-                            Navigator.pushNamed(context, SettingsPage.route),
+                            Navigator.pushReplacementNamed(context, SettingsPage.route),
                           },
                         ),
                         SizedBox(

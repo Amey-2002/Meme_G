@@ -62,6 +62,7 @@ class _SettingsPageState extends State<SettingsPage> {
               appbarcolor = newvalue;
             });
             themeManager.toggleTheme(newvalue);
+            print(newvalue);
           },
         ),
         // subtitle: '',

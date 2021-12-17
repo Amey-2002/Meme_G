@@ -109,6 +109,9 @@ class _personal_infoState extends State<personal_info> {
                         controller: TextEditingController(text: name),
                         enableIMEPersonalizedLearning: true,
                         readOnly: no_edit_info,
+                        onSubmitted: (_name){
+                          usersCollectionRef.doc(user!.uid).update({'Name': _name});
+                        }
                       ),
                       ListTile(
                         leading: Icon(
@@ -130,6 +133,9 @@ class _personal_infoState extends State<personal_info> {
                         controller: TextEditingController(text: username),
                         enableIMEPersonalizedLearning: true,
                         readOnly: no_edit_info,
+                        onSubmitted: (_username){
+                          usersCollectionRef.doc(user!.uid).update({'Username': _username});
+                        }
                       ),
                       ListTile(
                         leading: Icon(
@@ -165,6 +171,9 @@ class _personal_infoState extends State<personal_info> {
                         obscuringCharacter: '*',
                         enableIMEPersonalizedLearning: true,
                         readOnly: no_edit_info,
+                        onSubmitted: (_password){
+                          usersCollectionRef.doc(user!.uid).update({'Password': _password});
+                        }
                       ),
                       ListTile(
                         //tileColor: Colors.green.shade100,
@@ -189,6 +198,9 @@ class _personal_infoState extends State<personal_info> {
                         controller: TextEditingController(text: birthdate),
                         enableIMEPersonalizedLearning: true,
                         readOnly: no_edit_info,
+                        onSubmitted: (_birthdate){
+                          usersCollectionRef.doc(user!.uid).update({'Birthdate': _birthdate});
+                        }
                       ),
                       ListTile(
                         leading: Icon(
@@ -210,6 +222,9 @@ class _personal_infoState extends State<personal_info> {
                         controller: TextEditingController(text: country),
                         enableIMEPersonalizedLearning: true,
                         readOnly: no_edit_info,
+                        onSubmitted: (_country){
+                          usersCollectionRef.doc(user!.uid).update({'Country': _country});
+                        }
                       ),
                     ],
                   ),

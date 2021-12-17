@@ -8,7 +8,7 @@ class splash_screen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AnimatedSplashScreen(
-      splash: 'assets/dummyMemes/TicklesPhoneWallpaper.gif',
+      splash: 'assets/dummyMemes/TicklesFinalLogo.gif',
       nextScreen: Wrapper(),
       splashIconSize: double.infinity,
     );

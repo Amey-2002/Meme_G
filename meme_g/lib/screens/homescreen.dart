@@ -65,7 +65,7 @@ class _HomescreenState extends State<Homescreen> {
     return Scaffold(
       endDrawer: NavDrawer(),
       appBar: AppBar(
-      backgroundColor: appbarcolor ? Colors.grey.shade800 : Colors.white,
+      backgroundColor: Colors.white,
       foregroundColor: Colors.green,
       /*leading: CircleAvatar(
           backgroundColor: Colors.white,
@@ -87,9 +87,7 @@ class _HomescreenState extends State<Homescreen> {
       //   icon: Icon(Icons.account_circle_rounded),
       //   iconSize: 36,
       // ),
-      title: Image.asset(appbarcolor
-          ? 'assets/dummyMemes/TicklesDarkAppBar.png'
-          : 'assets/dummyMemes/Ticklesappbar.png') /*Text(
+      title: Image.asset('assets/dummyMemes/Ticklesappbar.png') /*Text(
           'Tickles',
           style: TextStyle(
             fontSize: 25,
@@ -155,7 +153,7 @@ class _HomescreenState extends State<Homescreen> {
             height: (screenHeight - statusBarHeight - appBarHeight) * 0.09,
             child: FloatingActionButton.extended(
               onPressed: () {
-                Navigator.pushNamed(context, ImageEditorPro.route);
+                Navigator.pushReplacementNamed(context, ImageEditorPro.route);
               },
               label: const Text(
                 'LET\'S TICKLE',

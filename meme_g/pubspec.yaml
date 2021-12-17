@@ -119,11 +119,11 @@ flutter:
     - assets/dummyMemes/homescreen.jpg
     - assets/dummyMemes/img2.png
     - assets/dummyMemes/lion.jpg
-    #- assets/dummyMemes/TicklesPhoneWallpaper.gif
+    - assets/dummyMemes/TicklesPhoneWallpaper.gif
     - assets/dummyMemes/Tickles.png
     - assets/dummyMemes/Ticklesappbar.png
     - assets/dummyMemes/TicklesDarkAppBar.png
-    - assets/dummyMemes/TicklesPhoneWallpaper_2000_3500px.gif
+    - assets/dummyMemes/TicklesFinalLogo.gif
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

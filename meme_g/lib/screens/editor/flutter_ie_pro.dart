@@ -8,6 +8,7 @@ import 'package:gallery_saver/gallery_saver.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:meme_g/FlutterIEP/coderjava_image_editor_pro.dart';
+import 'package:meme_g/screens/homescreen.dart';
 import 'package:share/share.dart';
 import 'package:firebase_core/firebase_core.dart' as firebase_core;
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
@@ -194,6 +195,14 @@ class _ImageEditorProState extends State<ImageEditorPro> {
 
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pushReplacementNamed(context, Homescreen.route);
+          },
+          icon: Icon(
+            Icons.arrow_back,
+          ),
+        ),
         title: Text(
           'Image Editor',
           style: TextStyle(

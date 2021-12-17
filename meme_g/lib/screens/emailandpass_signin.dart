@@ -66,11 +66,11 @@ class _EmailandPassState extends State<EmailandPass> {
                   //Navigator.pushNamed(context, Homescreen.route);
                   await Navigator.pushReplacementNamed(context, Homescreen.route);
                   print(resultuser.uid);
-                  setState(() {
-                    CircularProgressIndicator(
-                      backgroundColor: Colors.greenAccent,
-                    );
-                  });
+                  // setState(() {
+                  //   CircularProgressIndicator(
+                  //     backgroundColor: Colors.greenAccent,
+                  //   );
+                  // });
                   //
                 }
               },
