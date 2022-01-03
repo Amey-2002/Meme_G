@@ -111,7 +111,7 @@ class _MyAppState extends State<MyApp> {
           personal_info.route: (context) => personal_info(),
           MyWork.route: (context) => MyWork(),
           LikedMemes.route: (context) => LikedMemes(),
-          ImageEditorPro.route: (context) => ImageEditorPro(),
+          ImageEditorPro.route: (context) => ImageEditorPro(arguments: [],),
           SettingsPage.route: (context) => SettingsPage(),
           RateScreen.route: (context) => RateScreen(),
           ReportBug.route: (context) => ReportBug(),
