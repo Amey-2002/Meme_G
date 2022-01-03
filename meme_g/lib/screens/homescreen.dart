@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:meme_g/SettingsScreen/settings_page.dart';
+import 'package:meme_g/collage/collage_screen.dart';
 import 'package:meme_g/screens/editor/flutter_ie_pro.dart';
 import 'package:meme_g/screens/personal_info.dart';
 import 'package:meme_g/widgets/meme_list.dart';
@@ -42,7 +43,7 @@ class _HomescreenState extends State<Homescreen> {
             height: (screenHeight - statusBarHeight - appBarHeight) * 0.09,
             child: FloatingActionButton.extended(
               onPressed: () {
-                Navigator.pushReplacementNamed(context, ImageEditorPro.route);
+                Navigator.pushReplacementNamed(context, StaggeredPage.route);
               },
               label: const Text(
                 'LET\'S TICKLE',

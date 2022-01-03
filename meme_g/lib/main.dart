@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:meme_g/collage/collage_screen.dart';
 
 import 'package:meme_g/screens/editor/flutter_ie_pro.dart';
 import 'package:meme_g/screens/emailandpass_signin.dart';
@@ -117,6 +118,7 @@ class _MyAppState extends State<MyApp> {
           AboutScreen.route: (context) => AboutScreen(),
           HelpScreen.route: (context) => HelpScreen(),
           AskQuestion.route: (context) => AskQuestion(),
+          StaggeredPage.route: (context) => StaggeredPage(),
 
           signIn.route: (context) => signIn(),
         },
