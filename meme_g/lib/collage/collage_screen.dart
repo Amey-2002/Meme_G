@@ -80,15 +80,15 @@ class _StaggeredPageState extends State<StaggeredPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Staggered'),
+        //title: Text('2'),
         actions: [
           IconButton(
             onPressed: () {
               screenshotController
                   .capture(
                 delay: const Duration(milliseconds: 10),
+                pixelRatio: 1.5,
               )
-                  //pixelRatio: widget.pixelRatio ?? 1.5)
                   .then((/*image*/ binaryIntList) async {
                 // final directory = await getApplicationDocumentsDirectory();
                 // final imagePath =
@@ -102,15 +102,17 @@ class _StaggeredPageState extends State<StaggeredPage> {
                         '${paths.path}/' + DateTime.now().toString() + '.jpg')
                     .create();
                 _file.writeAsBytesSync(binaryIntList!);
-                Navigator.pushReplacement(
-                  context,
-                  CupertinoPageRoute(
-                    builder: (context) => ImageEditorPro(
-                      arguments: [_file],
+                WidgetsBinding.instance!.addPostFrameCallback((_) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ImageEditorPro(
+                        arguments: _file,
+                      ),
                     ),
-                  ),
-                );
-                //Navigator.pop(context, _file);
+                  );
+                });
+                Navigator.pop(context, _file);
               }).catchError((onError) {
                 print(onError);
               });
@@ -126,52 +128,55 @@ class _StaggeredPageState extends State<StaggeredPage> {
             SizedBox(
               height: 85,
             ),
-            StaggeredGrid.count(
-              crossAxisCount: 4,
-              mainAxisSpacing: 4,
-              crossAxisSpacing: 4,
-              children: [
-                ...StaggeredPage.tiles.mapIndexed((index, tile) {
-                  //bool imageSet; // = false;
-                  return StaggeredGridTile.count(
-                    crossAxisCellCount: tile.crossAxisCount,
-                    mainAxisCellCount: tile.mainAxisCount,
-                    child: ImageTile(
-                      index: index,
-                      width: tile.crossAxisCount * 100,
-                      height: tile.mainAxisCount * 100,
-                    ),
-                  );
-                  // return StaggeredGridTile.count(
-                  //     crossAxisCellCount: tile.crossAxisCount,
-                  //     mainAxisCellCount: tile.mainAxisCount,
-                  //     child: Stack(
-                  //       children: [
-                  //         (imageUrl != '')
-                  //             ? ImageTile(
-                  //                 //imgUrl: imageUrl,
-                  //                 index: index,
-                  //                 width: tile.crossAxisCount * 100,
-                  //                 height: tile.mainAxisCount * 100,
-                  //               )
-                  //             : IconButton(
-                  //                 onPressed: () {
-                  //                   _showPickOptionsDialog(context);
-                  //                   // setState(() {
-                  //                   //   imageSet = true;
-                  //                   // });
-                  //                 },
-                  //                 icon: Icon(Icons.photo_album),
-                  //               ),
-                  //         uploading
-                  //             ? Center(
-                  //                 child: Text('Uploading...'),
-                  //               )
-                  //             : Container(),
-                  //       ],
-                  //     ));
-                }),
-              ],
+            Screenshot(
+              controller: screenshotController,
+              child: StaggeredGrid.count(
+                crossAxisCount: 4,
+                mainAxisSpacing: 4,
+                crossAxisSpacing: 4,
+                children: [
+                  ...StaggeredPage.tiles.mapIndexed((index, tile) {
+                    //bool imageSet; // = false;
+                    return StaggeredGridTile.count(
+                      crossAxisCellCount: tile.crossAxisCount,
+                      mainAxisCellCount: tile.mainAxisCount,
+                      child: ImageTile(
+                        index: index,
+                        width: tile.crossAxisCount * 100,
+                        height: tile.mainAxisCount * 100,
+                      ),
+                    );
+                    // return StaggeredGridTile.count(
+                    //     crossAxisCellCount: tile.crossAxisCount,
+                    //     mainAxisCellCount: tile.mainAxisCount,
+                    //     child: Stack(
+                    //       children: [
+                    //         (imageUrl != '')
+                    //             ? ImageTile(
+                    //                 //imgUrl: imageUrl,
+                    //                 index: index,
+                    //                 width: tile.crossAxisCount * 100,
+                    //                 height: tile.mainAxisCount * 100,
+                    //               )
+                    //             : IconButton(
+                    //                 onPressed: () {
+                    //                   _showPickOptionsDialog(context);
+                    //                   // setState(() {
+                    //                   //   imageSet = true;
+                    //                   // });
+                    //                 },
+                    //                 icon: Icon(Icons.photo_album),
+                    //               ),
+                    //         uploading
+                    //             ? Center(
+                    //                 child: Text('Uploading...'),
+                    //               )
+                    //             : Container(),
+                    //       ],
+                    //     ));
+                  }),
+                ],
+              ),
             ),
           ],
         ),

@@ -17,7 +17,8 @@ import 'package:path/path.dart' as Path;
 class ImageEditorPro extends StatefulWidget {
   static const route = 'imageEditorProRoute';
   //final List arguments;
-  //ImageEditorPro({required this.arguments});
+  final File arguments;
+  ImageEditorPro({required this.arguments});
 
   @override
   _ImageEditorProState createState() => _ImageEditorProState();
@@ -42,7 +43,7 @@ class _ImageEditorProState extends State<ImageEditorPro> {
   @override
   void initState() {
     super.initState();
-    //_defaultImage = widget.arguments[0];
+    _defaultImage = widget.arguments;
     usersCollectionRef = FirebaseFirestore.instance.collection('Users');
     if (user != null) {
       userId = user!.uid;
@@ -228,28 +229,28 @@ class _ImageEditorProState extends State<ImageEditorPro> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                TextField(
-                  controller: controllerDefaultImage,
-                  readOnly: true,
-                  decoration: InputDecoration(
-                    isDense: true,
-                    hintText: 'No image selected',
-                  ),
-                ),
-                SizedBox(height: 16),
-                ElevatedButton(
-                  child: Text('Select Image to edit'),
-                  onPressed: () async {
-                    _showPickOptionsDialog(context);
-                    // final imageGallery = await ImagePicker()
-                    //     .pickImage(source: ImageSource.gallery);
-                    // if (imageGallery != null) {
-                    //   _defaultImage = File(imageGallery.path);
-                    //   setState(() =>
-                    //       controllerDefaultImage.text = _defaultImage!.path);
-                    //}
-                  },
-                ),
+                // TextField(
+                //   controller: controllerDefaultImage,
+                //   readOnly: true,
+                //   decoration: InputDecoration(
+                //     isDense: true,
+                //     hintText: 'No image selected',
+                //   ),
+                // ),
+                // SizedBox(height: 16),
+                // ElevatedButton(
+                //   child: Text('Select Image to edit'),
+                //   onPressed: () async {
+                //     _showPickOptionsDialog(context);
+                //     // final imageGallery = await ImagePicker()
+                //     //     .pickImage(source: ImageSource.gallery);
+                //     // if (imageGallery != null) {
+                //     //   _defaultImage = File(imageGallery.path);
+                //     //   setState(() =>
+                //     //       controllerDefaultImage.text = _defaultImage!.path);
+                //     //}
+                //   },
+                // ),
                 ElevatedButton(
                   child: Text('Open Editor'),
                   onPressed: () {

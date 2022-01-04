@@ -954,3 +954,5 @@ class _ProflieImagePickerState extends State<ProflieImagePicker> {
      );
       
    }*/
+
+   commented 5338, 5339 in navigator 

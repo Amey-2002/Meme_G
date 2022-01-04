@@ -144,7 +144,7 @@ class _ImageTileState extends State<ImageTile> {
               ),
         uploading
             ? Center(
-                child: Text('Uploading...'),
+                child: Text('Getting the Image...'),
               )
             : Container(),
       ],
