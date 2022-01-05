@@ -20,26 +20,37 @@ import 'package:path_provider/path_provider.dart';
 class StaggeredPage extends StatefulWidget {
   static const route = 'collage_screen';
 
+
   late int noOfTiles;
   StaggeredPage.general();
   StaggeredPage.grid(this.noOfTiles);
   
   List tiles = [];
 
+
+
+  @override
+  State<StaggeredPage> createState() => _StaggeredPageState();
+}
+
+
+class _StaggeredPageState extends State<StaggeredPage> {
+
+  var select =  new StaggeredPage.general();
   void selectTile(noOfTiles){
     switch (noOfTiles) {
     case 1: {
       var tiles1 = [
     GridTile(6, 6),
   ];
-    tiles = tiles1;
+    select.tiles = tiles1;
     } break;
     case 2: {
       var tiles2 = [
     GridTile(6, 3),
     GridTile(6, 3),
   ];
-  tiles = tiles2;
+  select.tiles = tiles2;
     } break;
     case 4: {
       var tiles4 = [
@@ -48,7 +59,7 @@ class StaggeredPage extends StatefulWidget {
     GridTile(3, 3),
     GridTile(3, 3),
   ];
-  tiles = tiles4;
+  select.tiles = tiles4;
     } break;
     case 6: {
       var tiles4 = [
@@ -59,6 +70,7 @@ class StaggeredPage extends StatefulWidget {
         GridTile(3, 2),
         GridTile(3, 2),
       ];
+    select.tiles = tiles4;
     }
     break;
     default: {
@@ -67,11 +79,6 @@ class StaggeredPage extends StatefulWidget {
     }
   }
 
-  @override
-  State<StaggeredPage> createState() => _StaggeredPageState();
-}
-
-class _StaggeredPageState extends State<StaggeredPage> {
   ScreenshotController screenshotController = ScreenshotController();
 
   File? _pickedImage = null;
@@ -98,10 +105,11 @@ class _StaggeredPageState extends State<StaggeredPage> {
     _requestPermission();
   }
 
-  var select =  new StaggeredPage.general();
+  
 
   @override
   Widget build(BuildContext context) {
+    selectTile(widget.noOfTiles);
     return Scaffold(
       appBar: AppBar(
         //title: Text('2'),
