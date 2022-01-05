@@ -956,3 +956,35 @@ class _ProflieImagePickerState extends State<ProflieImagePicker> {
    }*/
 
    commented 5338, 5339 in navigator 
+
+>>>>>collage_menu line 28
+   child: Stack(
+          children: [
+            Image.asset(
+        child:Image.asset(
+              'assets/gridtiles/$imageName.jpg',
+              fit: BoxFit.fill,
+            ),
+            Positioned.fill(
+              child: FractionallySizedBox(
+                heightFactor: 0.25,
+                alignment: Alignment.bottomCenter,
+                child: ColoredBox(
+                  color: Colors.black.withOpacity(0.75),
+                  child: Center(
+                    child: Text(
+                      title,
+                      overflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline6!
+                          .copyWith(color: Colors.white),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),

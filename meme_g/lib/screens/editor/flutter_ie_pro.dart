@@ -211,15 +211,6 @@ class _ImageEditorProState extends State<ImageEditorPro> {
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.refresh),
-        backgroundColor: Colors.red,
-        onPressed: () {
-          setState(() {
-            _image = null;
-          });
-        },
-      ),
       body: condition(
         condition: _image == null,
         isTrue: Padding(
