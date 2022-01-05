@@ -118,7 +118,7 @@ class _MyAppState extends State<MyApp> {
           AboutScreen.route: (context) => AboutScreen(),
           HelpScreen.route: (context) => HelpScreen(),
           AskQuestion.route: (context) => AskQuestion(),
-          StaggeredPage.route: (context) => StaggeredPage(),
+          //StaggeredPage.route: (context) => StaggeredPage.(),
 
           signIn.route: (context) => signIn(),
         },

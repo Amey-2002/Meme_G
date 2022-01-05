@@ -20,22 +20,52 @@ import 'package:path_provider/path_provider.dart';
 class StaggeredPage extends StatefulWidget {
   static const route = 'collage_screen';
 
-  const StaggeredPage({
-    Key? key,
-  }) : super(key: key);
+  late int noOfTiles;
+  StaggeredPage.general();
+  StaggeredPage.grid(this.noOfTiles);
+  
+  List tiles = [];
 
-  static const tiles = [
-    // GridTile(2, 2),
-    // GridTile(2, 1),
-    // GridTile(1, 2),
-    // GridTile(1, 1),
-    // GridTile(2, 2),
-    // GridTile(1, 2),
-    // GridTile(1, 1),
-    // GridTile(3, 1),
-    GridTile(4, 3),
-    GridTile(4, 2),
+  void selectTile(noOfTiles){
+    switch (noOfTiles) {
+    case 1: {
+      var tiles1 = [
+    GridTile(6, 6),
   ];
+    tiles = tiles1;
+    } break;
+    case 2: {
+      var tiles2 = [
+    GridTile(6, 3),
+    GridTile(6, 3),
+  ];
+  tiles = tiles2;
+    } break;
+    case 4: {
+      var tiles4 = [
+    GridTile(3, 3),
+    GridTile(3, 3),
+    GridTile(3, 3),
+    GridTile(3, 3),
+  ];
+  tiles = tiles4;
+    } break;
+    case 6: {
+      var tiles4 = [
+        GridTile(3, 2),
+        GridTile(3, 2),
+        GridTile(3, 2),
+        GridTile(3, 2),
+        GridTile(3, 2),
+        GridTile(3, 2),
+      ];
+    }
+    break;
+    default: {
+      
+    } break;
+    }
+  }
 
   @override
   State<StaggeredPage> createState() => _StaggeredPageState();
@@ -68,13 +98,7 @@ class _StaggeredPageState extends State<StaggeredPage> {
     _requestPermission();
   }
 
-  // @override
-  // void initState() {
-  //   // TODO: implement initState
-  //   ref = firebase_storage.FirebaseStorage.instance
-  //       .ref()
-  //       .child('Grid-Image/${Path.basename(_pickedImage!.path)}');
-  // }
+  var select =  new StaggeredPage.general();
 
   @override
   Widget build(BuildContext context) {
@@ -89,14 +113,7 @@ class _StaggeredPageState extends State<StaggeredPage> {
                 delay: const Duration(milliseconds: 10),
                 pixelRatio: 1.5,
               )
-                  .then((/*image*/ binaryIntList) async {
-                // final directory = await getApplicationDocumentsDirectory();
-                // final imagePath =
-                //     await File('${directory.path}/image.png').create();
-                // imagePath.writeAsBytesSync(image!);
-                //what i tried earlier ends here
-
-                //original code
+                  .then((binaryIntList) async {
                 final paths = await getTemporaryDirectory();
                 final _file = await File(
                         '${paths.path}/' + DateTime.now().toString() + '.jpg')
@@ -131,12 +148,11 @@ class _StaggeredPageState extends State<StaggeredPage> {
             Screenshot(
               controller: screenshotController,
               child: StaggeredGrid.count(
-                crossAxisCount: 4,
-                mainAxisSpacing: 4,
-                crossAxisSpacing: 4,
+                crossAxisCount: 6,
+                mainAxisSpacing: 6,
+                crossAxisSpacing: 6,
                 children: [
-                  ...StaggeredPage.tiles.mapIndexed((index, tile) {
-                    //bool imageSet; // = false;
+                  ...select.tiles.mapIndexed((index, tile) {
                     return StaggeredGridTile.count(
                       crossAxisCellCount: tile.crossAxisCount,
                       mainAxisCellCount: tile.mainAxisCount,
@@ -146,34 +162,6 @@ class _StaggeredPageState extends State<StaggeredPage> {
                         height: tile.mainAxisCount * 100,
                       ),
                     );
-                    // return StaggeredGridTile.count(
-                    //     crossAxisCellCount: tile.crossAxisCount,
-                    //     mainAxisCellCount: tile.mainAxisCount,
-                    //     child: Stack(
-                    //       children: [
-                    //         (imageUrl != '')
-                    //             ? ImageTile(
-                    //                 //imgUrl: imageUrl,
-                    //                 index: index,
-                    //                 width: tile.crossAxisCount * 100,
-                    //                 height: tile.mainAxisCount * 100,
-                    //               )
-                    //             : IconButton(
-                    //                 onPressed: () {
-                    //                   _showPickOptionsDialog(context);
-                    //                   // setState(() {
-                    //                   //   imageSet = true;
-                    //                   // });
-                    //                 },
-                    //                 icon: Icon(Icons.photo_album),
-                    //               ),
-                    //         uploading
-                    //             ? Center(
-                    //                 child: Text('Uploading...'),
-                    //               )
-                    //             : Container(),
-                    //       ],
-                    //     ));
                   }),
                 ],
               ),
@@ -182,133 +170,6 @@ class _StaggeredPageState extends State<StaggeredPage> {
         ),
       ),
     );
-  }
-
-  final picker = ImagePicker();
-  _loadPicker(ImageSource source) async {
-    //File picked = await ImagePicker.pickImage(source: source);
-    PickedFile? picked =
-        await picker.getImage(source: source /*ImageSource.camera*/);
-    if (picked != null) {
-      _cropImage(picked);
-      //_defaultImage = File(picked.path);
-      //setState(() => controllerDefaultImage.text = _defaultImage!.path);
-    }
-    Navigator.pop(context);
-  }
-
-  _showPickOptionsDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            ListTile(
-              leading: Icon(Icons.photo_library),
-              title: Text("Pick from Gallery"),
-              onTap: () {
-                _loadPicker(ImageSource.gallery);
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.camera_alt),
-              title: Text("Take a picture"),
-              onTap: () {
-                _loadPicker(ImageSource.camera);
-              },
-            )
-          ],
-        ),
-      ),
-    );
-  }
-
-  _cropImage(PickedFile picked) async {
-    File? cropped = await ImageCropper.cropImage(
-      androidUiSettings: AndroidUiSettings(
-        activeControlsWidgetColor: Colors.green,
-        statusBarColor: Colors.green,
-        toolbarColor: Colors.green,
-        toolbarTitle: "Crop Image",
-        toolbarWidgetColor: Colors.white,
-      ),
-      sourcePath: picked.path,
-      aspectRatioPresets: [
-        CropAspectRatioPreset.square,
-        CropAspectRatioPreset.original,
-        CropAspectRatioPreset.ratio16x9,
-        CropAspectRatioPreset.ratio4x3,
-      ],
-      maxWidth: 800,
-    );
-    if (cropped != null) {
-      setState(() {
-        _pickedImage = cropped;
-        // _defaultImage = cropped;
-        // if (_defaultImage != null) {
-        //   setState(() => controllerDefaultImage.text = _defaultImage!.path);
-        // }
-      });
-    }
-    if (_pickedImage != null) {
-      setState(() {
-        uploading = true;
-      });
-      _uploadProfileImg(context).whenComplete(() {
-        setState(() {
-          uploading = false;
-        });
-      });
-    }
-  }
-
-  Future _uploadProfileImg(BuildContext context) async {
-    //Check Permissions
-    // await Permission.photos.request();
-    // var permissionStatus = await Permission.photos.status;
-    // if (permissionStatus.isGranted) {
-    ref = firebase_storage.FirebaseStorage.instance
-        .ref()
-        .child('Grid-Image/${Path.basename(_pickedImage!.path)}');
-    await ref.putFile(_pickedImage!).whenComplete(() async {
-      await ref.getDownloadURL().then((value) async {
-        setState(() {
-          imageUrl = value;
-        });
-        // await profileImgRef.doc(uid).set({'url': value});
-        // profileImgRef
-        //     .doc(uid)
-        //     .get()
-        //     .then((DocumentSnapshot documentSnapshot) {
-        //   if (documentSnapshot.exists) {
-        //     setState(() {
-        //       profileImageUrl = documentSnapshot.get(FieldPath(['url']));
-        //     });
-        //   }
-        // });
-      });
-    });
-    // } else {
-    //   showDialog(
-    //     context: context,
-    //     builder: (context) => AlertDialog(
-    //       content: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
-    //         Text('Permission not granted. Try Again with permission access'),
-    //         FlatButton(
-    //           color: Colors.green,
-    //           child: Text(
-    //             'Ok',
-    //             style: TextStyle(
-    //               color: Colors.white,
-    //             ),
-    //           ),
-    //           onPressed: () => Navigator.pop(context),
-    //         ),
-    //       ]),
-    //     ),
-    //   );
-    // }
   }
 }
 
