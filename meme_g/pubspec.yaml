@@ -128,6 +128,8 @@ flutter:
     - assets/dummyMemes/TicklesFinalLogo.gif
     - assets/gridtiles/staggered1.jpg
     - assets/gridtiles/staggered2.jpg
+    - assets/gridtiles/staggered3.jpg
+    - assets/gridtiles/staggered3h.jpg
     - assets/gridtiles/staggered4.jpg
     - assets/gridtiles/staggered6.jpg
 

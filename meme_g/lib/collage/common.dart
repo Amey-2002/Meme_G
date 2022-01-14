@@ -12,6 +12,8 @@ import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:path/path.dart' as Path;
 import 'package:permission_handler/permission_handler.dart';
 
+import 'templates_screen.dart';
+
 const _defaultColor = Color(0xFF34568B);
 
 class AppScaffold extends StatelessWidget {
@@ -198,44 +200,57 @@ class _ImageTileState extends State<ImageTile> {
     );
   }
 
-  _showTemplates(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            InkWell(
-              child: Image.network(
-                'https://indianmemetemplates.com/wp-content/uploads/abhi-maza-ayega-na-bhidu.jpg',
-                fit: BoxFit.cover,
-              ),
-              onTap: () {
-                setState(() {
-                  imageUrl =
-                      'https://indianmemetemplates.com/wp-content/uploads/abhi-maza-ayega-na-bhidu.jpg';
-                });
-                Navigator.pop(context);
-                Navigator.pop(context);
-              },
-            ),
-            InkWell(
-              child: Image.network(
-                'https://i.ytimg.com/vi/KMDPqUEPoZI/hqdefault.jpg',
-                fit: BoxFit.cover,
-              ),
-              onTap: () {
-                setState(() {
-                  imageUrl = 'https://i.ytimg.com/vi/KMDPqUEPoZI/hqdefault.jpg';
-                });
-                Navigator.pop(context);
-                Navigator.pop(context);
-              },
-            ),
-          ],
-        ),
+  _showTemplates(BuildContext context) async {
+    final result = await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => TemplatesScreen(),
       ),
     );
+
+    setState(() {
+      imageUrl = result;
+    });
+
+    Navigator.pop(context);
+
+    // showDialog(
+    //   context: context,
+    //   builder: (context) => AlertDialog(
+    //     content: Column(
+    //       mainAxisSize: MainAxisSize.min,
+    //       children: <Widget>[
+    //         InkWell(
+    //           child: Image.network(
+    //             'https://indianmemetemplates.com/wp-content/uploads/abhi-maza-ayega-na-bhidu.jpg',
+    //             fit: BoxFit.cover,
+    //           ),
+    //           onTap: () {
+    //             setState(() {
+    //               imageUrl =
+    //                   'https://indianmemetemplates.com/wp-content/uploads/abhi-maza-ayega-na-bhidu.jpg';
+    //             });
+    //             Navigator.pop(context);
+    //             Navigator.pop(context);
+    //           },
+    //         ),
+    //         InkWell(
+    //           child: Image.network(
+    //             'https://i.ytimg.com/vi/KMDPqUEPoZI/hqdefault.jpg',
+    //             fit: BoxFit.cover,
+    //           ),
+    //           onTap: () {
+    //             setState(() {
+    //               imageUrl = 'https://i.ytimg.com/vi/KMDPqUEPoZI/hqdefault.jpg';
+    //             });
+    //             Navigator.pop(context);
+    //             Navigator.pop(context);
+    //           },
+    //         ),
+    //       ],
+    //     ),
+    //   ),
+    // );
   }
 
   _cropImage(PickedFile picked) async {

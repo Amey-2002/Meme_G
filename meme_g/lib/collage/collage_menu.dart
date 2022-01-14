@@ -18,36 +18,36 @@ class MenuEntry extends StatelessWidget {
       elevation: 4,
       child: InkWell(
         onTap: () {
-           Navigator.push(
-             context,
-             MaterialPageRoute<void>(
-               builder: (context) => destination,
-             ),
+          Navigator.push(
+            context,
+            MaterialPageRoute<void>(
+              builder: (context) => destination,
+            ),
           );
         },
-        child:Image.asset(
-              'assets/gridtiles/$imageName.jpg',
-              fit: BoxFit.fill,
-            ),
+        child: Image.asset(
+          'assets/gridtiles/$imageName.jpg',
+          fit: BoxFit.fill,
         ),
+      ),
     );
   }
 }
 
-class GridMenu  extends StatefulWidget {
+class GridMenu extends StatefulWidget {
   //const ({ Key? key }) : super(key: key);
-   static const String route = "GridMenuRoute";
+  static const String route = "GridMenuRoute";
   @override
   State<GridMenu> createState() => _GridMenuState();
 }
 
 class _GridMenuState extends State<GridMenu> {
- 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Grid Menu"),),
+      appBar: AppBar(
+        title: Text("Grid Menu"),
+      ),
       body: GridView(
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
@@ -59,19 +59,26 @@ class _GridMenuState extends State<GridMenu> {
             imageName: 'staggered1',
             destination: StaggeredPage.grid(1),
           ),
-           MenuEntry(
+          MenuEntry(
             imageName: 'staggered2',
             destination: StaggeredPage.grid(2),
           ),
-           MenuEntry(
+          MenuEntry(
+            imageName: 'staggered3',
+            destination: StaggeredPage.grid(3),
+          ),
+          MenuEntry(
+            imageName: 'staggered3h',
+            destination: StaggeredPage.grid(5),
+          ),
+          MenuEntry(
             imageName: 'staggered4',
             destination: StaggeredPage.grid(4),
           ),
-           MenuEntry(
+          MenuEntry(
             imageName: 'staggered6',
             destination: StaggeredPage.grid(6),
           ),
-          
         ],
       ),
     );

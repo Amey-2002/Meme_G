@@ -52,6 +52,22 @@ class _StaggeredPageState extends State<StaggeredPage> {
   ];
   select.tiles = tiles2;
     } break;
+    case 3: {
+      var tiles3 = [
+    GridTile(3, 6),
+    GridTile(3, 3),
+    GridTile(3, 3),
+  ];
+  select.tiles = tiles3;
+    } break;
+    case 5: {
+      var tiles5 = [
+    GridTile(3, 3),
+    GridTile(3, 3),
+    GridTile(6, 3),
+  ];
+  select.tiles = tiles5;
+    } break;
     case 4: {
       var tiles4 = [
     GridTile(3, 3),
@@ -62,7 +78,7 @@ class _StaggeredPageState extends State<StaggeredPage> {
   select.tiles = tiles4;
     } break;
     case 6: {
-      var tiles4 = [
+      var tiles6 = [
         GridTile(3, 2),
         GridTile(3, 2),
         GridTile(3, 2),
@@ -70,7 +86,7 @@ class _StaggeredPageState extends State<StaggeredPage> {
         GridTile(3, 2),
         GridTile(3, 2),
       ];
-    select.tiles = tiles4;
+    select.tiles = tiles6;
     }
     break;
     default: {

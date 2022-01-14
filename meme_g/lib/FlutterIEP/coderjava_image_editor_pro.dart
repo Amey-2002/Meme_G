@@ -210,7 +210,7 @@ class _CoderJavaImageEditorProState extends State<CoderJavaImageEditorPro> {
           TextButton(
             child: Text('SAVE'),
             onPressed: () {
-              //_saveScreen(); //from image_gallery_saver 
+              //_saveScreen(); //from image_gallery_saver
 
               //tried after reading documentation
               screenshotController
@@ -222,14 +222,15 @@ class _CoderJavaImageEditorProState extends State<CoderJavaImageEditorPro> {
                 // final imagePath =
                 //     await File('${directory.path}/image.png').create();
                 // imagePath.writeAsBytesSync(image!);
-              //what i tried earlier ends here
+                //what i tried earlier ends here
 
                 //original code
                 final paths = widget.pathSave ?? await getTemporaryDirectory();
-                final file = await File('${paths.path}/' + DateTime.now().toString() + '.jpg').create();
+                final file = await File(
+                        '${paths.path}/' + DateTime.now().toString() + '.jpg')
+                    .create();
                 file.writeAsBytesSync(binaryIntList!);
                 Navigator.pop(context, file);
-
               }).catchError((onError) {
                 print(onError);
               });
@@ -244,136 +245,142 @@ class _CoderJavaImageEditorProState extends State<CoderJavaImageEditorPro> {
       ),
       bottomNavigationBar:
           openbottomsheet ? Container() : _buildWidgetListMenu(),
-      body: Screenshot(
+      body: /*Screenshot(
         controller: screenshotController,
-        child: Center(
+        child:*/ Center(
           child: RotatedBox(
             quarterTurns: rotateValue,
             child: imageFilterLatest(
               hue: hueValue,
               brightness: brightnessValue,
               saturation: saturationValue,
-              child: Container(
-                margin: EdgeInsets.all(20),
-                color: Colors.white,
-                width: 370,
-                height: 370,
-                child: RepaintBoundary(
-                  key: globalKey,
-                  child: Stack(
-                    children: [
-                      _image != null
-                          ? Transform(
-                              alignment: Alignment.center,
-                              transform: Matrix4.rotationY(flipValue),
-                              child: ClipRect(
-                                child: Container(
-                                  width: 370,
-                                  height: 370,
-                                  decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                      alignment: Alignment.center,
-                                      fit: BoxFit.contain,
-                                      image: FileImage(
-                                        File(_image!.path),
+              child: Screenshot(
+                controller: screenshotController,
+                child: Container(
+                  margin: EdgeInsets.all(20),
+                  color: Colors.white,
+                  width: 370,
+                  height: 370,
+                  child: RepaintBoundary(
+                    key: globalKey,
+                    child: Stack(
+                      children: [
+                        _image != null
+                            ? Transform(
+                                alignment: Alignment.center,
+                                transform: Matrix4.rotationY(flipValue),
+                                child: ClipRect(
+                                  child: Container(
+                                    width: 370,
+                                    height: 370,
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                        alignment: Alignment.center,
+                                        fit: BoxFit.contain,
+                                        image: FileImage(
+                                          File(_image!.path),
+                                        ),
+                                      ),
+                                    ),
+                                    child: BackdropFilter(
+                                      filter: ImageFilter.blur(
+                                        sigmaX: blurValue,
+                                        sigmaY: blurValue,
+                                      ),
+                                      child: Container(
+                                        color: colorValue
+                                            .withOpacity(opacityValue),
                                       ),
                                     ),
                                   ),
-                                  child: BackdropFilter(
-                                    filter: ImageFilter.blur(
-                                      sigmaX: blurValue,
-                                      sigmaY: blurValue,
-                                    ),
-                                    child: Container(
-                                      color:
-                                          colorValue.withOpacity(opacityValue),
-                                    ),
-                                  ),
                                 ),
-                              ),
-                            )
-                          : Container(),
-                      Container(
-                        child: GestureDetector(
-                          onPanUpdate: (DragUpdateDetails details) {
-                            setState(() {
-                              RenderBox object =
-                                  context.findRenderObject() as RenderBox;
-                              var _localPosition =
-                                  object.globalToLocal(details.globalPosition);
-                              _points = List.from(_points)..add(_localPosition);
-                            });
-                          },
-                          onPanEnd: (DragEndDetails details) {
-                            _points.add(null);
-                          },
-                          child: Signat(),
+                              )
+                            : Container(),
+                        Container(
+                          child: GestureDetector(
+                            onPanUpdate: (DragUpdateDetails details) {
+                              setState(() {
+                                RenderBox object =
+                                    context.findRenderObject() as RenderBox;
+                                var _localPosition = object
+                                    .globalToLocal(details.globalPosition);
+                                _points = List.from(_points)
+                                  ..add(_localPosition);
+                              });
+                            },
+                            onPanEnd: (DragEndDetails details) {
+                              _points.add(null);
+                            },
+                            child: Signat(),
+                          ),
                         ),
-                      ),
-                      Stack(
-                        children: widgetJson.asMap().entries.map((f) {
-                          return type[f.key] == 1
-                              ? EmojiView(
-                                  left: offsets[f.key].dx,
-                                  top: offsets[f.key].dy,
-                                  ontap: () {
-                                    scaf.currentState!
-                                        .showBottomSheet((context) {
-                                      return Sliders(
-                                        index: f.key,
-                                        mapValue: f.value,
-                                      );
-                                    });
-                                  },
-                                  onpanupdate: (details) {
-                                    setState(() {
-                                      offsets[f.key] = Offset(
-                                          offsets[f.key].dx + details.delta.dx,
-                                          offsets[f.key].dy + details.delta.dy);
-                                    });
-                                  },
-                                  mapJson: f.value,
-                                )
-                              : type[f.key] == 2
-                                  ? TextView(
-                                      left: offsets[f.key].dx,
-                                      top: offsets[f.key].dy,
-                                      ontap: () {
-                                        showModalBottomSheet(
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.only(
-                                                topRight: Radius.circular(10),
-                                                topLeft: Radius.circular(10),
-                                              ),
-                                            ),
-                                            context: context,
-                                            builder: (context) {
-                                              return TextAddEdit(
-                                                index: f.key,
-                                                mapValue: f.value,
-                                                isEdit: true,
-                                              );
-                                            });
-                                      },
-                                      onpanupdate: (details) {
-                                        setState(() {
-                                          offsets[f.key] = Offset(
+                        Stack(
+                          children: widgetJson.asMap().entries.map((f) {
+                            return type[f.key] == 1
+                                ? EmojiView(
+                                    left: offsets[f.key].dx,
+                                    top: offsets[f.key].dy,
+                                    ontap: () {
+                                      scaf.currentState!
+                                          .showBottomSheet((context) {
+                                        return Sliders(
+                                          index: f.key,
+                                          mapValue: f.value,
+                                        );
+                                      });
+                                    },
+                                    onpanupdate: (details) {
+                                      setState(() {
+                                        offsets[f.key] = Offset(
                                             offsets[f.key].dx +
                                                 details.delta.dx,
                                             offsets[f.key].dy +
-                                                details.delta.dy,
-                                          );
-                                        });
-                                      },
-                                      mapJson: f.value,
-                                    )
-                                  : Container();
-                        }).toList(),
-                      ),
-                    ],
+                                                details.delta.dy);
+                                      });
+                                    },
+                                    mapJson: f.value,
+                                  )
+                                : type[f.key] == 2
+                                    ? TextView(
+                                        left: offsets[f.key].dx,
+                                        top: offsets[f.key].dy,
+                                        ontap: () {
+                                          showModalBottomSheet(
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.only(
+                                                  topRight: Radius.circular(10),
+                                                  topLeft: Radius.circular(10),
+                                                ),
+                                              ),
+                                              context: context,
+                                              builder: (context) {
+                                                return TextAddEdit(
+                                                  index: f.key,
+                                                  mapValue: f.value,
+                                                  isEdit: true,
+                                                );
+                                              });
+                                        },
+                                        onpanupdate: (details) {
+                                          setState(() {
+                                            offsets[f.key] = Offset(
+                                              offsets[f.key].dx +
+                                                  details.delta.dx,
+                                              offsets[f.key].dy +
+                                                  details.delta.dy,
+                                            );
+                                          });
+                                        },
+                                        mapJson: f.value,
+                                      )
+                                    : Container();
+                          }).toList(),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
+              //),
             ),
           ),
         ),
