@@ -988,3 +988,46 @@ class _ProflieImagePickerState extends State<ProflieImagePicker> {
           ],
         ),
       ),
+
+>>>> Template screen
+  // @override
+  // Widget build(BuildContext context) {
+  //   print(MemeURL);
+  //   print(MemeName);
+
+  //   return Scaffold(
+  //     appBar: AppBar(title: Text('Templates')),
+  //     body: StreamBuilder<QuerySnapshot>(
+  //       stream: templatesRef.snapshots(),
+  //       builder: (context, snapshot) {
+  //         return !snapshot.hasData
+  //             ? Center(
+  //                 child: CircularProgressIndicator(),
+  //               )
+  //             : Container(
+  //                 padding: EdgeInsets.all(4),
+  //                 child: GridView.builder(
+  //                   itemCount: snapshot.data?.docs.length,
+  //                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+  //                       crossAxisCount: 2),
+  //                   itemBuilder: (context, index) {
+  //                     return Container(
+  //                       margin: EdgeInsets.all(3),
+  //                       child: InkWell(
+  //                         child: FadeInImage.memoryNetwork(
+  //                             fit: BoxFit.cover,
+  //                             placeholder: kTransparentImage,
+  //                             image: snapshot.data?.docs[index].get('url')),
+  //                         onTap: () async {
+  //                           Navigator.pop(
+  //                               context, snapshot.data?.docs[index].get('url'));
+  //                         },
+  //                       ),
+  //                     );
+  //                   },
+  //                 ),
+  //               );
+  //       },
+  //     ),
+  //   );
+  // }
