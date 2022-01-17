@@ -21,16 +21,50 @@ class TemplatesScreen extends StatefulWidget {
   State<TemplatesScreen> createState() => _TemplatesScreenState();
 }
 
-  List<String> MemeName = [];
-  List<String> MemeURL = [];
+//[]; //
+//List<String> MemeName = []; //[
+//   'crying cat with thumbs up',
+//   'what confused guy',
+//   'panic choice',
+//   'carry minati bahut tez ho rahe ho',
+//   'abhi maza ayega na bhidu',
+//   'drake yes no',
+//   'samaj mai aaya kya',
+//   'happy sad terrified',
+//   'oh bhai maaro mujhe maaro',
+//   'happy and sad breaking bad hank',
+// ];
+//List<String> MemeURL = []; //[
+//   'https://i.ytimg.com/vi/KMDPqUEPoZI/hqdefault.jpg',
+//   'https://newfastuff.com/wp-content/uploads/2019/02/In6n7FK-300x256.png',
+//   'https://i.imgflip.com/4/1g8my4.jpg',
+//   'https://humornama.com/wp-content/uploads/2020/12/Bahut-Tez-Ho-Rahe-Ho-meme-template-of-CarryMinati.jpg',
+//   'https://indianmemetemplates.com/wp-content/uploads/abhi-maza-ayega-na-bhidu.jpg',
+//   'https://firebasestorage.googleapis.com/v0/b/meme-generator-692dc.appspot.com/o/Grid-Image%2Fdrake_meme.png?alt=media&token=46f7436f-8768-4fdd-9503-535a0f66c521',
+//   'https://firebasestorage.googleapis.com/v0/b/meme-generator-692dc.appspot.com/o/uploads%2Fsamaj%20mai%20aaya%20kya%20meme.jpg?alt=media&token=fd2b36e0-53de-4db0-9886-19683d90f3e7',
+//   'https://i0.wp.com/adthejokester.com/wp-content/uploads/2021/10/incredible-man-meme-template-people-who-know.jpg?resize=860%2C484&ssl=1',
+//   'https://i.pinimg.com/originals/5d/c6/2f/5dc62f43e8f5bd6c8e04f901215e5eb0.png',
+//   'https://i.kym-cdn.com/entries/icons/original/000/036/981/cover1.jpg',
+// ];
 
 class _TemplatesScreenState extends State<TemplatesScreen> {
-  late CollectionReference templatesRef;
+  CollectionReference templatesRef =
+      FirebaseFirestore.instance.collection('Templates');
+  List<String> MemeURL = [];
+  List<String> MemeName = [];
+
+  void getTemplatesFromFirestore() async {
+    await templatesRef.get().then((querySnapshot) {
+      for (var result in querySnapshot.docs) {
+        MemeName.add(result.get('name'));
+        MemeURL.add(result.get('url'));
+      }
+    });
+  }
 
   @override
   void initState() {
     super.initState();
-    templatesRef = FirebaseFirestore.instance.collection('Templates');
     templatesRef.get().then((querySnapshot) {
       for (var result in querySnapshot.docs) {
         MemeName.add(result.get('name'));
@@ -69,28 +103,20 @@ class _TemplatesScreenState extends State<TemplatesScreen> {
       }
     });
   }
+  bool listEmpty = true;
 
   @override
   Widget build(BuildContext context) {
-    _handleSearchStart();
-
-    // templatesRef = FirebaseFirestore.instance.collection('Templates');
-    // templatesRef.get().then((querySnapshot) {
-    //   for (var result in querySnapshot.docs) {
-    //     MemeName.add(result.get('name'));
-    //     MemeURL.add(result.get('url'));
-    //   }
-    // });
-
-    print(MemeURL);
-    print(MemeName);
+    if (MemeURL == []) {
+      listEmpty = true;
+    }
 
     return Scaffold(
-      //key: globalKey,
       appBar: AppBar(centerTitle: true, title: appBarTitle, actions: <Widget>[
         IconButton(
           icon: icon,
           onPressed: () {
+            listEmpty = false;
             setState(() {
               if (this.icon.icon == Icons.search) {
                 this.icon = Icon(
@@ -116,86 +142,99 @@ class _TemplatesScreenState extends State<TemplatesScreen> {
           },
         ),
       ]),
-      body: Container(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Flexible(
-              child: searchresult.length != 0 || _controller.text.isNotEmpty
-                  ? GridView.builder(
-                      scrollDirection: Axis.vertical,
-                      shrinkWrap: true,
-                      itemCount: searchresult.length,
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2),
-                      itemBuilder: (context, index) {
-                        return Container(
-                          margin: EdgeInsets.all(3),
-                          child: InkWell(
-                            child: FadeInImage.memoryNetwork(
-                              fit: BoxFit.cover,
-                              placeholder: kTransparentImage,
-                              image: searchresult[index],
-                            ),
-                            onTap: () async {
-                              Navigator.pop(context, searchresult[index]);
+      body: (listEmpty)
+          ? StreamBuilder<QuerySnapshot>(
+              stream: templatesRef.snapshots(),
+              builder: (context, snapshot) {
+                return !snapshot.hasData
+                    ? Center(
+                        child: CircularProgressIndicator(),
+                      )
+                    : Container(
+                        padding: EdgeInsets.all(4),
+                        child: GridView.builder(
+                          itemCount: snapshot.data?.docs.length,
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2),
+                          itemBuilder: (context, index) {
+                            return Container(
+                              margin: EdgeInsets.all(3),
+                              child: InkWell(
+                                child: FadeInImage.memoryNetwork(
+                                    fit: BoxFit.cover,
+                                    placeholder: kTransparentImage,
+                                    image:
+                                        snapshot.data?.docs[index].get('url')),
+                                onTap: () async {
+                                  Navigator.pop(context,
+                                      snapshot.data?.docs[index].get('url'));
+                                },
+                              ),
+                            );
+                          },
+                        ),
+                      );
+              },
+            )
+          : Container(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Flexible(
+                    child: (searchresult.length != 0 ||
+                            _controller.text.isNotEmpty)
+                        ? GridView.builder(
+                            scrollDirection: Axis.vertical,
+                            shrinkWrap: true,
+                            itemCount: searchresult.length,
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 2),
+                            itemBuilder: (context, index) {
+                              return Container(
+                                margin: EdgeInsets.all(3),
+                                child: InkWell(
+                                  child: FadeInImage.memoryNetwork(
+                                    fit: BoxFit.cover,
+                                    placeholder: kTransparentImage,
+                                    image: searchresult[index],
+                                  ),
+                                  onTap: () async {
+                                    Navigator.pop(context, searchresult[index]);
+                                  },
+                                ),
+                              );
+                            },
+                          )
+                        : GridView.builder(
+                            scrollDirection: Axis.vertical,
+                            shrinkWrap: true,
+                            itemCount: MemeURL.length,
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 2),
+                            itemBuilder: (context, index) {
+                              return Container(
+                                margin: EdgeInsets.all(3),
+                                child: InkWell(
+                                  child: FadeInImage.memoryNetwork(
+                                    fit: BoxFit.cover,
+                                    placeholder: kTransparentImage,
+                                    image: MemeURL[index],
+                                  ),
+                                  onTap: () async {
+                                    Navigator.pop(context, MemeURL[index]);
+                                  },
+                                ),
+                              );
                             },
                           ),
-                        );
-                      },
-                    )
-                  //: Container(),
-                  : GridView.builder(
-                      scrollDirection: Axis.vertical,
-                      shrinkWrap: true,
-                      itemCount: MemeURL.length,
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2),
-                      itemBuilder: (context, index) {
-                        return Container(
-                          margin: EdgeInsets.all(3),
-                          child: InkWell(
-                            child: FadeInImage.memoryNetwork(
-                              fit: BoxFit.cover,
-                              placeholder: kTransparentImage,
-                              image: MemeURL[index],
-                            ),
-                            onTap: () async {
-                              Navigator.pop(context, MemeURL[index]);
-                            },
-                          ),
-                        );
-                      },
-                    ),
+                  ),
+                ],
+              ),
             ),
-            // Flexible(
-            //   child: GridView.builder(
-            //     scrollDirection: Axis.vertical,
-            //     shrinkWrap: true,
-            //     itemCount: MemeURL.length,
-            //     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            //         crossAxisCount: 2),
-            //     itemBuilder: (context, index) {
-            //       return Container(
-            //         margin: EdgeInsets.all(3),
-            //         child: InkWell(
-            //           child: FadeInImage.memoryNetwork(
-            //             fit: BoxFit.cover,
-            //             placeholder: kTransparentImage,
-            //             image: MemeURL[index],
-            //           ),
-            //           onTap: () async {
-            //             Navigator.pop(context, MemeURL[index]);
-            //           },
-            //         ),
-            //       );
-            //     },
-            //   ),
-            // ),
-          ],
-        ),
-      ),
     );
   }
 
