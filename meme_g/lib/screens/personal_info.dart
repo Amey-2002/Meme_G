@@ -104,24 +104,12 @@ class _personal_infoState extends State<personal_info> {
                           Icons.sort_by_alpha,
                           color: Colors.green,
                         ),
-                        title: Text('User Id'),
-                        trailing: IconButton(
-                            onPressed: () {
-                              setState(() {
-                                no_edit_info = false;
-                              });
-                            },
-                            icon: Icon(
-                              Icons.edit,
-                            )),
+                        title: Text('Username'),
                       ),
                       TextField(
                         controller: TextEditingController(text: username),
                         enableIMEPersonalizedLearning: true,
                         readOnly: no_edit_info,
-                        onSubmitted: (_username){
-                          usersCollectionRef.doc(user!.uid).update({'Username': _username});
-                        }
                       ),
                       ListTile(
                         leading: Icon(
@@ -141,15 +129,6 @@ class _personal_infoState extends State<personal_info> {
                           color: Colors.green,
                         ),
                         title: Text('Password'),
-                        trailing: IconButton(
-                            onPressed: () {
-                              setState(() {
-                                no_edit_info = false;
-                              });
-                            },
-                            icon: Icon(
-                              Icons.edit,
-                            )),
                       ),
                       TextField(
                         controller: TextEditingController(text: upassword),
@@ -157,9 +136,6 @@ class _personal_infoState extends State<personal_info> {
                         obscuringCharacter: '*',
                         enableIMEPersonalizedLearning: true,
                         readOnly: no_edit_info,
-                        onSubmitted: (_password){
-                          usersCollectionRef.doc(user!.uid).update({'Password': _password});
-                        }
                       ),
                       ListTile(
                         leading: Icon(

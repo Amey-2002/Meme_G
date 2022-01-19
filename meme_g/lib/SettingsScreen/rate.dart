@@ -20,18 +20,15 @@ class RateScreen extends StatefulWidget {
 }
 
 class _RateScreenState extends State<RateScreen> {
-  User? user = FirebaseAuth.instance.currentUser;
   late CollectionReference feedbackRef;
   String? profileImageUrl;
 
   var rating = 0.0;
-  var dp = new ProfileImage2();
   var comment = '';
 
   @override
   void initState() {
     super.initState();
-    dp.setUid = user!.uid;
     feedbackRef = FirebaseFirestore.instance.collection('FeedBack');
   }
 
@@ -51,27 +48,6 @@ class _RateScreenState extends State<RateScreen> {
                   children: [
                     SizedBox(height: 20.0),
                     CustomAppBar(),
-                    SizedBox(height: 50.0),
-                    dp,
-                    SizedBox(
-                      height: 5.0,
-                    ),
-
-                    Text(
-                      'You',
-                      style: TextStyle(
-                        fontSize: 10,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-
-                    Text(
-                      'You',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
 
                     SizedBox(
                       height: 18.0,
@@ -129,6 +105,9 @@ class _RateScreenState extends State<RateScreen> {
                       child: TextField(
                         textInputAction: TextInputAction.newline,
                         keyboardType: TextInputType.multiline,
+                        style: TextStyle(
+                          color: Colors.black,
+                        ),
                         maxLines: 5,
                         decoration: InputDecoration(
                           border: InputBorder.none,
@@ -155,7 +134,7 @@ class _RateScreenState extends State<RateScreen> {
                           onPressed: () {
                             setState(() {
                               feedbackRef
-                                  .doc(user!.uid)
+                                  .doc()
                                   .set({'stars': rating, 'comment': comment});
                             });
                           },
@@ -176,7 +155,7 @@ class _RateScreenState extends State<RateScreen> {
                           tap: () {
                             setState(() {
                               feedbackRef
-                                  .doc(user!.uid)
+                                  .doc()
                                   .set({'stars': rating, 'comment': comment});
                             });
                           },
@@ -192,5 +171,4 @@ class _RateScreenState extends State<RateScreen> {
       ),
     );
   }
-
 }

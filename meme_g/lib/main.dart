@@ -2,9 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:meme_g/collage/collage_menu.dart';
-import 'package:meme_g/collage/collage_screen.dart';
-
-import 'package:meme_g/screens/editor/flutter_ie_pro.dart';
 import 'package:meme_g/screens/emailandpass_signin.dart';
 import 'package:meme_g/screens/homescreen.dart';
 import 'package:meme_g/screens/liked_memes.dart';
@@ -15,41 +12,16 @@ import 'package:flutter_settings_screens/flutter_settings_screens.dart';
 import 'package:meme_g/SettingsScreen/about.dart';
 import 'package:meme_g/SettingsScreen/ask_question.dart';
 import 'package:meme_g/SettingsScreen/help.dart';
-import 'package:meme_g/screens/homescreen.dart';
 import 'package:meme_g/SettingsScreen/rate.dart';
 import 'package:meme_g/SettingsScreen/report_bug.dart';
 import 'package:meme_g/SettingsScreen/settings_page.dart';
-import 'package:meme_g/screens/emailandpass_signin.dart';
 import 'package:meme_g/widgets/splash_screen.dart';
-import 'package:meme_g/widgets/user.dart';
-import 'screens/profile_image_picker.dart';
 import 'package:meme_g/screens/sign_in_screen.dart';
-
-import 'package:meme_g/screens/wrapper.dart';
 import 'package:meme_g/services/auth.dart';
-
-import 'package:meme_g/widgets/meme_list.dart';
-
-import 'package:meme_g/widgets/user.dart';
-import 'package:meme_g/Theme/theme_constants.dart';
 import 'package:meme_g/Theme/theme_manager.dart';
 import 'package:provider/provider.dart';
-
-import './widgets/drawer.dart';
-
 import 'screens/account_details_screen.dart';
-
-import 'package:theme_provider/theme_provider.dart';
-import 'package:switcher_button/switcher_button.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:meme_g/services/auth.dart';
 import 'package:meme_g/services/authstate.dart';
-
-import 'package:provider/provider.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:animated_splash_screen/animated_splash_screen.dart';
-
 
 ThemeManager themeManager = ThemeManager();
 

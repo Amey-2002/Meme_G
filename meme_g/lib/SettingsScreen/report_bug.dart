@@ -16,16 +16,13 @@ class ReportBug extends StatefulWidget {
 }
 
 class _ReportBugState extends State<ReportBug> {
-  User? user = FirebaseAuth.instance.currentUser;
   late CollectionReference reportRef;
   String? profileImageUrl;
 
-  var dp = new ProfileImage2();
   var report = '';
 
   void initState() {
     super.initState();
-    dp.setUid = user!.uid;
     reportRef = FirebaseFirestore.instance.collection('Report');
   }
 
@@ -62,30 +59,6 @@ class _ReportBugState extends State<ReportBug> {
                           ),
                         ),
                       ],
-                    ),
-
-                    SizedBox(height: 50.0),
-
-                    dp,
-
-                    SizedBox(
-                      height: 5.0,
-                    ),
-
-                    Text(
-                      'You',
-                      style: TextStyle(
-                        fontSize: 10,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-
-                    Text(
-                      'You',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
                     ),
 
                     Divider(
@@ -126,6 +99,9 @@ class _ReportBugState extends State<ReportBug> {
                       child: TextField(
                         textInputAction: TextInputAction.newline,
                         keyboardType: TextInputType.multiline,
+                        style: TextStyle(
+                            color: Colors.black,
+                          ),
                         maxLines: 5,
                         decoration: InputDecoration(
                           border: InputBorder.none,
@@ -161,7 +137,7 @@ class _ReportBugState extends State<ReportBug> {
                           icon: Icon(Icons.arrow_forward),
                           tap: () {
                             setState(() {
-                              reportRef.doc(user!.uid).set({'report': report});
+                              reportRef.doc().set({'report': report});
                             });
                           },
                         ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meme_g/screens/homescreen.dart';
 
 import 'collage_screen.dart';
 
@@ -18,7 +19,7 @@ class MenuEntry extends StatelessWidget {
       elevation: 4,
       child: InkWell(
         onTap: () {
-          Navigator.push(
+          Navigator.pushReplacement(
             context,
             MaterialPageRoute<void>(
               builder: (context) => destination,
@@ -46,6 +47,14 @@ class _GridMenuState extends State<GridMenu> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pushReplacementNamed(context, Homescreen.route);
+          },
+          icon: Icon(
+            Icons.arrow_back,
+          ),
+        ),
         title: Text("Grid Menu"),
       ),
       body: GridView(

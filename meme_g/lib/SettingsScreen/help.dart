@@ -59,20 +59,6 @@ class _HelpScreenState extends State<HelpScreen> {
                         style: TextStyle(fontSize: 18),
                       ),
                     ),
-
-                    // Privacy Policy
-                    ListTile(
-                      onTap: () {},
-                      leading: IconButton(
-                        onPressed: () {},
-                        icon: Icon(Icons.privacy_tip),
-                        color: Colors.green,
-                      ),
-                      title: Text(
-                        'Privacy Policy',
-                        style: TextStyle(fontSize: 18),
-                      ),
-                    ),
                   ],
                 ),
               ),

@@ -73,6 +73,7 @@ class _AskQuestionState extends State<AskQuestion> {
                           child: TextField(
                             textInputAction: TextInputAction.newline,
                             keyboardType: TextInputType.multiline,
+                            style: TextStyle(color: Colors.black),
                             maxLines: 5,
                             decoration: InputDecoration(
                               border: InputBorder.none,

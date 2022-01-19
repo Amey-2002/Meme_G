@@ -242,8 +242,18 @@ class _ImageEditorProState extends State<ImageEditorPro> {
                 //     //}
                 //   },
                 // ),
-                ElevatedButton(
-                  child: Text('Open Editor'),
+                Image.asset(
+                  'assets/dummyMemes/dazzle.gif',
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                RaisedButton(
+                  color: Colors.green,
+                  child: const Text(
+                    'Open Editor',
+                    style: TextStyle(fontSize: 20, color: Colors.white),
+                  ),
                   onPressed: () {
                     getImageEditor();
                   },
@@ -264,14 +274,20 @@ class _ImageEditorProState extends State<ImageEditorPro> {
                       child: Image.file(_image!),
                     ),
                   ),
-                  ElevatedButton(
+                  RaisedButton(
+                    color: Colors.green,
                     onPressed: () async {
                       await GallerySaver.saveImage(_image!.path,
                           albumName: "Tickle");
                     },
-                    child: Text('Save to Gallery'),
+                    child: Text(
+                      'Save to Gallery',
+                      style: TextStyle(
+                          color: Colors.white),
+                    ),
                   ),
-                  ElevatedButton(
+                  RaisedButton(
+                    color: Colors.green,
                     onPressed: () {
                       final RenderBox? box =
                           context.findRenderObject() as RenderBox;
@@ -291,11 +307,16 @@ class _ImageEditorProState extends State<ImageEditorPro> {
                                 box!.localToGlobal(Offset.zero) & box.size);
                       }
                     },
-                    child: Text('Share'),
+                    child: Text(
+                      'Share',
+                      style: TextStyle(
+                          color: Colors.white),
+                    ),
                   ),
                   (user == null)
                       ? Container()
-                      : ElevatedButton(
+                      : RaisedButton(
+                          color: Colors.green,
                           onPressed: () async {
                             //Uploading meme To Firebase Storage
                             ref = firebase_storage.FirebaseStorage.instance
@@ -339,7 +360,11 @@ class _ImageEditorProState extends State<ImageEditorPro> {
                               ),
                             );
                           },
-                          child: Text('Post Tickle'),
+                          child: Text(
+                            'Post Tickle',
+                            style: TextStyle(
+                                color: Colors.white),
+                          ),
                         )
                 ],
               ),

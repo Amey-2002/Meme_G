@@ -79,11 +79,11 @@ class _Account_detState extends State<Account_det> {
               Icons.sort_by_alpha,
               color: Colors.green,
             ),
-            title: Text('User Id'),
+            title: Text('Username'),
           ),
           Container(
             child: TextField(
-                decoration: InputDecoration(hintText: "Enter UserId "),
+                decoration: InputDecoration(hintText: "Enter Username "),
                 onChanged: (userName) {
                   setState(() {
                     username = userName;

@@ -126,6 +126,7 @@ flutter:
     - assets/dummyMemes/Ticklesappbar.png
     - assets/dummyMemes/TicklesDarkAppBar.png
     - assets/dummyMemes/TicklesFinalLogo.gif
+    - 'assets/dummyMemes/dazzle.gif'
     - assets/gridtiles/staggered1.jpg
     - assets/gridtiles/staggered2.jpg
     - assets/gridtiles/staggered3.jpg

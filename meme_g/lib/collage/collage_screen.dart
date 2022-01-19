@@ -6,7 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:meme_g/collage/collage_menu.dart';
 import 'package:meme_g/screens/editor/flutter_ie_pro.dart';
+import 'package:meme_g/screens/homescreen.dart';
 import 'common.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -128,6 +130,14 @@ class _StaggeredPageState extends State<StaggeredPage> {
     selectTile(widget.noOfTiles);
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pushReplacementNamed(context, GridMenu.route);
+          },
+          icon: Icon(
+            Icons.arrow_back,
+          ),
+        ),
         //title: Text('2'),
         actions: [
           IconButton(

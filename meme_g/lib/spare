@@ -1031,3 +1031,32 @@ class _ProflieImagePickerState extends State<ProflieImagePicker> {
   //     ),
   //   );
   // }
+
+  import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:meme_g/screens/account_details_screen.dart';
+import 'package:share/share.dart';
+
+class GuestMemeView extends StatefulWidget {
+  final String imgUrl;
+  final String userId;
+
+  GuestMemeView({required this.imgUrl, required this.userId});
+
+  @override
+  State<GuestMemeView> createState() => _GuestMemeViewState();
+}
+
+class _GuestMemeViewState extends State<GuestMemeView> {
+  late CollectionReference usersRef;
+  late String userName;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    usersRef = FirebaseFirestore.instance.collection('Users');
+    FirebaseFirestore.instance.collection('Users').doc(userId).get().then((value){
+                        userName = value.get('Username');
+                      });
+  }

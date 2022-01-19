@@ -40,13 +40,12 @@ class _signInState extends State<signIn> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Container(
-                height: 300,
-                width: double.infinity,
-                child: Image.asset(
-                  'assets/dummyMemes/Tickles.png',
-                  
-                ),
+              height: 300,
+              width: double.infinity,
+              child: Image.asset(
+                'assets/dummyMemes/Tickles.png',
               ),
+            ),
             Container(
               child: FloatingActionButton.extended(
                 heroTag: "btn1",
@@ -59,7 +58,9 @@ class _signInState extends State<signIn> {
                 ),
               ),
             ),
-            SizedBox(height:20 ,),
+            SizedBox(
+              height: 20,
+            ),
             Container(
               child: FloatingActionButton.extended(
                 heroTag: "btn2",
@@ -85,7 +86,14 @@ class _signInState extends State<signIn> {
                   onPressed: () {
                     Navigator.pushReplacementNamed(context, Account_det.route);
                   },
-                  child: const Text('Create Account'),
+                  child: const Text(
+                    'Create Account',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                      decoration: TextDecoration.underline,
+                    ),
+                  ),
                 ),
               )
             ]),
@@ -98,7 +106,8 @@ class _signInState extends State<signIn> {
                   print("sign in failed");
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
-                      content: Text('Some error occured! Please try restarting the application'),
+                      content: Text(
+                          'Some error occured! Please try restarting the application'),
                     ),
                   );
                 } else {
