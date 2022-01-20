@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "190337719283",
+    "project_id": "meme-generator-692dc",
+    "storage_bucket": "meme-generator-692dc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:190337719283:android:aee9a43e2dd2823e86d086",
+        "android_client_info": {
+          "package_name": "com.codingnoobs.meme_g"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "190337719283-d1df8sf3gimv6q43qbht6g6trpfo8l0q.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.codingnoobs.meme_g",
+            "certificate_hash": "b90913bf8860e577441ff3eb1f5c411e15917f44"
+          }
+        },
+        {
+          "client_id": "190337719283-pn3sqbs6ma38cbfk785drf0s9p0j2905.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.codingnoobs.meme_g",
+            "certificate_hash": "f4e11bcf8d90b34348b2d3311a1f7309da04d64c"
+          }
+        },
+        {
+          "client_id": "190337719283-i4r7697jsv3qtq1e6r69g5kpndohs299.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCHXlMfJozqVuiiKD8aMc5VAC-vxlu7UC4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "190337719283-i4r7697jsv3qtq1e6r69g5kpndohs299.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
