@@ -68,11 +68,39 @@ users can add a like or share on other apps.
 ***
 ### GitHub Repo link - PLease click [here](https://github.com/Amey-2002/Meme_G)
 
-### Drive Link for images and videos - PLease click [here](https://drive.google.com/folderview?id=101jofQt-L8cCBJA4LPViHB-igglA6mJ-)
+### Drive Link for video - PLease click [here](https://drive.google.com/file/d/1UXWep0_nI5nfnPjR0gHgiicATz2D4uZi/view?usp=sharing)
 
 ### Drive Link for apk file of app - Please click [here](https://drive.google.com/folderview?id=1EMop9ywGfYCOQtxCtUo2eK9VJT2fzIps)
 
 ***
 ## Screenshots
-![]('images/Screenshot_2022-01-22-14-44-59-017_com.codingnoobs.meme_g.jpg')
+<table>
+<tr>
+ <td><img src='images/Screenshot_2022-01-22-14-44-59-017_com.codingnoobs.meme_g.jpg' width=225></td>
+ <td><img src='1649923318031.jpg' width=225></td>
+ <td><img src='images/Screenshot_2022-01-22-14-47-35-452_com.codingnoobs.meme_g.jpg' width=225></td>
+<td><img src='images/Screenshot_2022-01-22-14-48-25-678_com.codingnoobs.meme_g.jpg' width=225></td>
+</tr>
 
+<tr>
+<td><img src='images/Screenshot_2022-01-22-14-48-58-532_com.codingnoobs.meme_g.jpg' width=225></td>
+<td><img src='images/Screenshot_2022-01-22-14-49-30-356_com.codingnoobs.meme_g.jpg' width=225></td>
+<td><img src='images/Screenshot_2022-01-22-14-50-11-798_android.jpg' width=225></td>
+<td><img src='images/Screenshot_2022-01-22-14-51-26-784_com.codingnoobs.meme_g.jpg' width=225></td>
+</tr>
+
+<tr>
+<td><img src='images/Screenshot_2022-01-22-14-52-41-340_com.codingnoobs.meme_g.jpg' width=225></td>
+<td><img src='images/Screenshot_2022-01-22-14-57-45-753_com.codingnoobs.meme_g.jpg' width=225></td>
+<td><img src='images/Screenshot_2022-01-22-15-11-11-468_com.codingnoobs.meme_g.jpg' width=225></td>
+<td><img src='images/Screenshot_2022-01-22-15-11-42-274_com.codingnoobs.meme_g.jpg' width=225></td>
+</tr>
+
+<tr>
+<td><img src='images/Screenshot_2022-01-22-15-12-01-125_com.codingnoobs.meme_g.jpg' width=225></td>
+<td><img src='images/Screenshot_2022-01-22-15-13-10-967_android.jpg' width=225></td>
+<td><img src='images/Screenshot_2022-01-22-15-14-17-520_com.codingnoobs.meme_g.jpg' width=225></td>
+<td><img src='images/Screenshot_2022-01-22-15-14-31-441_com.codingnoobs.meme_g.jpg' width=225></td>
+</tr>
+
+</table>
